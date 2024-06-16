@@ -3,7 +3,11 @@ import HomePage from "../pages/home/HomePage";
 import { RouteType } from "./config";
 import DefaultPage from "../pages/dashboard/DefaultPage";
 import OverviewIndex from "../pages/overview/overviewIndex";
+import TransactionsAnalyticsLayout from "../pages/transactionsAnalytics/transactionsAnalyticsLayout";
 import TransactionsAnalyticsIndex from "../pages/transactionsAnalytics/transactionsAnalyticsIndex";
+import AiAnalysis from "../pages/transactionsAnalytics/aiAnalysis";
+import SinglePrediction from "../pages/transactionsAnalytics/singlePrediction";
+import MultiplePrediction from "../pages/transactionsAnalytics/multiplePrediction";
 import PeopleAnalyticsIndex from "../pages/peopleAnalytics/peopleAnalyticsIndex";
 import AboutIndex from "../pages/about/aboutIndex";
 import DashboardIndex from "../pages/dashboard/DashboardIndex";
@@ -36,12 +40,43 @@ const appRoutes: RouteType[] = [
   },
   {
     path: "/transactions-analytics",
-    element: <TransactionsAnalyticsIndex />,
+    element: <TransactionsAnalyticsLayout />,
     state: "transactions-analytics",
     sidebarProps: {
       displayText: "Transactions analytics",
       icon: <LocalAtmIcon />,
     },
+    child: [
+      {
+        index: true,
+        element: <TransactionsAnalyticsIndex />,
+        state: "transactions-analytics.index"
+      },
+      {
+        path: "/transactions-analytics/ai-analysis",
+        element: <AiAnalysis />,
+        state: "transactions-analytics.ai-analysis",
+        sidebarProps: {
+          displayText: "AI Analysis"
+        },
+      },
+      {
+        path: "/transactions-analytics/single-prediction",
+        element: <SinglePrediction />,
+        state: "transactions-analytics.single-prediction",
+        sidebarProps: {
+          displayText: "Single Prediction"
+        }
+      },
+      {
+        path: "/transactions-analytics/multiple-prediction",
+        element: <MultiplePrediction />,
+        state: "transactions-analytics.multiple-prediction",
+        sidebarProps: {
+          displayText: "Multiple Prediction"
+        }
+      }
+    ]
   },
   {
     path: "/people-analytics",
