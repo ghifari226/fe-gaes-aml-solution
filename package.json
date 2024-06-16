@@ -2,6 +2,7 @@
   "name": "react-sidebar-with-dropdown",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://ghifari226.github.io/fe-gaes-aml-solution",
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
