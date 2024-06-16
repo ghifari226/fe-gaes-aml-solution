@@ -1,58 +1,64 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import { DataGrid } from '@mui/x-data-grid';
-
-const columns = [
-  { field: 'id', headerName: 'ID', width: 90 },
-  {
-    field: 'firstName',
-    headerName: 'First name',
-    width: 150,
-    editable: true,
-  },
-  {
-    field: 'lastName',
-    headerName: 'Last name',
-    width: 150,
-    editable: true,
-  },
-  {
-    field: 'age',
-    headerName: 'Age',
-    type: 'number',
-    width: 110,
-    editable: true,
-  },
-  {
-    field: 'fullName',
-    headerName: 'Full name',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 160,
-    valueGetter: (value, row) => `${row.firstName || ''} ${row.lastName || ''}`,
-  },
-];
-
-const rows = [
-  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 14 },
-  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 31 },
-  { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 31 },
-  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 11 },
-  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-  { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-  { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-];
+import React, { useState } from "react";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
+import { DataGrid } from "@mui/x-data-grid";
+import amlData from "../../data/amlData";
 
 const MultiplePrediction = () => {
+  const [data, setData] = useState(amlData.rows);
+  const [openUploadDialog, setOpenUploadDialog] = useState(false);
+  const [openPredictDialog, setOpenPredictDialog] = useState(false);
+  const [selectedIds, setSelectedIds] = useState([]);
+
+  const handleUploadClick = () => {
+    setOpenUploadDialog(true);
+  };
+
+  const handlePredictClick = () => {
+    setOpenPredictDialog(true);
+  };
+
+  const handleCloseUploadDialog = () => {
+    setOpenUploadDialog(false);
+  };
+
+  const handleClosePredictDialog = () => {
+    setOpenPredictDialog(false);
+  };
+
+  const handleSelectionModelChange = (ids) => {
+    const selectedIDs = new Set(ids);
+    const selectedRows = amlData.rows.filter((row) => selectedIDs.has(row.id));
+    setSelectedRows(selectedRows);
+  };
+
+  const [selectedRows, setSelectedRows] = useState([]);
+
   return (
     <>
-      <div>InstallationPage</div>
-      <Box sx={{ height: 400, width: '100%' }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginBottom: "10px",
+        }}
+      >
+        <div>Batch Prediction</div>
+        <Button variant="contained" onClick={handleUploadClick}>
+          Upload CSV
+        </Button>
+      </div>
+      <Box sx={{ height: 400, width: "100%" }}>
         <DataGrid
-          rows={rows}
-          columns={columns}
+          rows={data}
+          columns={amlData.columns}
           initialState={{
             pagination: {
               paginationModel: {
@@ -63,8 +69,54 @@ const MultiplePrediction = () => {
           pageSizeOptions={[5]}
           checkboxSelection
           disableRowSelectionOnClick
+          onRowSelectionModelChange={(ids) => handleSelectionModelChange(ids)}
         />
+        <pre style={{ fontSize: 10 }}>
+          {JSON.stringify(selectedRows, null, 4)}
+        </pre>
       </Box>
+      <Box
+        sx={{ display: "flex", justifyContent: "center", marginTop: "10px" }}
+      >
+        <Button
+          variant="contained"
+          color="primary"
+          disabled={selectedRows.length === 0}
+          onClick={handlePredictClick}
+        >
+          {selectedRows.length === amlData.rows.length ? 'Predict All' : 'Predict'}
+        </Button>
+      </Box>
+
+      {/* Upload Dialog */}
+      <Dialog open={openUploadDialog} onClose={handleCloseUploadDialog}>
+        <DialogTitle>CSV Upload</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            CSV upload for future implementation.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseUploadDialog} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Predict Dialog */}
+      <Dialog open={openPredictDialog} onClose={handleClosePredictDialog}>
+        <DialogTitle>Prediction</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Selected Rows: {selectedRows.join(", ")}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClosePredictDialog} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };
