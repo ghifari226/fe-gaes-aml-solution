@@ -11,14 +11,14 @@ import ChangelogPage from "../pages/changelog/ChangelogPage";
 import AnalyticsPage from "../pages/dashboard/AnalyticsPage";
 import SaasPage from "../pages/dashboard/SaasPage";
 import ComponentPageLayout from "../pages/component/ComponentPageLayout";
-import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
-import LocalAtmIcon from '@mui/icons-material/LocalAtm';
-import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
-import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
-import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBulletedOutlined';
-import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
+import LocalAtmIcon from "@mui/icons-material/LocalAtm";
+import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import AppsOutlinedIcon from "@mui/icons-material/AppsOutlined";
+import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
+import FormatListBulletedOutlinedIcon from "@mui/icons-material/FormatListBulletedOutlined";
+import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import AlertPage from "../pages/component/AlertPage";
 import ButtonPage from "../pages/component/ButtonPage";
 import InstallationPage from "../pages/installation/InstallationPage";
@@ -26,18 +26,13 @@ import DocumentationPage from "../pages/documentation/DocumentationPage";
 
 const appRoutes: RouteType[] = [
   {
-    index: true,
-    element: <OverviewIndex />,
-    state: "overview"
-  },
-  {
     path: "/",
     element: <OverviewIndex />,
     state: "overview",
     sidebarProps: {
       displayText: "Overview",
-      icon: <DashboardOutlinedIcon />
-    }
+      icon: <DashboardOutlinedIcon />,
+    },
   },
   {
     path: "/transactions-analytics",
@@ -45,7 +40,7 @@ const appRoutes: RouteType[] = [
     state: "transactions-analytics",
     sidebarProps: {
       displayText: "Transactions analytics",
-      icon: <LocalAtmIcon />
+      icon: <LocalAtmIcon />,
     },
   },
   {
@@ -54,7 +49,7 @@ const appRoutes: RouteType[] = [
     state: "people-analytics",
     sidebarProps: {
       displayText: "People analytics",
-      icon: <PeopleOutlineIcon />
+      icon: <PeopleOutlineIcon />,
     },
   },
   {
@@ -63,9 +58,9 @@ const appRoutes: RouteType[] = [
     state: "about",
     sidebarProps: {
       displayText: "About",
-      icon: <InfoOutlinedIcon />
-    }
-  }
+      icon: <InfoOutlinedIcon />,
+    },
+  },
 
   // {
   //   index: true,
