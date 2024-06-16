@@ -8,7 +8,7 @@ import TransactionsAnalyticsIndex from "../pages/transactionsAnalytics/transacti
 import AiAnalysis from "../pages/transactionsAnalytics/aiAnalysis";
 import SinglePrediction from "../pages/transactionsAnalytics/singlePrediction";
 import MultiplePrediction from "../pages/transactionsAnalytics/multiplePrediction";
-import PeopleAnalyticsIndex from "../pages/peopleAnalytics/peopleAnalyticsIndex";
+import CustomersAnalyticsIndex from "../pages/customersAnalytics/customersAnalyticsIndex";
 import AboutIndex from "../pages/about/aboutIndex";
 import DashboardIndex from "../pages/dashboard/DashboardIndex";
 import ChangelogPage from "../pages/changelog/ChangelogPage";
@@ -79,11 +79,11 @@ const appRoutes: RouteType[] = [
     ]
   },
   {
-    path: "/people-analytics",
-    element: <PeopleAnalyticsIndex />,
-    state: "people-analytics",
+    path: "/customers-analytics",
+    element: <CustomersAnalyticsIndex />,
+    state: "customers-analytics",
     sidebarProps: {
-      displayText: "People analytics",
+      displayText: "Customers analytics",
       icon: <PeopleOutlineIcon />,
     },
   },

@@ -2,7 +2,7 @@ import React from 'react';
 
 const AboutIndex = () => {
   return (
-    <div>AboutIndex</div>
+    <div>About us, and them, and this web app</div>
   );
 };
 
