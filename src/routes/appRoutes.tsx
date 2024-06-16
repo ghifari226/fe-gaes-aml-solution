@@ -2,16 +2,27 @@ import DashboardPageLayout from "../pages/dashboard/DashboardPageLayout";
 import HomePage from "../pages/home/HomePage";
 import { RouteType } from "./config";
 import DefaultPage from "../pages/dashboard/DefaultPage";
+import OverviewIndex from "../pages/overview/overviewIndex";
+import TransactionsAnalyticsLayout from "../pages/transactionsAnalytics/transactionsAnalyticsLayout";
+import TransactionsAnalyticsIndex from "../pages/transactionsAnalytics/transactionsAnalyticsIndex";
+import AiAnalysis from "../pages/transactionsAnalytics/aiAnalysis";
+import SinglePrediction from "../pages/transactionsAnalytics/singlePrediction";
+import MultiplePrediction from "../pages/transactionsAnalytics/multiplePrediction";
+import PeopleAnalyticsIndex from "../pages/peopleAnalytics/peopleAnalyticsIndex";
+import AboutIndex from "../pages/about/aboutIndex";
 import DashboardIndex from "../pages/dashboard/DashboardIndex";
 import ChangelogPage from "../pages/changelog/ChangelogPage";
 import AnalyticsPage from "../pages/dashboard/AnalyticsPage";
 import SaasPage from "../pages/dashboard/SaasPage";
 import ComponentPageLayout from "../pages/component/ComponentPageLayout";
-import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
-import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
-import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
-import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBulletedOutlined';
-import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
+import LocalAtmIcon from "@mui/icons-material/LocalAtm";
+import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import AppsOutlinedIcon from "@mui/icons-material/AppsOutlined";
+import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
+import FormatListBulletedOutlinedIcon from "@mui/icons-material/FormatListBulletedOutlined";
+import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import AlertPage from "../pages/component/AlertPage";
 import ButtonPage from "../pages/component/ButtonPage";
 import InstallationPage from "../pages/installation/InstallationPage";
@@ -19,104 +30,172 @@ import DocumentationPage from "../pages/documentation/DocumentationPage";
 
 const appRoutes: RouteType[] = [
   {
-    index: true,
-    element: <HomePage />,
-    state: "home"
+    path: "/",
+    element: <OverviewIndex />,
+    state: "overview",
+    sidebarProps: {
+      displayText: "Overview",
+      icon: <DashboardOutlinedIcon />,
+    },
   },
   {
-    path: "/installation",
-    element: <InstallationPage />,
-    state: "installation",
+    path: "/transactions-analytics",
+    element: <TransactionsAnalyticsLayout />,
+    state: "transactions-analytics",
     sidebarProps: {
-      displayText: "Installation",
-      icon: <FileDownloadOutlinedIcon />
-    }
-  },
-  {
-    path: "/dashboard",
-    element: <DashboardPageLayout />,
-    state: "dashboard",
-    sidebarProps: {
-      displayText: "Dashboard",
-      icon: <DashboardOutlinedIcon />
+      displayText: "Transactions analytics",
+      icon: <LocalAtmIcon />,
     },
     child: [
       {
         index: true,
-        element: <DashboardIndex />,
-        state: "dashboard.index"
+        element: <TransactionsAnalyticsIndex />,
+        state: "transactions-analytics.index"
       },
       {
-        path: "/dashboard/default",
-        element: <DefaultPage />,
-        state: "dashboard.default",
+        path: "/transactions-analytics/ai-analysis",
+        element: <AiAnalysis />,
+        state: "transactions-analytics.ai-analysis",
         sidebarProps: {
-          displayText: "Default"
+          displayText: "AI Analysis"
         },
       },
       {
-        path: "/dashboard/analytics",
-        element: <AnalyticsPage />,
-        state: "dashboard.analytics",
+        path: "/transactions-analytics/single-prediction",
+        element: <SinglePrediction />,
+        state: "transactions-analytics.single-prediction",
         sidebarProps: {
-          displayText: "Analytic"
+          displayText: "Single Prediction"
         }
       },
       {
-        path: "/dashboard/saas",
-        element: <SaasPage />,
-        state: "dashboard.saas",
+        path: "/transactions-analytics/multiple-prediction",
+        element: <MultiplePrediction />,
+        state: "transactions-analytics.multiple-prediction",
         sidebarProps: {
-          displayText: "Saas"
+          displayText: "Multiple Prediction"
         }
       }
     ]
   },
   {
-    path: "/component",
-    element: <ComponentPageLayout />,
-    state: "component",
+    path: "/people-analytics",
+    element: <PeopleAnalyticsIndex />,
+    state: "people-analytics",
     sidebarProps: {
-      displayText: "Components",
-      icon: <AppsOutlinedIcon />
+      displayText: "People analytics",
+      icon: <PeopleOutlineIcon />,
     },
-    child: [
-      {
-        path: "/component/alert",
-        element: <AlertPage />,
-        state: "component.alert",
-        sidebarProps: {
-          displayText: "Alert"
-        },
-      },
-      {
-        path: "/component/button",
-        element: <ButtonPage />,
-        state: "component.button",
-        sidebarProps: {
-          displayText: "Button"
-        }
-      }
-    ]
   },
   {
-    path: "/documentation",
-    element: <DocumentationPage />,
-    state: "documentation",
+    path: "/about",
+    element: <AboutIndex />,
+    state: "about",
     sidebarProps: {
-      displayText: "Documentation",
-      icon: <ArticleOutlinedIcon />
-    }
+      displayText: "About",
+      icon: <InfoOutlinedIcon />,
+    },
   },
-  {
-    path: "/changelog",
-    element: <ChangelogPage />,
-    state: "changelog",
-    sidebarProps: {
-      displayText: "Changelog",
-      icon: <FormatListBulletedOutlinedIcon />
-    }
-  }
+
+  // {
+  //   index: true,
+  //   element: <HomePage />,
+  //   state: "home"
+  // },
+  // {
+  //   path: "/installation",
+  //   element: <InstallationPage />,
+  //   state: "installation",
+  //   sidebarProps: {
+  //     displayText: "Installation",
+  //     icon: <FileDownloadOutlinedIcon />
+  //   }
+  // },
+  // {
+  //   path: "/dashboard",
+  //   element: <DashboardPageLayout />,
+  //   state: "dashboard",
+  //   sidebarProps: {
+  //     displayText: "Dashboard",
+  //     icon: <DashboardOutlinedIcon />
+  //   },
+  //   child: [
+  //     {
+  //       index: true,
+  //       element: <DashboardIndex />,
+  //       state: "dashboard.index"
+  //     },
+  //     {
+  //       path: "/dashboard/default",
+  //       element: <DefaultPage />,
+  //       state: "dashboard.default",
+  //       sidebarProps: {
+  //         displayText: "Default"
+  //       },
+  //     },
+  //     {
+  //       path: "/dashboard/analytics",
+  //       element: <AnalyticsPage />,
+  //       state: "dashboard.analytics",
+  //       sidebarProps: {
+  //         displayText: "Analytic"
+  //       }
+  //     },
+  //     {
+  //       path: "/dashboard/saas",
+  //       element: <SaasPage />,
+  //       state: "dashboard.saas",
+  //       sidebarProps: {
+  //         displayText: "Saas"
+  //       }
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: "/component",
+  //   element: <ComponentPageLayout />,
+  //   state: "component",
+  //   sidebarProps: {
+  //     displayText: "Components",
+  //     icon: <AppsOutlinedIcon />
+  //   },
+  //   child: [
+  //     {
+  //       path: "/component/alert",
+  //       element: <AlertPage />,
+  //       state: "component.alert",
+  //       sidebarProps: {
+  //         displayText: "Alert"
+  //       },
+  //     },
+  //     {
+  //       path: "/component/button",
+  //       element: <ButtonPage />,
+  //       state: "component.button",
+  //       sidebarProps: {
+  //         displayText: "Button"
+  //       }
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: "/documentation",
+  //   element: <DocumentationPage />,
+  //   state: "documentation",
+  //   sidebarProps: {
+  //     displayText: "Documentation",
+  //     icon: <ArticleOutlinedIcon />
+  //   }
+  // },
+  // {
+  //   path: "/changelog",
+  //   element: <ChangelogPage />,
+  //   state: "changelog",
+  //   sidebarProps: {
+  //     displayText: "Changelog",
+  //     icon: <FormatListBulletedOutlinedIcon />
+  //   }
+  // }
 ];
 
 export default appRoutes;
