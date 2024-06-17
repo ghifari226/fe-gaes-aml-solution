@@ -3,6 +3,8 @@ import HomePage from "../pages/home/HomePage";
 import { RouteType } from "./config";
 import DefaultPage from "../pages/dashboard/DefaultPage";
 import OverviewIndex from "../pages/overview/overviewIndex";
+import AlertSystemDashboard from "../pages/alertSystem/singlePrediction";
+import AlertSystemDetail from "../pages/alertSystem/multiplePrediction";
 import TransactionsAnalyticsLayout from "../pages/transactionsAnalytics/transactionsAnalyticsLayout";
 import TransactionsAnalyticsIndex from "../pages/transactionsAnalytics/transactionsAnalyticsIndex";
 import AiAnalysis from "../pages/transactionsAnalytics/aiAnalysis";
@@ -55,7 +57,7 @@ const appRoutes: RouteType[] = [
       },
       {
         path: "/alert-system/single-prediction",
-        element: <SinglePrediction />,
+        element: <AlertSystemDashboard />,
         state: "alert-system.single-prediction",
         sidebarProps: {
           displayText: "Dashboard"
@@ -63,7 +65,7 @@ const appRoutes: RouteType[] = [
       },
       {
         path: "/alert-system/multiple-prediction",
-        element: <MultiplePrediction />,
+        element: <AlertSystemDetail />,
         state: "alert-system.multiple-prediction",
         sidebarProps: {
           displayText: "Detail"
