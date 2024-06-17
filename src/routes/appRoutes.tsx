@@ -15,6 +15,7 @@ import ChangelogPage from "../pages/changelog/ChangelogPage";
 import AnalyticsPage from "../pages/dashboard/AnalyticsPage";
 import SaasPage from "../pages/dashboard/SaasPage";
 import ComponentPageLayout from "../pages/component/ComponentPageLayout";
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
@@ -37,6 +38,38 @@ const appRoutes: RouteType[] = [
       displayText: "Overview",
       icon: <DashboardOutlinedIcon />,
     },
+  },
+  {
+    path: "/alert-system",
+    element: <TransactionsAnalyticsLayout />,
+    state: "alert-system",
+    sidebarProps: {
+      displayText: "Alert System",
+      icon: <WarningAmberIcon />,
+    },
+    child: [
+      {
+        index: true,
+        element: <TransactionsAnalyticsIndex />,
+        state: "alert-system.index"
+      },
+      {
+        path: "/alert-system/single-prediction",
+        element: <SinglePrediction />,
+        state: "alert-system.single-prediction",
+        sidebarProps: {
+          displayText: "Dashboard"
+        }
+      },
+      {
+        path: "/alert-system/multiple-prediction",
+        element: <MultiplePrediction />,
+        state: "alert-system.multiple-prediction",
+        sidebarProps: {
+          displayText: "Detail"
+        }
+      },
+    ],
   },
   {
     path: "/transactions-analytics",
