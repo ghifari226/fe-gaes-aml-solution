@@ -3,6 +3,8 @@ import HomePage from "../pages/home/HomePage";
 import { RouteType } from "./config";
 import DefaultPage from "../pages/dashboard/DefaultPage";
 import OverviewIndex from "../pages/overview/overviewIndex";
+import AlertSystemDashboard from "../pages/alertSystem/alertSystemDashboard";
+import AlertSystemDetail from "../pages/alertSystem/alertSystemDetail";
 import TransactionsAnalyticsLayout from "../pages/transactionsAnalytics/transactionsAnalyticsLayout";
 import TransactionsAnalyticsIndex from "../pages/transactionsAnalytics/transactionsAnalyticsIndex";
 import AiAnalysis from "../pages/transactionsAnalytics/aiAnalysis";
@@ -15,6 +17,7 @@ import ChangelogPage from "../pages/changelog/ChangelogPage";
 import AnalyticsPage from "../pages/dashboard/AnalyticsPage";
 import SaasPage from "../pages/dashboard/SaasPage";
 import ComponentPageLayout from "../pages/component/ComponentPageLayout";
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
@@ -37,6 +40,38 @@ const appRoutes: RouteType[] = [
       displayText: "Overview",
       icon: <DashboardOutlinedIcon />,
     },
+  },
+  {
+    path: "/alert-system",
+    element: <TransactionsAnalyticsLayout />,
+    state: "alert-system",
+    sidebarProps: {
+      displayText: "Alert System",
+      icon: <WarningAmberIcon />,
+    },
+    child: [
+      {
+        index: true,
+        element: <TransactionsAnalyticsIndex />,
+        state: "alert-system.index"
+      },
+      {
+        path: "/alert-system/single-prediction",
+        element: <AlertSystemDashboard />,
+        state: "alert-system.single-prediction",
+        sidebarProps: {
+          displayText: "Dashboard"
+        }
+      },
+      {
+        path: "/alert-system/multiple-prediction",
+        element: <AlertSystemDetail />,
+        state: "alert-system.multiple-prediction",
+        sidebarProps: {
+          displayText: "Detail"
+        }
+      },
+    ],
   },
   {
     path: "/transactions-analytics",
