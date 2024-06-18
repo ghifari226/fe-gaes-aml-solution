@@ -1,64 +1,78 @@
-import React from 'react';
-import { Box, Card, CardContent, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from '@mui/material';
+import { ExpandMore as ExpandMoreIcon } from '@mui/icons-material';
 import { styled } from '@mui/system';
 import assets from "../../assets";
 
-const ScrollableContainer = styled(Box)({
+const Container = styled(Box)({
   display: 'flex',
-  overflowX: 'auto',
-  padding: '20px',
+  flexDirection: 'column',
   gap: '20px',
-  whiteSpace: 'nowrap',
-});
-
-const CardItem = styled(Card)(({ backgroundImage }) => ({
-  position: 'relative',
-  minWidth: 400,
-  minHeight: 300,
-  display: 'inline-block',
-  color: '#000000',
-  '&::before': {
-    content: '""',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    backgroundImage: `url(${backgroundImage})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    opacity: 0.1,
-    zIndex: 0,
-  }
-}));
-
-const CardContentWrapper = styled(CardContent)({
   position: 'relative',
   zIndex: 1,
 });
 
+const BackgroundContainer = styled(Box)(({ backgroundImage }) => ({
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '750px',
+  height: '750px',
+  backgroundImage: `url(${backgroundImage})`,
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  opacity: 0.1,
+  zIndex: 0,
+}));
+
+const AccordionContainer = styled(Accordion)({
+  position: 'relative',
+});
+
+const AccordionSummaryWrapper = styled(AccordionSummary)({
+  backgroundColor: 'rgba(255, 255, 255, 0.8)',
+});
+
 const OverviewIndex = () => {
+  const [expanded, setExpanded] = useState(null);
+  const [backgroundImage, setBackgroundImage] = useState('');
+
+  const handleAccordionChange = (panel, image) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : null);
+    console.log('imagenya', image)
+    setBackgroundImage(isExpanded ? image : '');
+  };
+
   const cards = [
-    { title: 'AML Overview', content: 'AML (Anti-Money Laundering) is...', backgroundImage: assets.images.checkTransactions },
-    { title: 'KYC Process', content: 'KYC (Know Your Customer) involves...', backgroundImage: assets.images.checkCustomers },
-    { title: 'About the App', content: 'This app helps you with...', backgroundImage: '' },
-    { title: 'Our Team', content: 'Meet the team behind the app...', backgroundImage: '' },
-    // Add more cards as needed
+    { title: 'Alert system with deep learning and fuzzy algorithm', content: '...', backgroundImage: assets.images.warningSign },
+    { title: 'Social network analysis to enhance transaction checking', content: '...', backgroundImage: assets.images.checkCustomers },
+    { title: 'Transaction analysis to prevent loan-related crime', content: '...', backgroundImage: assets.images.moneyLoan },
+    { title: 'Transaction analysis to prevent money laundering', content: '...', backgroundImage: assets.images.moneyLaundering },
+    { title: 'Generative AI for analysis assistance', content: '...', backgroundImage: assets.images.aiHead },
   ];
 
   return (
-    <Box>
-      <Typography variant="h4" gutterBottom>OVERVIEW</Typography>
-      <ScrollableContainer>
+    <Box position="relative" minHeight="100vh">
+      <BackgroundContainer backgroundImage={backgroundImage} />
+      <Container>
+        <Typography variant="h4" gutterBottom>OVERVIEW</Typography>
+        
         {cards.map((card, index) => (
-          <CardItem key={index} backgroundImage={card.backgroundImage}>
-            <CardContentWrapper>
+          <AccordionContainer
+            key={index}
+            expanded={expanded === `panel${index}`}
+            onChange={handleAccordionChange(`panel${index}`, card.backgroundImage)}
+          >
+            <AccordionSummaryWrapper expandIcon={<ExpandMoreIcon />}>
               <Typography variant="h6">{card.title}</Typography>
+            </AccordionSummaryWrapper>
+            <AccordionDetails>
               <Typography variant="body2">{card.content}</Typography>
-            </CardContentWrapper>
-          </CardItem>
+            </AccordionDetails>
+          </AccordionContainer>
         ))}
-      </ScrollableContainer>
+      </Container>
     </Box>
   );
 };
