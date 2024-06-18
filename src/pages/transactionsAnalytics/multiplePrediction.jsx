@@ -10,10 +10,13 @@ import {
   DialogContentText,
   DialogTitle,
   Grid,
+  IconButton,
   Tab,
   Tabs,
+  Tooltip,
   Typography,
 } from "@mui/material";
+import InfoIcon from '@mui/icons-material/Info';
 import { styled } from "@mui/system";
 import { DataGrid } from "@mui/x-data-grid";
 import { Link } from 'react-router-dom';
@@ -34,6 +37,7 @@ const CustomTab = styled(Tab)(({ theme }) => ({
 const MultiplePrediction = () => {
   const [data, setData] = useState(alertData.rows);
   const [columns, setColumns] = useState(alertData.columnsLoan);
+  const [title, setTitle] = useState('Loan Analysis')
   const [openUploadDialog, setOpenUploadDialog] = useState(false);
   const [openPredictDialog, setOpenPredictDialog] = useState(false);
   const [selectedIds, setSelectedIds] = useState([]);
@@ -45,8 +49,10 @@ const MultiplePrediction = () => {
     console.log(value)
     if (newValue === 0) {
       setColumns(alertData.columnsLoan);
+      setTitle('Loan Analysis');
     } else {
       setColumns(alertData.columns);
+      setTitle('Money Laundering Analysis');
     };
   };
 
@@ -124,14 +130,11 @@ const MultiplePrediction = () => {
               <div
                 style={{
                   display: "flex",
-                  justifyContent: "space-between",
-                  marginBottom: "10px",
+                  justifyContent: "center",
+                  marginBottom: "15px",
                 }}
               >
-                {/* <div>Batch Prediction</div> */}
-                {/* <Button variant="contained" onClick={handleUploadClick}>
-                  Upload CSV
-                </Button> */}
+                <h2>{title}</h2>
               </div>
               <Box sx={{ minHeight: 400, width: "100%" }}>
                 <DataGrid
@@ -181,7 +184,7 @@ const MultiplePrediction = () => {
                   marginBottom: "20px",
                 }}
               >
-                <Button
+                {/* <Button
                   sx={{
                     minHeight: "80px",
                     minWidth: "200px",
@@ -193,7 +196,7 @@ const MultiplePrediction = () => {
                   onClick={handlePredictClick}
                 >
                   {"FUZZY ANALYSIS"}
-                </Button>
+                </Button> */}
                 <Button
                   sx={{ minHeight: "80px", minWidth: "200px" }}
                   variant="contained"
@@ -203,7 +206,7 @@ const MultiplePrediction = () => {
                   to="/ai-analysis"
                   target="_blank"
                 >
-                  {"GENERATIVE ANALYSIS"}
+                  {"Analysis with Generative AI"}
                 </Button>
               </Box>
             </CardContent>
