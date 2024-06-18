@@ -20,7 +20,7 @@ const MessageArea = styled(List)({
 const AiAnalysis = () => {
   const [inputValue, setInputValue] = useState('');
   const [chatHistory, setChatHistory] = useState([
-    { prompt: 'give me barchart of this column', answer: { imgLink: 'https://placehold.co/600x400', text: 'Here is your bar chart.' } },
+    // { prompt: 'give me barchart of this column', answer: { imgLink: 'https://placehold.co/600x400', text: 'Here is your bar chart.' } },
     // Add more Q&A pairs as needed
   ]);
 
@@ -45,28 +45,28 @@ const AiAnalysis = () => {
   return (
     <Box>
       <Grid container>
-        <Grid item xs={12}>
+        <Grid item xs={12} sx={{ marginBottom: "20px" }}>
           <Typography variant="h5" className="header-message">Analysis Assistant</Typography>
         </Grid>
       </Grid>
       <ChatSection>
         <Grid container>
-          <Grid item xs={3}>
-            {/* <BorderRight500> */}
+          {/* <Grid item xs={3}>
+            <BorderRight500>
                   <p style={{ marginLeft: "15px" }}>Chat History</p>
               <List>
                 <ListItem>
                   Tolong bikinin histogram
                 </ListItem>
-                {/* {chatHistory.map((chat, index) => (
+                {chatHistory.map((chat, index) => (
                   <ListItem key={index}>
                     <ListItemText primary={chat.prompt} secondary={chat.answer.text} />
                   </ListItem>
-                ))} */}
+                ))}
               </List>
-            {/* </BorderRight500> */}
-          </Grid>
-          <Grid item xs={9}>
+            </BorderRight500>
+          </Grid> */}
+          <Grid item xs={12}>
             <BorderLeft500>
               <MessageArea ref={messageAreaRef}>
                 {chatHistory.map((chat, index) => (

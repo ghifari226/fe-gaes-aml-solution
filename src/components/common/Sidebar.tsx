@@ -82,15 +82,17 @@ const Sidebar = () => {
                 </Stack>
               </ButtonBase>
             </Toolbar>
-            {appRoutes.map((route, index) =>
-              route.sidebarProps ? (
-                route.child ? (
-                  <SidebarItemCollapse item={route} key={index} />
-                ) : (
-                  <SidebarItem item={route} key={index} />
-                )
-              ) : null
-            )}
+            {appRoutes
+              .filter((route) => route.path !== "/ai-analysis")
+              .map((route, index) =>
+                route.sidebarProps ? (
+                  route.child ? (
+                    <SidebarItemCollapse item={route} key={index} />
+                  ) : (
+                    <SidebarItem item={route} key={index} />
+                  )
+                ) : null
+              )}
           </List>
         </Drawer>
       )}
