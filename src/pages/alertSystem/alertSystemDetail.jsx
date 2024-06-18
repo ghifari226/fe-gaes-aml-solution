@@ -13,10 +13,10 @@ import {
   Typography,
 } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import amlData from "../../data/amlData";
+import alertData from "../../data/alertData";
 
 const MultiplePrediction = () => {
-  const [data, setData] = useState(amlData.rows);
+  const [data, setData] = useState(alertData.rows);
   const [openUploadDialog, setOpenUploadDialog] = useState(false);
   const [openPredictDialog, setOpenPredictDialog] = useState(false);
   const [selectedIds, setSelectedIds] = useState([]);
@@ -39,7 +39,7 @@ const MultiplePrediction = () => {
 
   const handleSelectionModelChange = (ids) => {
     const selectedIDs = new Set(ids);
-    const selectedRows = amlData.rows.filter((row) => selectedIDs.has(row.id));
+    const selectedRows = alertData.rows.filter((row) => selectedIDs.has(row.id));
     setSelectedRows(selectedRows);
   };
 
@@ -87,6 +87,7 @@ const MultiplePrediction = () => {
                   marginBottom: "10px",
                 }}
               >
+                <div>Alert</div>
                 {/* <div>Batch Prediction</div> */}
                 {/* <Button variant="contained" onClick={handleUploadClick}>
                   Upload CSV
@@ -95,7 +96,7 @@ const MultiplePrediction = () => {
               <Box sx={{ minHeight: 400, width: "100%" }}>
                 <DataGrid
                   rows={data}
-                  columns={amlData.columns}
+                  columns={alertData.columns}
                   initialState={{
                     pagination: {
                       paginationModel: {
@@ -127,7 +128,7 @@ const MultiplePrediction = () => {
                   disabled={selectedRows.length === 0}
                   onClick={handlePredictClick}
                 >
-                  {selectedRows.length === amlData.rows.length
+                  {selectedRows.length === alertData.rows.length
                     ? "Predict All"
                     : "Predict"}
                 </Button> */}

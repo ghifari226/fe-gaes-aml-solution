@@ -74,54 +74,72 @@ const appRoutes: RouteType[] = [
     ],
   },
   {
-    path: "/transactions-analytics",
-    element: <TransactionsAnalyticsLayout />,
-    state: "transactions-analytics",
+    path: "/transactions-analysis",
+    element: <MultiplePrediction />,
+    state: "transactions-analysis",
     sidebarProps: {
-      displayText: "Transactions analytics",
+      displayText: "Transactions Analysis",
       icon: <LocalAtmIcon />,
     },
-    child: [
-      {
-        index: true,
-        element: <TransactionsAnalyticsIndex />,
-        state: "transactions-analytics.index"
-      },
-      {
-        path: "/transactions-analytics/ai-analysis",
-        element: <AiAnalysis />,
-        state: "transactions-analytics.ai-analysis",
-        sidebarProps: {
-          displayText: "AI Analysis"
-        },
-      },
-      {
-        path: "/transactions-analytics/single-prediction",
-        element: <SinglePrediction />,
-        state: "transactions-analytics.single-prediction",
-        sidebarProps: {
-          displayText: "Single Prediction"
-        }
-      },
-      {
-        path: "/transactions-analytics/multiple-prediction",
-        element: <MultiplePrediction />,
-        state: "transactions-analytics.multiple-prediction",
-        sidebarProps: {
-          displayText: "Multiple Prediction"
-        }
-      }
-    ]
   },
   {
-    path: "/customers-analytics",
-    element: <CustomersAnalyticsIndex />,
-    state: "customers-analytics",
+    path: "/ai-analysis",
+    element: <AiAnalysis />,
+    state: "ai-analysis",
     sidebarProps: {
-      displayText: "Customers analytics",
-      icon: <PeopleOutlineIcon />,
+      displayText: "AI Analysis",
+      icon: <LocalAtmIcon />,
     },
   },
+  // {
+  //   path: "/transactions-analytics",
+  //   element: <TransactionsAnalyticsLayout />,
+  //   state: "transactions-analytics",
+  //   sidebarProps: {
+  //     displayText: "Transactions analytics",
+  //     icon: <LocalAtmIcon />,
+  //   },
+  //   child: [
+  //     {
+  //       index: true,
+  //       element: <TransactionsAnalyticsIndex />,
+  //       state: "transactions-analytics.index"
+  //     },
+  //     {
+  //       path: "/transactions-analytics/ai-analysis",
+  //       element: <AiAnalysis />,
+  //       state: "transactions-analytics.ai-analysis",
+  //       sidebarProps: {
+  //         displayText: "AI Analysis"
+  //       },
+  //     },
+  //     {
+  //       path: "/transactions-analytics/single-prediction",
+  //       element: <SinglePrediction />,
+  //       state: "transactions-analytics.single-prediction",
+  //       sidebarProps: {
+  //         displayText: "Single Prediction"
+  //       }
+  //     },
+  //     {
+  //       path: "/transactions-analytics/multiple-prediction",
+  //       element: <MultiplePrediction />,
+  //       state: "transactions-analytics.multiple-prediction",
+  //       sidebarProps: {
+  //         displayText: "Multiple Prediction"
+  //       }
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: "/customers-analytics",
+  //   element: <CustomersAnalyticsIndex />,
+  //   state: "customers-analytics",
+  //   sidebarProps: {
+  //     displayText: "Customers analytics",
+  //     icon: <PeopleOutlineIcon />,
+  //   },
+  // },
   {
     path: "/about",
     element: <AboutIndex />,
