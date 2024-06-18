@@ -10,16 +10,34 @@ import {
   DialogContentText,
   DialogTitle,
   Grid,
+  IconButton,
+  Tab,
+  Tabs,
+  Tooltip,
   Typography,
 } from "@mui/material";
+import InfoIcon from '@mui/icons-material/Info';
 import { DataGrid } from "@mui/x-data-grid";
 import alertData from "../../data/alertData";
 
 const MultiplePrediction = () => {
   const [data, setData] = useState(alertData.rows);
+  const [columns, setColumns] = useState(alertData.columns);
   const [openUploadDialog, setOpenUploadDialog] = useState(false);
   const [openPredictDialog, setOpenPredictDialog] = useState(false);
   const [selectedIds, setSelectedIds] = useState([]);
+
+  const [openFuzzyAnalysisDialog, setOpenFuzzyAnalysisDialog] = useState(false);
+  const [selectedRowData, setSelectedRowData] = useState(null);
+
+  const handleFuzzyAnalysisClick = (row) => {
+    setSelectedRowData(row);
+    setOpenFuzzyAnalysisDialog(true);
+  };
+
+  const handleCloseFuzzyAnalysisDialog = () => {
+    setOpenFuzzyAnalysisDialog(false);
+  };
 
   const handleUploadClick = () => {
     setOpenUploadDialog(true);
@@ -87,16 +105,41 @@ const MultiplePrediction = () => {
                   marginBottom: "10px",
                 }}
               >
-                <div>Alert</div>
-                {/* <div>Batch Prediction</div> */}
-                {/* <Button variant="contained" onClick={handleUploadClick}>
-                  Upload CSV
-                </Button> */}
+                <Typography variant="h6" gutterBottom>
+                  Alerts
+                </Typography>
               </div>
               <Box sx={{ minHeight: 400, width: "100%" }}>
                 <DataGrid
                   rows={data}
-                  columns={alertData.columns}
+                  columns={[
+                    {
+                      field: "fuzzyAnalysis",
+                      headerName: "Fuzzy",
+                      flex: 0.5,
+                      renderCell: (params) => (
+                        <Tooltip
+                          title={
+                            <Typography variant="body1">
+                              {`Violation of fuzzy rules:\n${params.row.fuzzyAnalysis
+                                .map((rule, index) => `(${index + 1}) ${rule};`)
+                                .join(" ")}`}
+                            </Typography>
+                          }
+                          placement="right"
+                          arrow
+                        >
+                          <IconButton
+                            onClick={() => handleFuzzyAnalysisClick(params.row)}
+                            size="small"
+                          >
+                            <InfoIcon />
+                          </IconButton>
+                        </Tooltip>
+                      ),
+                    },
+                    ...columns
+                  ]}
                   initialState={{
                     pagination: {
                       paginationModel: {
@@ -299,7 +342,7 @@ const MultiplePrediction = () => {
                     sx={{
                       display: "flex",
                       justifyContent: "center",
-                      marginTop: "10px",
+                      marginTop: "30px",
                     }}
                   >
                     <Button
@@ -308,7 +351,7 @@ const MultiplePrediction = () => {
                       href="https://neo4j.com"
                       target="_blank"
                     >
-                      Go to Neo4j
+                      Proceed to Neo4j
                     </Button>
                   </Box>
                 </CardContent>

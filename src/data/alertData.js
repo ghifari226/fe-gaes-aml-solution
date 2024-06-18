@@ -1,6 +1,6 @@
 const data = {
   columns: [
-    { field: "id", headerName: "ID", width: 90 },
+    // { field: "id", headerName: "ID", width: 90 },
     {
       field: "suspiciousScore",
       headerName: "Suscipious Score",
@@ -59,7 +59,7 @@ const data = {
     },
   ],
   columnsLoan: [
-    { field: "id", headerName: "ID", width: 90 },
+    // { field: "id", headerName: "ID", width: 90 },
     {
       field: "suspiciousScore",
       headerName: "Suscipious Score",
@@ -120,6 +120,7 @@ const data = {
   rows: [
     {
       id: 1,
+      fuzzyAnalysis: ['Transfer amount > 500,000,000'],
       suspiciousScore: 88,
       suspiciousScoreSna: 99,
       alertId: 25812334704,
@@ -133,6 +134,7 @@ const data = {
     },
     {
       id: 2,
+      fuzzyAnalysis: ['Transfer amount > 500,000,000', 'Overseas Transfer', 'Currency is IDR'],
       suspiciousScore: 88,
       suspiciousScoreSna: 99,
       alertId: 25812334704,
@@ -146,6 +148,7 @@ const data = {
     },
     {
       id: 3,
+      fuzzyAnalysis: ['Transfer amount > 500,000,000', 'Sender ID is 393123345784'],
       suspiciousScore: 88,
       suspiciousScoreSna: 99,
       alertId: 25812334704,
@@ -159,6 +162,7 @@ const data = {
     },
     {
       id: 4,
+      fuzzyAnalysis: ['Clear'],
       suspiciousScore: 88,
       suspiciousScoreSna: 99,
       alertId: 25812334704,
@@ -172,6 +176,7 @@ const data = {
     },
     {
       id: 5,
+      fuzzyAnalysis: ['Clear'],
       suspiciousScore: 88,
       suspiciousScoreSna: 99,
       alertId: 25812334704,
@@ -185,6 +190,7 @@ const data = {
     },
     {
       id: 6,
+      fuzzyAnalysis: ['Transfer amount > 500,000,000'],
       suspiciousScore: 88,
       suspiciousScoreSna: 99,
       alertId: 25812334704,
@@ -198,6 +204,7 @@ const data = {
     },
     {
       id: 7,
+      fuzzyAnalysis: ['Transfer amount > 500,000,000'],
       suspiciousScore: 88,
       suspiciousScoreSna: 99,
       alertId: 25812334704,
@@ -211,6 +218,7 @@ const data = {
     },
     {
       id: 8,
+      fuzzyAnalysis: ['Transfer amount > 500,000,000'],
       suspiciousScore: 88,
       suspiciousScoreSna: 99,
       alertId: 25812334704,
@@ -224,6 +232,7 @@ const data = {
     },
     {
       id: 9,
+      fuzzyAnalysis: ['Transfer amount > 500,000,000'],
       suspiciousScore: 88,
       suspiciousScoreSna: 99,
       alertId: 25812334704,
@@ -237,6 +246,7 @@ const data = {
     },
     {
       id: 10,
+      fuzzyAnalysis: ['Transfer amount > 500,000,000'],
       suspiciousScore: 88,
       suspiciousScoreSna: 99,
       alertId: 25812334704,
