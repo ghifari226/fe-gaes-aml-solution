@@ -2,7 +2,7 @@ import React from 'react';
 import { Tabs, Tab, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-const AiAnalysisIndex = () => {
+const TransactionsAnalysisIndex = () => {
   return (
     <Box>
       <Tabs
@@ -20,4 +20,4 @@ const AiAnalysisIndex = () => {
   );
 };
 
-export default AiAnalysisIndex;
+export default TransactionsAnalysisIndex;

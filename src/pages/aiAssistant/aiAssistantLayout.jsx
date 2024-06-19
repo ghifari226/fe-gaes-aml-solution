@@ -1,9 +1,9 @@
 import { Outlet } from "react-router-dom";
 
-const AiAnalysisLayout = () => {
+const AiAssistantLayout = () => {
   return (
     <><Outlet /></>
   );
 };
 
-export default AiAnalysisLayout;
+export default AiAssistantLayout;
