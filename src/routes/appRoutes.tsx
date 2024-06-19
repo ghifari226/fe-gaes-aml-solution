@@ -3,10 +3,13 @@ import HomePage from "../pages/home/HomePage";
 import { RouteType } from "./config";
 import DefaultPage from "../pages/dashboard/DefaultPage";
 import OverviewIndex from "../pages/overview/overviewIndex";
+import AlertSystemLayout from "../pages/alertSystem/alertSystemLayout";
+import AlertSystemIndex from "../pages/alertSystem/alertSystemIndex";
 import AlertSystemDashboard from "../pages/alertSystem/alertSystemDashboard";
 import AlertSystemDetail from "../pages/alertSystem/alertSystemDetail";
-import TransactionsAnalyticsLayout from "../pages/transactionsAnalytics/transactionsAnalyticsLayout";
-import TransactionsAnalyticsIndex from "../pages/transactionsAnalytics/transactionsAnalyticsIndex";
+import AiAnalysisLayout from "../pages/aiAnalysisAssistant/aiAnalysisLayout";
+import AiAnalysisIndex from "../pages/aiAnalysisAssistant/aiAnalysisIndex";
+import AiAnalysisAssistant from "../pages/aiAnalysisAssistant/aiAnalysisAssistant";
 import AiAnalysis from "../pages/transactionsAnalytics/aiAnalysis";
 import SinglePrediction from "../pages/transactionsAnalytics/singlePrediction";
 import MultiplePrediction from "../pages/transactionsAnalytics/multiplePrediction";
@@ -21,6 +24,7 @@ import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
+import AssistantOutlinedIcon from '@mui/icons-material/AssistantOutlined';
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import AppsOutlinedIcon from "@mui/icons-material/AppsOutlined";
 import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
@@ -43,7 +47,7 @@ const appRoutes: RouteType[] = [
   },
   {
     path: "/alert-system",
-    element: <TransactionsAnalyticsLayout />,
+    element: <AlertSystemLayout />,
     state: "alert-system",
     sidebarProps: {
       displayText: "Alert System",
@@ -52,21 +56,21 @@ const appRoutes: RouteType[] = [
     child: [
       {
         index: true,
-        element: <TransactionsAnalyticsIndex />,
+        element: <AlertSystemIndex />,
         state: "alert-system.index"
       },
       {
-        path: "/alert-system/single-prediction",
+        path: "/alert-system/dashboard",
         element: <AlertSystemDashboard />,
-        state: "alert-system.single-prediction",
+        state: "alert-system.dashboard",
         sidebarProps: {
           displayText: "Dashboard"
         }
       },
       {
-        path: "/alert-system/multiple-prediction",
+        path: "/alert-system/detail",
         element: <AlertSystemDetail />,
-        state: "alert-system.multiple-prediction",
+        state: "alert-system.detail",
         sidebarProps: {
           displayText: "Detail"
         }
@@ -83,63 +87,37 @@ const appRoutes: RouteType[] = [
     },
   },
   {
-    path: "/ai-analysis",
-    element: <AiAnalysis />,
-    state: "ai-analysis",
+    path: "/ai-assistant",
+    element: <AiAnalysisLayout />,
+    state: "ai-assistant",
     sidebarProps: {
-      displayText: "AI Analysis",
-      icon: <LocalAtmIcon />,
+      displayText: "AI Assistant",
+      icon: <AssistantOutlinedIcon />,
     },
+    child: [
+      {
+        index: true,
+        element: <AiAnalysisIndex />,
+        state: "ai-assistant.index"
+      },
+      {
+        path: "/ai-assistant",
+        element: <AiAnalysisIndex />,
+        state: "ai-assistant.index",
+        sidebarProps: {
+          displayText: "Index"
+        }
+      },
+      {
+        path: "/ai-assistant/analysis",
+        element: <AiAnalysisAssistant />,
+        state: "ai-assistant.analysis",
+        sidebarProps: {
+          displayText: "AI Assistant Analysis"
+        }
+      },
+    ],
   },
-  // {
-  //   path: "/transactions-analytics",
-  //   element: <TransactionsAnalyticsLayout />,
-  //   state: "transactions-analytics",
-  //   sidebarProps: {
-  //     displayText: "Transactions analytics",
-  //     icon: <LocalAtmIcon />,
-  //   },
-  //   child: [
-  //     {
-  //       index: true,
-  //       element: <TransactionsAnalyticsIndex />,
-  //       state: "transactions-analytics.index"
-  //     },
-  //     {
-  //       path: "/transactions-analytics/ai-analysis",
-  //       element: <AiAnalysis />,
-  //       state: "transactions-analytics.ai-analysis",
-  //       sidebarProps: {
-  //         displayText: "AI Analysis"
-  //       },
-  //     },
-  //     {
-  //       path: "/transactions-analytics/single-prediction",
-  //       element: <SinglePrediction />,
-  //       state: "transactions-analytics.single-prediction",
-  //       sidebarProps: {
-  //         displayText: "Single Prediction"
-  //       }
-  //     },
-  //     {
-  //       path: "/transactions-analytics/multiple-prediction",
-  //       element: <MultiplePrediction />,
-  //       state: "transactions-analytics.multiple-prediction",
-  //       sidebarProps: {
-  //         displayText: "Multiple Prediction"
-  //       }
-  //     }
-  //   ]
-  // },
-  // {
-  //   path: "/customers-analytics",
-  //   element: <CustomersAnalyticsIndex />,
-  //   state: "customers-analytics",
-  //   sidebarProps: {
-  //     displayText: "Customers analytics",
-  //     icon: <PeopleOutlineIcon />,
-  //   },
-  // },
   {
     path: "/about",
     element: <AboutIndex />,
@@ -149,106 +127,6 @@ const appRoutes: RouteType[] = [
       icon: <InfoOutlinedIcon />,
     },
   },
-
-  // {
-  //   index: true,
-  //   element: <HomePage />,
-  //   state: "home"
-  // },
-  // {
-  //   path: "/installation",
-  //   element: <InstallationPage />,
-  //   state: "installation",
-  //   sidebarProps: {
-  //     displayText: "Installation",
-  //     icon: <FileDownloadOutlinedIcon />
-  //   }
-  // },
-  // {
-  //   path: "/dashboard",
-  //   element: <DashboardPageLayout />,
-  //   state: "dashboard",
-  //   sidebarProps: {
-  //     displayText: "Dashboard",
-  //     icon: <DashboardOutlinedIcon />
-  //   },
-  //   child: [
-  //     {
-  //       index: true,
-  //       element: <DashboardIndex />,
-  //       state: "dashboard.index"
-  //     },
-  //     {
-  //       path: "/dashboard/default",
-  //       element: <DefaultPage />,
-  //       state: "dashboard.default",
-  //       sidebarProps: {
-  //         displayText: "Default"
-  //       },
-  //     },
-  //     {
-  //       path: "/dashboard/analytics",
-  //       element: <AnalyticsPage />,
-  //       state: "dashboard.analytics",
-  //       sidebarProps: {
-  //         displayText: "Analytic"
-  //       }
-  //     },
-  //     {
-  //       path: "/dashboard/saas",
-  //       element: <SaasPage />,
-  //       state: "dashboard.saas",
-  //       sidebarProps: {
-  //         displayText: "Saas"
-  //       }
-  //     }
-  //   ]
-  // },
-  // {
-  //   path: "/component",
-  //   element: <ComponentPageLayout />,
-  //   state: "component",
-  //   sidebarProps: {
-  //     displayText: "Components",
-  //     icon: <AppsOutlinedIcon />
-  //   },
-  //   child: [
-  //     {
-  //       path: "/component/alert",
-  //       element: <AlertPage />,
-  //       state: "component.alert",
-  //       sidebarProps: {
-  //         displayText: "Alert"
-  //       },
-  //     },
-  //     {
-  //       path: "/component/button",
-  //       element: <ButtonPage />,
-  //       state: "component.button",
-  //       sidebarProps: {
-  //         displayText: "Button"
-  //       }
-  //     }
-  //   ]
-  // },
-  // {
-  //   path: "/documentation",
-  //   element: <DocumentationPage />,
-  //   state: "documentation",
-  //   sidebarProps: {
-  //     displayText: "Documentation",
-  //     icon: <ArticleOutlinedIcon />
-  //   }
-  // },
-  // {
-  //   path: "/changelog",
-  //   element: <ChangelogPage />,
-  //   state: "changelog",
-  //   sidebarProps: {
-  //     displayText: "Changelog",
-  //     icon: <FormatListBulletedOutlinedIcon />
-  //   }
-  // }
 ];
 
 export default appRoutes;
