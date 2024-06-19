@@ -46,7 +46,7 @@ const AiAnalysis = () => {
     <Box>
       <Grid container>
         <Grid item xs={12} sx={{ marginBottom: "20px" }}>
-          <Typography variant="h5" className="header-message">Analysis Assistant</Typography>
+          <Typography variant="h5" className="header-message">AI Assistant Analysis</Typography>
           <Typography>Ticket ID: 623958173259</Typography>
         </Grid>
       </Grid>
