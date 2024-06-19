@@ -1,5 +1,12 @@
 import React from "react";
-import { Box, IconButton } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  Grid,
+  IconButton,
+  Typography,
+} from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import aiAssistantData from "../../data/aiAssistantData";
@@ -14,7 +21,10 @@ const AiAssistantDashboard = () => {
     renderCell: (params) => (
       <IconButton
         onClick={() =>
-          window.open(`/ai-assistant/analysis/${params.row.ticketNumber}`, "_blank")
+          window.open(
+            `/ai-assistant/analysis/${params.row.ticketNumber}`,
+            "_blank"
+          )
         }
       >
         <ChatIcon />
@@ -26,23 +36,42 @@ const AiAssistantDashboard = () => {
   const columnsWithAction = [actionColumn, ...aiAssistantData.columns];
 
   return (
-    <Box>
-      <DataGrid
-        rows={aiAssistantData.rows}
-        columns={columnsWithAction}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 5,
-            },
-          },
-        }}
-        pageSizeOptions={[5]}
-        // checkboxSelection
-        disableRowSelectionOnClick
-        // onRowSelectionModelChange={(ids) => handleSelectionModelChange(ids)}
-      />
-    </Box>
+    <Grid container spacing={2}>
+      <Grid item xs={12}>
+        <Card>
+          <CardContent>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: "10px",
+              }}
+            >
+              <Typography variant="h6" gutterBottom>
+                AI Chat History
+              </Typography>
+            </div>
+            <Box>
+              <DataGrid
+                rows={aiAssistantData.rows}
+                columns={columnsWithAction}
+                initialState={{
+                  pagination: {
+                    paginationModel: {
+                      pageSize: 5,
+                    },
+                  },
+                }}
+                pageSizeOptions={[5]}
+                // checkboxSelection
+                disableRowSelectionOnClick
+                // onRowSelectionModelChange={(ids) => handleSelectionModelChange(ids)}
+              />
+            </Box>
+          </CardContent>
+        </Card>
+      </Grid>
+    </Grid>
   );
 };
 

@@ -19,7 +19,7 @@ import {
 import SendIcon from "@mui/icons-material/Send";
 import { styled } from "@mui/system";
 import { useLocation, useNavigate } from "react-router-dom";
-import aiAssistantData from "../../data/aiAssistantData";
+import aiAssistantChatData from "../../data/aiAssistantChatData";
 
 const ChatSection = styled(Paper)({
   width: "100%",
@@ -50,7 +50,7 @@ const AiAssistantAnalysis = () => {
   useEffect(() => {
     if (ticketNumber && !isNaN(Number(ticketNumber))) {
       setHasTicket(true);
-      const foundData = aiAssistantData.find(
+      const foundData = aiAssistantChatData.find(
         (item) => item.ticketNumber === Number(ticketNumber)
       );
       if (foundData) {
@@ -91,25 +91,31 @@ const AiAssistantAnalysis = () => {
   };
 
   const handleCloseDialog = () => {
+    navigate("/ai-assistant/index");
     setDialogOpen(false);
   };
 
   if (!hasTicket) {
     return (
-      <Dialog open={dialogOpen} onClose={handleCloseDialog}>
+      <Dialog
+        open={dialogOpen}
+        onClose={handleCloseDialog}
+        disableBackdropClick
+        disableEscapeKeyDown
+      >
         <DialogTitle>No Ticket Found</DialogTitle>
         <DialogContent>
           <Typography variant="body1">
-            You need to have ticket number to access the analysis chat. Either
-            create new chat or continue from chat history.
+            To access the chat with AI assistant, you need a valid ticket
+            number. You can access it through one of these actions:
           </Typography>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleHistoryClick} autoFocus>
-            History
+            See Chat History
           </Button>
           <Button onClick={handleNewChatClick} autoFocus>
-            New Chat
+            Generate New Chat
           </Button>
         </DialogActions>
       </Dialog>
