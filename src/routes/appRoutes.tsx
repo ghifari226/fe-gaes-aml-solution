@@ -7,9 +7,13 @@ import AlertSystemLayout from "../pages/alertSystem/alertSystemLayout";
 import AlertSystemIndex from "../pages/alertSystem/alertSystemIndex";
 import AlertSystemDashboard from "../pages/alertSystem/alertSystemDashboard";
 import AlertSystemDetail from "../pages/alertSystem/alertSystemDetail";
-import AiAnalysisLayout from "../pages/aiAnalysisAssistant/aiAnalysisLayout";
-import AiAnalysisIndex from "../pages/aiAnalysisAssistant/aiAnalysisIndex";
-import AiAnalysisAssistant from "../pages/aiAnalysisAssistant/aiAnalysisAssistant";
+import TransactionsAnalysisLayout from "../pages/transactionsAnalysis/transactionsAnalysisLayout";
+import TransactionsAnalysisIndex from "../pages/transactionsAnalysis/transactionsAnalysisIndex";
+import TransactionsAnalysis from "../pages/transactionsAnalysis/transactionsAnalysis";
+import AiAssistantLayout from "../pages/aiAssistant/aiAssistantLayout";
+import AiAssistantIndex from "../pages/aiAssistant/aiAssistantIndex";
+import AiAssistantDashboard from "../pages/aiAssistant/aiAssistantDashboard";
+import AiAssistantAnalysis from "../pages/aiAssistant/aiAssistantAnalysis";
 import AiAnalysis from "../pages/transactionsAnalytics/aiAnalysis";
 import SinglePrediction from "../pages/transactionsAnalytics/singlePrediction";
 import MultiplePrediction from "../pages/transactionsAnalytics/multiplePrediction";
@@ -79,16 +83,39 @@ const appRoutes: RouteType[] = [
   },
   {
     path: "/transactions-analysis",
-    element: <MultiplePrediction />,
+    element: <TransactionsAnalysisLayout />,
     state: "transactions-analysis",
     sidebarProps: {
       displayText: "Transactions Analysis",
       icon: <LocalAtmIcon />,
     },
+    child: [
+      {
+        index: true,
+        element: <TransactionsAnalysisIndex />,
+        state: "transactions-analysis.index"
+      },
+      {
+        path: "/transactions-analysis/loan",
+        element: <TransactionsAnalysis />,
+        state: "transactions-analysis.loan",
+        sidebarProps: {
+          displayText: "Loan"
+        }
+      },
+      {
+        path: "/transactions-analysis/money-laundering",
+        element: <TransactionsAnalysis />,
+        state: "transactions-analysis.money-laundering",
+        sidebarProps: {
+          displayText: "Money Laundering"
+        }
+      },
+    ],
   },
   {
     path: "/ai-assistant",
-    element: <AiAnalysisLayout />,
+    element: <AiAssistantLayout />,
     state: "ai-assistant",
     sidebarProps: {
       displayText: "AI Assistant",
@@ -97,24 +124,29 @@ const appRoutes: RouteType[] = [
     child: [
       {
         index: true,
-        element: <AiAnalysisIndex />,
+        element: <AiAssistantIndex />,
         state: "ai-assistant.index"
       },
       {
-        path: "/ai-assistant",
-        element: <AiAnalysisIndex />,
-        state: "ai-assistant.index",
+        path: "/ai-assistant/index",
+        element: <AiAssistantDashboard />,
+        state: "ai-assistant.dashboard",
         sidebarProps: {
           displayText: "Index"
         }
       },
       {
         path: "/ai-assistant/analysis",
-        element: <AiAnalysisAssistant />,
+        element: <AiAssistantAnalysis />,
         state: "ai-assistant.analysis",
         sidebarProps: {
           displayText: "AI Assistant Analysis"
         }
+      },
+      {
+        path: "/ai-assistant/analysis/:accountNumber",
+        element: <AiAssistantAnalysis />,
+        state: "ai-assistant.analysis",
       },
     ],
   },
