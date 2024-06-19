@@ -16,13 +16,13 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import InfoIcon from '@mui/icons-material/Info';
+import InfoIcon from "@mui/icons-material/Info";
 import { DataGrid } from "@mui/x-data-grid";
-import alertData from "../../data/alertData";
+import transactionData from "../../data/transactionData";
 
 const MultiplePrediction = () => {
-  const [data, setData] = useState(alertData.rows);
-  const [columns, setColumns] = useState(alertData.columns);
+  const [data, setData] = useState(transactionData.rows);
+  const [columns, setColumns] = useState(transactionData.alertColumns);
   const [openUploadDialog, setOpenUploadDialog] = useState(false);
   const [openPredictDialog, setOpenPredictDialog] = useState(false);
   const [selectedIds, setSelectedIds] = useState([]);
@@ -57,7 +57,9 @@ const MultiplePrediction = () => {
 
   const handleSelectionModelChange = (ids) => {
     const selectedIDs = new Set(ids);
-    const selectedRows = alertData.rows.filter((row) => selectedIDs.has(row.id));
+    const selectedRows = transactionData.rows.filter((row) =>
+      selectedIDs.has(row.id)
+    );
     setSelectedRows(selectedRows);
   };
 
@@ -138,7 +140,7 @@ const MultiplePrediction = () => {
                         </Tooltip>
                       ),
                     },
-                    ...columns
+                    ...columns,
                   ]}
                   initialState={{
                     pagination: {
@@ -171,7 +173,7 @@ const MultiplePrediction = () => {
                   disabled={selectedRows.length === 0}
                   onClick={handlePredictClick}
                 >
-                  {selectedRows.length === alertData.rows.length
+                  {selectedRows.length === transactionData.rows.length
                     ? "Predict All"
                     : "Predict"}
                 </Button> */}
