@@ -57,15 +57,15 @@ const Sidebar = () => {
                     direction="row"
                     alignItems="center"
                   >
-                    <Avatar
+                    {/* <Avatar
                       src={assets.images.logo}
                       sx={{ width: 25, height: 25 }}
-                    />
+                    /> */}
                     <Typography
                       variant="h5"
                       sx={{ marginLeft: 0.5, lineHeight: "40px" }}
                     >
-                      GAES
+                      Tirtasena
                     </Typography>
                   </Stack>
                   <Typography
@@ -74,10 +74,10 @@ const Sidebar = () => {
                       marginLeft: 0.2,
                       flexGrow: 1,
                       lineHeight: "2px",
-                      fontSize: 12,
+                      fontSize: 16,
                     }}
                   >
-                    AML SOLUTION
+                    AML
                   </Typography>
                 </Stack>
               </ButtonBase>
