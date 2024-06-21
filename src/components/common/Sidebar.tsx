@@ -53,7 +53,7 @@ const Sidebar = () => {
               >
                 <Avatar
                   src={assets.images.water}
-                  sx={{ width: 30, height: 30 }}
+                  sx={{ width: 25, height: 25 }}
                 />
                 <Stack
                   direction="row"
