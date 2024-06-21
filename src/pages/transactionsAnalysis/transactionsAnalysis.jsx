@@ -48,11 +48,11 @@ const MultiplePrediction = () => {
   useEffect(() => {
     if (location.pathname.includes("loan")) {
       setColumns(transactionData.loanAnalysisColumns);
-      setTitle("Loan Analysis");
+      setTitle("Analisis Pinjaman Online");
       setValue(0);
     } else if (location.pathname.includes("money-laundering")) {
       setColumns(transactionData.moneyLaunderingColumns);
-      setTitle("Money Laundering Analysis");
+      setTitle("Analisis Pencucian Uang");
       setValue(1);
     }
   }, [location.pathname]);
@@ -61,11 +61,11 @@ const MultiplePrediction = () => {
     setValue(newValue);
     if (newValue === 0) {
       setColumns(transactionData.loanAnalysisColumns);
-      setTitle("Loan Analysis");
+      setTitle("Analisis Pinjaman Online");
       navigate("/transactions-analysis/loan");
     } else {
       setColumns(transactionData.moneyLaunderingColumns);
-      setTitle("Money Laundering Analysis");
+      setTitle("Analisis Pencucian Uang");
       navigate("/transactions-analysis/money-laundering");
     }
   };
@@ -133,8 +133,8 @@ const MultiplePrediction = () => {
             <CardContent>
               <Box>
                 <Tabs value={value} onChange={handleChange}>
-                  <CustomTab label="Loan" />
-                  <CustomTab label="Money Laundering" />
+                  <CustomTab label="Pinjaman Online" />
+                  <CustomTab label="Pencucian Uang" />
                 </Tabs>
               </Box>
             </CardContent>
@@ -220,7 +220,7 @@ const MultiplePrediction = () => {
                   to="/ai-assistant/analysis/623958173256"
                   target="_blank"
                 >
-                  {"Start New Chat with AI Assistant"}
+                  {"Buat obrolan baru dengan Asisten AI"}
                 </Button>
               </Box>
             </CardContent>

@@ -48,7 +48,7 @@ const AiAssistantDashboard = () => {
               }}
             >
               <Typography variant="h6" gutterBottom>
-                AI Chat History
+                Indeks Riwayat Obrolan
               </Typography>
             </div>
             <Box>

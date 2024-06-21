@@ -3,7 +3,7 @@ import React from "react";
 const AboutIndex = () => {
   return (
     <>
-      <h2>About Us</h2>
+      <h2>Tentang Kami</h2>
       {true ? (
         <p>
           Dalam bahasa Sanskerta, "Tirta" (तीर्थ, tīrtha) biasanya berarti "air
