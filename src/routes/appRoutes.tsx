@@ -45,7 +45,7 @@ const appRoutes: RouteType[] = [
     element: <OverviewIndex />,
     state: "overview",
     sidebarProps: {
-      displayText: "Overview",
+      displayText: "Beranda",
       icon: <DashboardOutlinedIcon />,
     },
   },
@@ -54,7 +54,7 @@ const appRoutes: RouteType[] = [
     element: <AlertSystemLayout />,
     state: "alert-system",
     sidebarProps: {
-      displayText: "Alert System",
+      displayText: "Alert AML",
       icon: <WarningAmberIcon />,
     },
     child: [
@@ -68,7 +68,7 @@ const appRoutes: RouteType[] = [
         element: <AlertSystemDashboard />,
         state: "alert-system.dashboard",
         sidebarProps: {
-          displayText: "Dashboard"
+          displayText: "Manajemen Peringatan"
         }
       },
       {
@@ -76,7 +76,7 @@ const appRoutes: RouteType[] = [
         element: <AlertSystemDetail />,
         state: "alert-system.detail",
         sidebarProps: {
-          displayText: "Detail"
+          displayText: "Rincian"
         }
       },
     ],
@@ -86,7 +86,7 @@ const appRoutes: RouteType[] = [
     element: <TransactionsAnalysisLayout />,
     state: "transactions-analysis",
     sidebarProps: {
-      displayText: "Transactions Analysis",
+      displayText: "Analisis Transaksi",
       icon: <LocalAtmIcon />,
     },
     child: [
@@ -100,7 +100,7 @@ const appRoutes: RouteType[] = [
         element: <TransactionsAnalysis />,
         state: "transactions-analysis.loan",
         sidebarProps: {
-          displayText: "Loan"
+          displayText: "Pinjaman Online"
         }
       },
       {
@@ -108,7 +108,7 @@ const appRoutes: RouteType[] = [
         element: <TransactionsAnalysis />,
         state: "transactions-analysis.money-laundering",
         sidebarProps: {
-          displayText: "Money Laundering"
+          displayText: "Pencucian Uang"
         }
       },
     ],
@@ -118,7 +118,7 @@ const appRoutes: RouteType[] = [
     element: <AiAssistantLayout />,
     state: "ai-assistant",
     sidebarProps: {
-      displayText: "AI Assistant",
+      displayText: "Asisten AI",
       icon: <AssistantOutlinedIcon />,
     },
     child: [
@@ -132,7 +132,7 @@ const appRoutes: RouteType[] = [
         element: <AiAssistantDashboard />,
         state: "ai-assistant.dashboard",
         sidebarProps: {
-          displayText: "Index"
+          displayText: "Indeks Riwayat Obrolan"
         }
       },
       {
@@ -140,7 +140,7 @@ const appRoutes: RouteType[] = [
         element: <AiAssistantAnalysis />,
         state: "ai-assistant.analysis",
         sidebarProps: {
-          displayText: "AI Assistant Analysis"
+          displayText: "Asisten AI"
         }
       },
       {
@@ -155,7 +155,7 @@ const appRoutes: RouteType[] = [
     element: <AboutIndex />,
     state: "about",
     sidebarProps: {
-      displayText: "About",
+      displayText: "Tentang Kami",
       icon: <InfoOutlinedIcon />,
     },
   },

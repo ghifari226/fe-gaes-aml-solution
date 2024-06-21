@@ -53,101 +53,95 @@ const OverviewIndex = () => {
 
   const cards = [
     {
-      titleId: "Ringkasan",
-      titleEn: "Summary",
-      contentId: `
-        ...
-    `,
-      contentEn: `
-        ...
+      title: "Ringkasan",
+      content: `
+        Website ini dirancang untuk membantu tim kepatuhan bank dalam mendeteksi dan menganalisis aktivitas mencurigakan terkait pinjaman dan pencucian uang. Berikut adalah panduan umum tentang cara menggunakan fitur-fitur utama pada website ini:
+
+1. Sistem Manajemen Peringatan:
+   - Langkah Pertama: Masuk ke menu Sistem Manajemen Peringatan untuk melihat peringatan yang dihasilkan oleh model pembelajaran mendalam.
+   - Kategori Peringatan: Peringatan dikategorikan menjadi "Aktif Dikonfirmasi", "Selesai Dikonfirmasi", "Aktif Belum Dikonfirmasi", dan "Selesai Tidak Terbukti".
+   - Penugasan Peringatan: Peringatan dapat ditugaskan kepada anggota tim tertentu. Klik pada peringatan untuk melihat informasi detail tentang transaksi dan hasil prediksi model.
+   - Tujuan: Memastikan setiap kasus ditangani dengan cara yang efisien dan terstruktur.
+
+2. Fitur Analisis Jaringan Sosial (SNA):
+   - Akses Fitur: Dari menu Detail Peringatan, klik tombol untuk melihat analisis jaringan sosial dari transaksi yang mencurigakan.
+   - Visualisasi Hubungan: Fitur ini memvisualisasikan hubungan antara pengirim dan penerima transaksi sebagai jaringan node dan edge, memudahkan eksplorasi hubungan kompleks dan identifikasi anomali.
+   - Tujuan: Mengungkap hubungan tersembunyi, pola perilaku, dan potensi risiko yang mungkin terlewatkan oleh pemantauan tradisional.
+
+3. Analisis Transaksi Pinjaman:
+   - Akses Menu: Pilih menu Analisis Transaksi Pinjaman untuk melihat hasil prediksi model terkait aktivitas mencurigakan dari nasabah.
+   - Fokus Analisis: Mencari anomali dalam transaksi pinjaman, penyimpangan dari pola pembayaran normal, dan perubahan mendadak dalam jumlah pinjaman.
+   - Tujuan: Menganalisis aliran dana dari pinjaman untuk membantu pihak bank memastikan ada atau tidaknya indikasi aktivitas pencucian uang.
+
+4. Analisis Transaksi Pencucian Uang:
+   - Akses Menu: Pilih menu Analisis Transaksi Pencucian Uang untuk melihat hasil analisis data transaksi.
+   - Hasil Analisis: Menampilkan hasil prediksi Model Deep Learning dan metode Fuzzy, termasuk jumlah transaksi, pola dan frekuensi, pihak terkait, lokasi geografis, dan hubungan yang diidentifikasi melalui SNA.
+   - Tujuan: Menentukan apakah transaksi merupakan pencucian uang dan apakah melanggar aturan sesuai regulasi yang berlaku.
+
+5. Asisten AI (PandasAI):
+   - Akses Fitur: Gunakan antarmuka seperti obrolan untuk berinteraksi dengan Asisten AI.
+   - Fungsi Asisten: Membantu menganalisis data transaksi yang difilter untuk mendeteksi kejahatan terkait pinjaman atau pencucian uang.
+   - Hasil Analisis: Sistem menghasilkan visualisasi yang informatif dan ringkasan statistik, membantu pengambilan keputusan cepat dan meningkatkan deteksi aktivitas keuangan mencurigakan.
+
+### Catatan Penting
+
+Website ini dirancang untuk membantu tim kepatuhan bank dalam mendeteksi aktivitas mencurigakan, tetapi tidak secara langsung memutuskan apakah seseorang terlibat dalam pencucian uang atau tidak. Keputusan akhir tetap memerlukan investigasi lebih lanjut oleh tim kepatuhan berdasarkan informasi dan analisis yang diberikan oleh sistem.
     `,
     },
     {
       backgroundImage: assets.images.warningSign,
-      titleId: "Sistem Peringatan dengan Pembelajaran Mendalam dan Algoritma Fuzzy",
-      contentId: `
-        Sistem ini menggunakan model pembelajaran mendalam yang canggih untuk menganalisis data transaksi dan menghasilkan skor kecurigaan untuk setiap transaksi. Model ini dilatih pada data historis untuk mengidentifikasi pola yang mengindikasikan aktivitas pencucian uang potensial dengan akurat.
-        Selain skor yang dihasilkan oleh pembelajaran mendalam, sistem ini juga menggabungkan aturan logika fuzzy yang ditentukan oleh pengguna. Ketika skor kecurigaan transaksi melebihi ambang batas yang telah ditentukan, peringatan dipicu. Sistem kemudian memeriksa transaksi tersebut terhadap aturan fuzzy dan memberikan penjelasan rinci tentang aturan spesifik yang dilanggar.
-        Pengguna memiliki fleksibilitas untuk membuat dan menyesuaikan aturan fuzzy berdasarkan keahlian mereka dan persyaratan kepatuhan yang terus berkembang. Ini memungkinkan pendekatan yang dipersonalisasi dan adaptif untuk pemantauan AML.
-        Integrasi ini memastikan bahwa semua peringatan tidak hanya didasarkan pada analisis AI yang canggih tetapi juga disertai dengan penjelasan yang jelas dan mudah dipahami, meningkatkan transparansi dan memungkinkan pengambilan keputusan yang lebih cepat.
-    `,
-      titleEn: "Alert system with deep learning and fuzzy algorithm",
-      contentEn: `
-        The system employs advanced deep learning models to analyze transaction data and generate a suspicious score for each transaction. These models are trained on historical data to accurately identify patterns indicative of potential money laundering activities.
-        In addition to the deep learning-generated scores, the system incorporates fuzzy logic rules defined by the users. When a transaction's suspicious score exceeds a predefined threshold, an alert is triggered. The system then cross-references the transaction against the fuzzy rules and provides a detailed explanation of which specific rules were violated.
-        Users have the flexibility to create and adjust fuzzy rules based on their expertise and evolving compliance requirements. This allows for a personalized and adaptable approach to AML monitoring.
-        This integration ensures that all alerts are not only based on advanced AI analysis but also come with clear, understandable explanations, enhancing transparency and enabling quicker decision-making.
+      title: "Sistem Manajemen Peringatan",
+      content: `
+        Sistem Manajemen Peringatan dirancang untuk membantu tim kepatuhan bank dalam menangani dan memantau peringatan yang dihasilkan oleh model pembelajaran mendalam. Peringatan dikategorikan berdasarkan status seperti "Aktif Dikonfirmasi", "Selesai Dikonfirmasi", "Aktif Belum Dikonfirmasi", dan "Selesai Tidak Terbukti", memudahkan tim dalam memprioritaskan dan mengelola tugas mereka. Setiap peringatan dapat ditugaskan kepada anggota tim tertentu, dengan informasi detail tentang transaksi dan regulasi yang dilanggar serta hasil prediksi dari Model Deep Learning, memastikan akuntabilitas dan transparansi.
+
+Penjelasan Status Peringatan:
+
+1. Aktif Dikonfirmasi:
+   - Peringatan ini telah diakui dan sedang dalam proses peninjauan atau investigasi oleh tim kepatuhan. Ini berarti transaksi dianggap mencurigakan dan sedang diperiksa lebih lanjut.
+
+2. Selesai Dikonfirmasi:
+   - Peringatan ini telah diperiksa dan dikonfirmasi sebagai transaksi mencurigakan. Investigasi telah selesai dan tindakan yang sesuai telah diambil.
+
+3. Aktif Belum Dikonfirmasi:
+   - Peringatan ini telah dihasilkan tetapi belum diakui atau ditinjau oleh tim kepatuhan. Ini adalah langkah awal di mana peringatan baru saja muncul dan menunggu tindakan lebih lanjut.
+
+4. Selesai Tidak Terbukti:
+   - Peringatan ini telah ditinjau dan ditemukan tidak mencurigakan. Investigasi telah selesai dan transaksi dianggap tidak terkait dengan aktivitas pencucian uang.
+
+Fitur ini membantu pihak bank untuk mengidentifikasi dan mengelola peringatan berdasarkan prioritas dan kebutuhan investigasi, memastikan setiap kasus ditangani dengan cara yang efisien dan terstruktur.
     `,
     },
     {
       backgroundImage: assets.images.checkCustomers,
-      titleId: "Analisis Jaringan Sosial untuk Meningkatkan Pemeriksaan Transaksi",
-      titleEn: "Social network analysis to enhance transaction checking",
-      contentId: `
-        Aplikasi AML (Anti-Money Laundering) kami memanfaatkan Analisis Jaringan Sosial (SNA) untuk meningkatkan kemampuan pemantauan transaksi, meningkatkan deteksi aktivitas mencurigakan.
-        Setiap transaksi melibatkan dua pihak, yaitu pengirim dan penerima. Dengan menerapkan teknik SNA, kami menganalisis hubungan antara entitas ini. Hal ini memungkinkan kami untuk mengungkap hubungan tersembunyi, pola perilaku, dan potensi risiko yang mungkin terlewatkan oleh pemantauan tradisional.
-        Aplikasi ini terintegrasi dengan Neo4j, basis data grafik terkemuka, untuk memvisualisasikan hubungan pelanggan sebagai jaringan node dan edge yang saling terhubung. Representasi grafis ini memberikan cara yang jelas dan intuitif untuk mengeksplorasi hubungan kompleks dan mengidentifikasi anomali dalam jaringan.
-        SNA membantu dalam menilai risiko yang terkait dengan setiap transaksi dengan mempertimbangkan faktor-faktor seperti derajat pemisahan antara pelanggan, frekuensi transaksi, dan struktur keseluruhan jaringan. Analisis multi-dimensional ini memperkaya akurasi dan keandalan sistem peringatan.
-        Dengan menggabungkan SNA dengan pemantauan transaksi, aplikasi kami menawarkan pendekatan yang komprehensif untuk kepatuhan AML, memberdayakan institusi keuangan untuk mendeteksi dan mencegah aktivitas ilegal dengan lebih efektif.
+      title: "Fitur Analisis Jaringan Sosial ",
+      content: `
+        Fitur Analisis Jaringan Sosial (SNA) berfungsi untuk membantu pihak bank untuk identifikasi Analisis hubungan antara pengirim dan penerima transaksi. SNA mengungkap hubungan tersembunyi, pola perilaku, dan potensi risiko yang mungkin terlewatkan oleh pemantauan tradisional.Dengan integrasi Neo4j, fitur ini memvisualisasikan hubungan pelanggan sebagai jaringan node dan edge yang saling terhubung, memudahkan eksplorasi hubungan kompleks dan identifikasi anomali.Fitur ini dapat diakses melalui menu Detail Peringatan, di mana tim bank dapat mengklik tombol untuk melihat analisis jaringan sosial dari setiap transaksi yang mencurigakan. 
     `,
-      contentEn: `
-        Our AML (Anti-Money Laundering) application leverages Social Network Analysis (SNA) to augment transaction monitoring capabilities, enhancing the detection of suspicious activities.
-        Each transaction involves two parties, ergo the sender and the recipient. By applying SNA techniques, we analyze the relationships between these entities. This allows us to uncover hidden connections, patterns of behavior, and potential risks that traditional monitoring may overlook.
-        The application integrates with Neo4j, a leading graph database, to visualize customer relationships as a network of interconnected nodes and edges. This graphical representation provides a clear and intuitive way to explore complex relationships and identify anomalies within the network.
-        SNA helps in assessing the risk associated with each transaction by considering factors such as the degree of separation between customers, transaction frequency, and the overall structure of the network. This multi-dimensional analysis enriches the alert system’s accuracy and reliability.
-        By combining SNA with transaction monitoring, our application offers a comprehensive approach to AML compliance, empowering financial institutions to detect and prevent illicit activities more effectively.
-      `,
     },
     {
       backgroundImage: assets.images.moneyLoan,
-      titleId: "Analisis Transaksi untuk Mencegah Kejahatan Terkait Pinjaman",
-      contentId: `
-        Analisis transaksi untuk mencegah kejahatan terkait pinjaman bertujuan untuk mengidentifikasi pola dan perilaku yang mengindikasikan aktivitas penipuan yang melibatkan pinjaman.
-        Sistem ini menganalisis data transaksi, khususnya berfokus pada transaksi terkait pinjaman. Sistem ini memeriksa atribut seperti jumlah pinjaman, pola pembayaran kembali, informasi peminjam, dan perilaku transaksi historis.
-        Indikator kunci mencakup adanya anomali dalam transaksi pinjaman, penyimpangan dari perilaku pembayaran kembali pinjaman yang khas, perubahan mendadak dalam jumlah pinjaman, dan ketidaksesuaian dalam informasi peminjam.
-        Memanfaatkan model pembelajaran mesin dan analisis statistik untuk menandai transaksi yang menunjukkan karakteristik berisiko tinggi yang terkait dengan kejahatan terkait pinjaman.
-        Memberikan peringatan ketika transaksi pinjaman mencurigakan terdeteksi, dengan wawasan rinci tentang indikator spesifik yang memicu peringatan. Hal ini memungkinkan investigasi yang cepat dan mitigasi potensi penipuan terkait pinjaman.
+      title: "Analisis Transaksi Pinjaman",
+      content: `
+        Menu ini menampilkan hasil prediksi model dalam mendeteksi aktivitas mencurigakan dari nasabah, khususnya kemungkinan pencucian uang melalui pinjaman online. Fokus dari model adalah mencari anomali dalam transaksi pinjaman, penyimpangan dari pola pembayaran normal, dan perubahan mendadak dalam jumlah pinjaman.
+
+Menggunakan teknologi Machine Learning, model menandai transaksi berisiko tinggi. Ketika transaksi mencurigakan terdeteksi, model akan memeriksa apakah nasabah yang sama melakukan pencucian uang setelah aktivitas pinjaman tersebut. Model ini akan meneliti aliran dana dari pinjaman tersebut untuk memastikan apakah ada indikasi aktivitas pencucian uang.
+
+Fitur ini membantu pihak bank untuk menganalisis lebih lanjut dari menu peringatan jika pihak bank ingin menganalisis transaksi nasabah secara lebih mendetail.
     `,
-      titleEn: "Transaction analysis to prevent loan-related crime",
-      contentEn: `
-        The transaction analysis for preventing loan-related crime aims to identify patterns and behaviors indicative of fraudulent activities involving loans.
-        The system analyzes transaction data, specifically focusing on loan-related transactions. It examines attributes such as the loan amount, repayment patterns, borrower information, and historical transaction behavior.
-        Key indicators include the presence of anomalies in loan transactions, deviations from typical loan repayment behavior, sudden changes in loan amounts, and discrepancies in borrower information.
-        Utilizes machine learning models and statistical analysis to flag transactions that exhibit high-risk characteristics associated with loan-related crime.
-        Provides alerts when suspicious loan transactions are detected, with detailed insights into the specific indicators that triggered the alert. This enables prompt investigation and mitigation of potential loan-related fraud.
-      `,
     },
     {
       backgroundImage: assets.images.moneyLaundering,
-      titleId: "Analisis Transaksi untuk Mencegah Pencucian Uang",
-      contentId: `
-        Analisis transaksi untuk mencegah pencucian uang mengidentifikasi transaksi yang menunjukkan karakteristik yang biasa dikaitkan dengan upaya mencuci dana ilegal.
-        Menganalisis data transaksi melintasi berbagai parameter, termasuk jumlah transaksi, frekuensi, pihak terkait, lokasi geografis, dan hubungan yang diidentifikasi melalui analisis jaringan sosial (SNA).
-        Mencari pola mencurigakan seperti transaksi besar yang sering, pola transaksi yang tidak biasa, transaksi yang melibatkan yurisdiksi berisiko tinggi, dan rute transaksi yang kompleks.
-        Mengintegrasikan model pembelajaran mendalam dan aturan fuzzy yang ditentukan pengguna untuk menetapkan skor kecurigaan pada transaksi. Selain itu, menggabungkan analisis jaringan sosial untuk mengungkap hubungan tersembunyi antara entitas yang terlibat dalam transaksi.
-        Menghasilkan peringatan ketika transaksi melebihi ambang batas yang telah ditentukan dari aktivitas mencurigakan. Menyediakan penjelasan rinci tentang faktor-faktor yang berkontribusi terhadap skor kecurigaan, termasuk wawasan dari analisis jaringan sosial, memfasilitasi pengambilan keputusan yang terinformasi dan tindakan kepatuhan.
+      title: "Analisis Transaksi Pencucian Uang",
+      content: `
+        Menu ini menampilkan hasil analisis data transaksi, yaitu hasil prediksi Model Deep Learning dan metode Fuzzy. Analisis mencakup jumlah transaksi, pola dan frekuensi, pihak terkait, lokasi geografis, dan hubungan yang diidentifikasi melalui analisis jaringan sosial (SNA). Hasil Deep Learning menunjukkan apakah transaksi merupakan pencucian uang atau tidak, sedangkan hasil Fuzzy membantu menentukan apakah transaksi tersebut melanggar aturan sesuai regulasi yang berlaku. Fitur ini membantu pihak bank untuk menganalisis lebih lanjut dari menu peringatan jika pihak bank ingin menganalisis transaksi per nasabah.
     `,
-      titleEn: "Transaction analysis to prevent money laundering",
-      contentEn: `
-        The transaction analysis for preventing money laundering identifies transactions exhibiting characteristics commonly associated with attempts to launder illicit funds.
-        Analyzes transaction data across various parameters, including transaction amounts, frequency, counterparties involved, geographic locations, and any connections identified through social network analysis (SNA).
-        Looks for suspicious patterns such as frequent large transactions, unusual transaction patterns, transactions involving high-risk jurisdictions, and complex transaction routes.
-        Integrates deep learning models and user-defined fuzzy rules to assign suspicious scores to transactions. Additionally, incorporates social network analysis to uncover hidden connections between entities involved in transactions.
-        Generates alerts when transactions exceed predefined thresholds of suspicious activity. Provides detailed explanations of the factors contributing to the suspicious score, including insights from social network analysis, facilitating informed decision-making and compliance actions.
-      `,
     },
     {
       backgroundImage: assets.images.aiHead,
-      titleId: "AI Generatif untuk Bantuan Analisis",
-      contentId: `
-        Memanfaatkan kekuatan AI, aplikasi kami mengintegrasikan perpustakaan Pandas AI Python untuk menyediakan kemampuan analisis dan visualisasi yang canggih. Pengguna dapat berinteraksi melalui antarmuka seperti obrolan untuk menganalisis data transaksi yang difilter untuk bendera kejahatan terkait pinjaman atau pencucian uang. Sistem menghasilkan visualisasi yang informatif dan ringkasan statistik, membantu pengambilan keputusan cepat dan meningkatkan deteksi aktivitas keuangan mencurigakan.
-        Fitur ini merampingkan tugas analisis yang kompleks, menawarkan wawasan interaktif dan memfasilitasi respons yang terinformasi terhadap potensi kejahatan keuangan.
+      title: "Asisten AI",
+      content: `
+        Untuk membuktikan pelaku benar terlibat, kita membutuhkan analisis lebih mendalam. Untuk membantu pihak bank, kita menyediakan Generative AI dari PandasAI.Fitur ini membantu pihak bank dalam menganalisis data transaksi yang difilter untuk mendeteksi kejahatan terkait pinjaman atau pencucian uang. Pihak Bank dapat berinteraksi melalui antarmuka seperti obrolan untuk melakukan analisis tersebut. Sistem menghasilkan visualisasi yang informatif dan ringkasan statistik, membantu pengambilan keputusan cepat dan meningkatkan deteksi aktivitas keuangan mencurigakan.
     `,
-      titleEn: "Generative AI for analysis assistance",
-      contentEn: `
-        Harnessing the power of AI, our application integrates the Pandas AI Python library to provide advanced analysis and visualization capabilities. Users can interact via a chat-like interface to analyze filtered transaction data for loan-related crime or money laundering flags. The system generates insightful visualizations and statistical summaries, aiding quick decision-making and enhancing detection of suspicious financial activities.
-        This feature streamlines complex analysis tasks, offering interactive insights and facilitating informed responses to potential financial crimes.
-      `,
     },
   ];
 
@@ -155,18 +149,18 @@ const OverviewIndex = () => {
     <Box position="relative" minHeight="100vh">
       <BackgroundContainer backgroundImage={backgroundImage} />
       <Container>
-        <Typography variant="h4" gutterBottom>
-          OVERVIEW
+        <Typography variant="h5" gutterBottom>
+          Beranda
         </Typography>
         <AccordionContainer
           expanded={expanded === "panel0"}
           onChange={handleAccordionChange("panel0", cards[0].backgroundImage)}
         >
           <AccordionSummaryWrapper expandIcon={<ExpandMoreIcon />}>
-            <Typography variant="h6">{cards[0].titleId}</Typography>
+            <Typography variant="h6">{cards[0].title}</Typography>
           </AccordionSummaryWrapper>
           <AccordionDetails>
-            <Typography variant="body2">{cards[0].contentId}</Typography>
+            <Typography variant="body2">{cards[0].content}</Typography>
           </AccordionDetails>
         </AccordionContainer>
 
@@ -175,16 +169,16 @@ const OverviewIndex = () => {
           onChange={handleAccordionChange("panel1", cards[1].backgroundImage)}
         >
           <AccordionSummaryWrapper expandIcon={<ExpandMoreIcon />}>
-            <Typography variant="h6">{cards[1].titleId}</Typography>
+            <Typography variant="h6">{cards[1].title}</Typography>
           </AccordionSummaryWrapper>
           <AccordionDetails>
-            <Typography variant="body2">{cards[1].contentId}</Typography>
+            <Typography variant="body2">{cards[1].content}</Typography>
             <Button
               variant="contained"
               color="primary"
               // onClick={handleSimulateTransaction}
             >
-              Simulate New Transaction
+              Simulasi Transaksi Baru
             </Button>
           </AccordionDetails>
         </AccordionContainer>
@@ -194,10 +188,10 @@ const OverviewIndex = () => {
           onChange={handleAccordionChange("panel2", cards[2].backgroundImage)}
         >
           <AccordionSummaryWrapper expandIcon={<ExpandMoreIcon />}>
-            <Typography variant="h6">{cards[2].titleId}</Typography>
+            <Typography variant="h6">{cards[2].title}</Typography>
           </AccordionSummaryWrapper>
           <AccordionDetails>
-            <Typography variant="body2">{cards[2].contentId}</Typography>
+            <Typography variant="body2">{cards[2].content}</Typography>
           </AccordionDetails>
         </AccordionContainer>
 
@@ -206,10 +200,10 @@ const OverviewIndex = () => {
           onChange={handleAccordionChange("panel3", cards[3].backgroundImage)}
         >
           <AccordionSummaryWrapper expandIcon={<ExpandMoreIcon />}>
-            <Typography variant="h6">{cards[3].titleId}</Typography>
+            <Typography variant="h6">{cards[3].title}</Typography>
           </AccordionSummaryWrapper>
           <AccordionDetails>
-            <Typography variant="body2">{cards[3].contentId}</Typography>
+            <Typography variant="body2">{cards[3].content}</Typography>
           </AccordionDetails>
         </AccordionContainer>
 
@@ -218,10 +212,10 @@ const OverviewIndex = () => {
           onChange={handleAccordionChange("panel4", cards[4].backgroundImage)}
         >
           <AccordionSummaryWrapper expandIcon={<ExpandMoreIcon />}>
-            <Typography variant="h6">{cards[4].titleId}</Typography>
+            <Typography variant="h6">{cards[4].title}</Typography>
           </AccordionSummaryWrapper>
           <AccordionDetails>
-            <Typography variant="body2">{cards[4].contentId}</Typography>
+            <Typography variant="body2">{cards[4].content}</Typography>
           </AccordionDetails>
         </AccordionContainer>
 
@@ -230,10 +224,10 @@ const OverviewIndex = () => {
           onChange={handleAccordionChange("panel5", cards[5].backgroundImage)}
         >
           <AccordionSummaryWrapper expandIcon={<ExpandMoreIcon />}>
-            <Typography variant="h6">{cards[5].titleId}</Typography>
+            <Typography variant="h6">{cards[5].title}</Typography>
           </AccordionSummaryWrapper>
           <AccordionDetails>
-            <Typography variant="body2">{cards[5].contentId}</Typography>
+            <Typography variant="body2">{cards[5].content}</Typography>
           </AccordionDetails>
         </AccordionContainer>
       </Container>

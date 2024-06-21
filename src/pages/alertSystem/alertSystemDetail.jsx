@@ -85,13 +85,13 @@ const MultiplePrediction = () => {
   const fromCustomer = {
     name: "John Doe",
     type: "Individual",
-    country: "USA",
+    country: "China",
   };
 
   const toCustomer = {
     name: "Jane Smith",
     type: "Company",
-    country: "Canada",
+    country: "Indonesia",
   };
 
   return (
@@ -108,7 +108,7 @@ const MultiplePrediction = () => {
                 }}
               >
                 <Typography variant="h6" gutterBottom>
-                  Alerts
+                  Rincian Peringatan
                 </Typography>
               </div>
               <Box sx={{ minHeight: 400, width: "100%" }}>
@@ -189,11 +189,11 @@ const MultiplePrediction = () => {
               <Card>
                 <CardContent>
                   <Typography variant="h6" gutterBottom>
-                    Alert Information
+                    Detail Peringatan
                   </Typography>
                   <Grid container spacing={1}>
                     <Grid item xs={6}>
-                      <Typography variant="body2">Alert ID:</Typography>
+                      <Typography variant="body2">ID:</Typography>
                     </Grid>
                     <Grid item xs={6}>
                       <Typography variant="body2">
@@ -202,37 +202,17 @@ const MultiplePrediction = () => {
                     </Grid>
                     <Grid item xs={6}>
                       <Typography variant="body2">
-                        Score (out of 100):
+                        Skor (dari 100):
                       </Typography>
                     </Grid>
                     <Grid item xs={6}>
                       <Typography variant="body2">{alertInfo.score}</Typography>
                     </Grid>
                     <Grid item xs={6}>
-                      <Typography variant="body2">Queue:</Typography>
+                      <Typography variant="body2">Antrian:</Typography>
                     </Grid>
                     <Grid item xs={6}>
                       <Typography variant="body2">{alertInfo.queue}</Typography>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Typography variant="body2">
-                        Actionable Entity Name:
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Typography variant="body2">
-                        {alertInfo.actionableEntityName}
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Typography variant="body2">
-                        Actionable Entity ID:
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Typography variant="body2">
-                        {alertInfo.actionableEntityId}
-                      </Typography>
                     </Grid>
                   </Grid>
 
@@ -251,12 +231,6 @@ const MultiplePrediction = () => {
                       <Typography variant="body2">
                         {statusInfo.status}
                       </Typography>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Typography variant="body2">Hold:</Typography>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Typography variant="body2">{statusInfo.hold}</Typography>
                     </Grid>
                     <Grid item xs={6}>
                       <Typography variant="body2">Suppress:</Typography>
@@ -300,23 +274,23 @@ const MultiplePrediction = () => {
               <Card>
                 <CardContent>
                   <Typography variant="h6" gutterBottom>
-                    Transaction Flow
+                    Alur Transaksi
                   </Typography>
                   <Grid container spacing={2}>
                     <Grid item xs={6}>
                       <Card>
                         <CardContent>
                           <Typography variant="h6" gutterBottom>
-                            From Customer
+                            Dari Nasabah
                           </Typography>
                           <Typography variant="body2">
-                            Name: {fromCustomer.name}
+                            Nama: {fromCustomer.name}
                           </Typography>
                           <Typography variant="body2">
-                            Type: {fromCustomer.type}
+                            Tipe: {fromCustomer.type}
                           </Typography>
                           <Typography variant="body2">
-                            Country: {fromCustomer.country}
+                            Negara: {fromCustomer.country}
                           </Typography>
                         </CardContent>
                       </Card>
@@ -325,16 +299,16 @@ const MultiplePrediction = () => {
                       <Card>
                         <CardContent>
                           <Typography variant="h6" gutterBottom>
-                            To Customer
+                            Ke Nasabah
                           </Typography>
                           <Typography variant="body2">
-                            Name: {toCustomer.name}
+                            Nama: {toCustomer.name}
                           </Typography>
                           <Typography variant="body2">
-                            Type: {toCustomer.type}
+                            Tipe: {toCustomer.type}
                           </Typography>
                           <Typography variant="body2">
-                            Country: {toCustomer.country}
+                            Negara: {toCustomer.country}
                           </Typography>
                         </CardContent>
                       </Card>
@@ -353,7 +327,7 @@ const MultiplePrediction = () => {
                       href="https://neo4j.com"
                       target="_blank"
                     >
-                      Proceed to Neo4j
+                      Analisis Lebih Lanjut
                     </Button>
                   </Box>
                 </CardContent>
