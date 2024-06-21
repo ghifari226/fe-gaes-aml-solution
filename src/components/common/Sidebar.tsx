@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import {
   Avatar,
+  Box,
   ButtonBase,
   Drawer,
   List,
@@ -51,32 +52,11 @@ const Sidebar = () => {
                 sx={{ justifyContent: "center" }}
                 onClick={handleLogoClick}
               >
-                <Avatar
-                  src={assets.images.water}
-                  sx={{ width: 25, height: 25 }}
+                <Box
+                  component="img"
+                  src={assets.images.logo}
+                  sx={{ height: 40 }}
                 />
-                <Stack
-                  direction="row"
-                  alignItems="flex-start"
-                  justifyContent="center"
-                >
-                  <Typography variant="h5" sx={{
-                    fontFamily: 'Roboto Condensed, sans-serif'
-                  }}>
-                    TIRTASENA
-                  </Typography>
-                  <Typography
-                    variant="subtitle2"
-                    sx={{
-                      flexGrow: 1,
-                      marginTop: '2px',
-                      fontSize: 12,
-                      fontFamily: 'Dosis, sans-serif'
-                    }}
-                  >
-                    AML
-                  </Typography>
-                </Stack>
               </ButtonBase>
             </Toolbar>
             {appRoutes

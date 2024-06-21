@@ -1,6 +1,6 @@
 const assets = {
   images: {
-    logo: require("./images/gaes-icon.png"),
+    logo: require("./images/logo.png"),
     warningSign: require("./images/warning-sign.png"),
     checkCustomers: require("./images/check-customers.png"),
     checkTransactions: require("./images/check-transactions.png"),
