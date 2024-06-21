@@ -51,30 +51,27 @@ const Sidebar = () => {
                 sx={{ justifyContent: "center" }}
                 onClick={handleLogoClick}
               >
-                <Stack direction="column">
-                  <Stack
-                    sx={{ width: "100%" }}
-                    direction="row"
-                    alignItems="center"
-                  >
-                    {/* <Avatar
-                      src={assets.images.logo}
-                      sx={{ width: 25, height: 25 }}
-                    /> */}
-                    <Typography
-                      variant="h5"
-                      sx={{ marginLeft: 0.5, lineHeight: "40px" }}
-                    >
-                      Tirtasena
-                    </Typography>
-                  </Stack>
+                <Avatar
+                  src={assets.images.water}
+                  sx={{ width: 30, height: 30 }}
+                />
+                <Stack
+                  direction="row"
+                  alignItems="flex-start"
+                  justifyContent="center"
+                >
+                  <Typography variant="h5" sx={{
+                    fontFamily: 'Roboto Condensed, sans-serif'
+                  }}>
+                    TIRTASENA
+                  </Typography>
                   <Typography
                     variant="subtitle2"
                     sx={{
-                      marginLeft: 0.2,
                       flexGrow: 1,
-                      lineHeight: "2px",
-                      fontSize: 16,
+                      marginTop: '2px',
+                      fontSize: 12,
+                      fontFamily: 'Dosis, sans-serif'
                     }}
                   >
                     AML
