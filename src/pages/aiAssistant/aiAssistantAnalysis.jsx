@@ -103,19 +103,18 @@ const AiAssistantAnalysis = () => {
         disableBackdropClick
         disableEscapeKeyDown
       >
-        <DialogTitle>No Ticket Found</DialogTitle>
+        <DialogTitle>Tiket Tidak Ditemukan</DialogTitle>
         <DialogContent>
           <Typography variant="body1">
-            To access the chat with AI assistant, you need a valid ticket
-            number. You can access it through one of these actions:
+            Untuk menggunakan fitur asisten AI, Anda membutuhkan nomor tiket yang valid. Anda dapat memulai obrolan melalui salah satu aksi berikut:
           </Typography>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleHistoryClick} autoFocus>
-            See Chat History
+            Lihat riwayat obrolan
           </Button>
           <Button onClick={handleNewChatClick} autoFocus>
-            Generate New Chat
+            Mulai obrolan baru
           </Button>
         </DialogActions>
       </Dialog>
@@ -127,9 +126,9 @@ const AiAssistantAnalysis = () => {
       <Grid container>
         <Grid item xs={12} sx={{ marginBottom: "20px" }}>
           <Typography variant="h5" className="header-message">
-            AI Assistant Analysis
+            Asisten AI
           </Typography>
-          <Typography>Ticket No: {ticketNumber || 623958173259}</Typography>
+          <Typography>Nomor Tiket: {ticketNumber || 623958173259}</Typography>
         </Grid>
       </Grid>
       <ChatSection>

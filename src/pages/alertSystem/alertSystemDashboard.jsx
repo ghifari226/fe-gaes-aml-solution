@@ -55,19 +55,19 @@ const AlertSystemDashboard = () => {
       {/* Top Left: 2x2 grid of small cards */}
       <Grid item xs={12} sm={6}>
         <WhiteCard style={{ height: '100%' }}>
-          <Typography variant="h6">Alert Status</Typography>
+          <Typography variant="h6">Status Peringatan</Typography>
           <Grid container spacing={2} style={{ height: '100%' }}>
             <Grid item xs={6}>
-              <SmallCard color={colors[0]} title="Active Acknowledged" value="398" />
+              <SmallCard color={colors[0]} title="Aktif - Belum Ditinjau" value="398" />
             </Grid>
             <Grid item xs={6}>
-              <SmallCard color={colors[1]} title="Cleared Acknowledged" value="446" />
+              <SmallCard color={colors[1]} title="Aktif - Sudah Ditinjau" value="446" />
             </Grid>
             <Grid item xs={6}>
-              <SmallCard color={colors[2]} title="Active Unacknowledged" value="392" />
+              <SmallCard color={colors[2]} title="Selesai - Tidak Terbukti" value="392" />
             </Grid>
-            <Grid item xs={6}>
-              <SmallCard color={colors[3]} title="Cleared Unacknowledged" value="38" />
+            <Grid item xs={6}>  
+              <SmallCard color={colors[3]} title="Selesai - Terkonfirmasi" value="38" />
             </Grid>
           </Grid>
         </WhiteCard>
@@ -75,7 +75,7 @@ const AlertSystemDashboard = () => {
       {/* Top Right: Pie Chart */}
       <Grid item xs={12} sm={6}>
         <WhiteCard style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <Typography variant="h6">Detection Summary</Typography>
+          <Typography variant="h6">Aktivitas Mencurigakan</Typography>
           <CardContent style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <PieChart width={400} height={400}>
               <Pie data={dataPie} dataKey="value" cx="50%" cy="50%" innerRadius={75} outerRadius={120} fill="#82ca9d" label />
@@ -86,7 +86,7 @@ const AlertSystemDashboard = () => {
       {/* Bottom Left: Bar Chart (Age of active alerts) */}
       <Grid item xs={12} sm={6}>
         <WhiteCard>
-          <Typography variant="h6">Age of Active Alerts (days)</Typography>
+          <Typography variant="h6">Usia Peringatan Aktif (hari)</Typography>
           <CardContent>
             <ResponsiveContainer width="100%" height={400}>
               <BarChart data={dataBarAge}>
@@ -103,7 +103,7 @@ const AlertSystemDashboard = () => {
       {/* Bottom Right: Bar Chart (Score distribution of active alerts) */}
       <Grid item xs={12} sm={6}>
         <WhiteCard>
-          <Typography variant="h6">Score Distribution of Active Alerts</Typography>
+          <Typography variant="h6">Distribusi Skor Peringatan Aktif</Typography>
           <CardContent>
             <ResponsiveContainer width="100%" height={400}>
               <BarChart data={dataBarScore}>
