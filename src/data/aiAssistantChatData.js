@@ -3,16 +3,16 @@ const data = [
     ticketNumber: 623958173251,
     chatHistory: [
       {
-        prompt: "give me barchart of this column",
+        prompt: "Tolong berikan saya grafik batang tentang Jumlah Transaksi nasabah B",
         answer: {
           imgLink: "https://placehold.co/600x400",
-          text: "Here is your bar chart.",
+          text: "Berikut adalah grafik batang tentang Jumlah Transaksi nasabah B.",
         },
       },
       {
-        prompt: "whats the average",
+        prompt: "Berapa Rata-rata transaksi tarik yang dilakukan nasabah B",
         answer: {
-          text: "1250000",
+          text: " Rata-rata transaksi tarik tunai ialah Rp 125,000,000,-",
         },
       },
     ],

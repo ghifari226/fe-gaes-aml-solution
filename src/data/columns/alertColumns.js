@@ -1,60 +1,64 @@
 const alertColumns = [
   {
     field: "suspiciousScore",
-    headerName: "Suscipious Score",
+    headerName: "Skor Fuzzy",
     width: 150,
     editable: true,
   },
   {
-    field: "suspiciousScoreSna",
-    headerName: "Suspicious Score (+SNA)",
+    field: "predictionScore",
+    headerName: "Hasil Prediksi(ML)",
     width: 150,
     editable: true,
   },
   {
-    field: "alertId",
-    headerName: "Alert ID",
+    field: "idAlert",
+    headerName: "ID Peringatan",
     width: 130,
     editable: true,
   },
   {
-    field: "bankCode",
-    headerName: "Bank Code",
+    field: "statusAlert",
+    headerName: "Status Peringatan",
+    width: 130,
+    editable: true,
+  },
+  {
+    field: "dateAlert",
+    headerName: "Tanggal Peringatan",
+    width: 130,
+    editable: true,
+  },
+  {
+    field: "dateTransaction",
+    headerName: "Tanggal Transaksi",
     width: 150,
     editable: true,
   },
   {
-    field: "messageCategory",
-    headerName: "Message Category",
+    field: "bankCode",
+    headerName: "Kode Bank",
     width: 170,
     editable: true,
   },
   {
-    field: "status",
-    headerName: "Status",
+    field: "idCustomer",
+    headerName: "ID Nasabah",
     width: 150,
     editable: true,
   },
   {
-    field: "transactionReference",
-    headerName: "Transaction Reference",
+    field: "amountTransaction",
+    headerName: "Nominal Transaksi",
     width: 150,
     editable: true,
   },
   {
     field: "transactionCurrency",
-    headerName: "Transaction Currency",
-    type: "number",
+    headerName: "Mata Uang",
     width: 150,
     editable: true,
-  },
-  {
-    field: "createdDate",
-    headerName: "Created Date",
-    type: "number",
-    width: 150,
-    editable: true,
-  },
+  }
 ];
 
 export default alertColumns;
