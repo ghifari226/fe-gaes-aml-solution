@@ -7,7 +7,8 @@ const assets = {
     moneyLoan: require("./images/money-loan.png"),
     moneyLaundering: require("./images/money-laundering.png"),
     aiHead: require("./images/ai-head.png"),
-    neo4j: require("./images/neo4j.png")
+    neo4j: require("./images/neo4j.png"),
+    water: require("./images/water.png")
   }
 };
 
