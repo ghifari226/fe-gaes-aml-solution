@@ -159,6 +159,11 @@ const appRoutes: RouteType[] = [
       icon: <InfoOutlinedIcon />,
     },
   },
+  {
+    path: "/social-network-analysis",
+    element: <CustomersAnalyticsIndex />,
+    state: "social-network-analysis",
+  },
 ];
 
 export default appRoutes;
