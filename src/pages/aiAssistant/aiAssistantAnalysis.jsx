@@ -19,6 +19,7 @@ import {
 import SendIcon from "@mui/icons-material/Send";
 import { styled } from "@mui/system";
 import { useLocation, useNavigate } from "react-router-dom";
+import assets from "../../assets";
 import aiAssistantChatData from "../../data/aiAssistantChatData";
 
 const ChatSection = styled(Paper)({
@@ -73,7 +74,7 @@ const AiAssistantAnalysis = () => {
         ...chatHistory,
         {
           prompt: inputValue,
-          answer: { imgLink: "", text: "This is a static response." },
+          answer: { imgLink: assets.images.barchart, text: "Berikut adalah grafik batang mengenai Jumlah Transaksi nasabah B." },
         },
       ]);
       setInputValue("");
@@ -196,7 +197,7 @@ const AiAssistantAnalysis = () => {
                               <img
                                 src={chat.answer.imgLink}
                                 alt="response"
-                                style={{ maxWidth: "100%" }}
+                                style={{ width: "800px" }}
                               />
                             </Box>
                           </Grid>

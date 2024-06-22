@@ -8,6 +8,7 @@ const assets = {
     moneyLoan: require("./images/money-loan.png"),
     moneyLaundering: require("./images/money-laundering.png"),
     aiHead: require("./images/ai-head.png"),
+    barchart: require("./images/barchart.png"),
     neo4j: require("./images/neo4j.png"),
   }
 };
