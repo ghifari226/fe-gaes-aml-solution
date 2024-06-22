@@ -324,8 +324,8 @@ const MultiplePrediction = () => {
                     <Button
                       variant="contained"
                       color="primary"
-                      href="https://neo4j.com"
-                      target="_blank"
+                      href="/social-network-analysis"
+                      // target="_blank"
                     >
                       Analisis Lebih Lanjut
                     </Button>
