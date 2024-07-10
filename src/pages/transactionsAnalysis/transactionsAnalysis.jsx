@@ -21,6 +21,8 @@ import { styled } from "@mui/system";
 import { DataGrid } from "@mui/x-data-grid";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import transactionData from "../../data/transactionData";
+import transactionLarge from "../../data/transactionLarge";
+import transactionLargeColumn from "../../data/transactionLargeColumn";
 
 const CustomTab = styled(Tab)(({ theme }) => ({
   // border: "1px solid",
@@ -37,8 +39,8 @@ const CustomTab = styled(Tab)(({ theme }) => ({
 const MultiplePrediction = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [data, setData] = useState(transactionData.rows);
-  const [columns, setColumns] = useState(transactionData.loanAnalysisColumns);
+  const [data, setData] = useState(transactionLarge);
+  const [columns, setColumns] = useState(transactionLargeColumn);
   const [title, setTitle] = useState("Loan Analysis");
   const [openUploadDialog, setOpenUploadDialog] = useState(false);
   const [openPredictDialog, setOpenPredictDialog] = useState(false);
@@ -47,24 +49,29 @@ const MultiplePrediction = () => {
 
   useEffect(() => {
     if (location.pathname.includes("loan")) {
-      setColumns(transactionData.loanAnalysisColumns);
+      // setColumns(transactionData.loanAnalysisColumns);
       setTitle("Analisis Pinjaman Online");
       setValue(0);
     } else if (location.pathname.includes("money-laundering")) {
-      setColumns(transactionData.moneyLaunderingColumns);
+      // setColumns(transactionData.moneyLaunderingColumns);
       setTitle("Analisis Pencucian Uang");
       setValue(1);
     }
   }, [location.pathname]);
 
+  useEffect(() => {
+    console.log(transactionLargeColumn)
+    console.log(transactionLarge)
+  }, []);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
     if (newValue === 0) {
-      setColumns(transactionData.loanAnalysisColumns);
+      // setColumns(transactionData.loanAnalysisColumns);
       setTitle("Analisis Pinjaman Online");
       navigate("/transactions-analysis/loan");
     } else {
-      setColumns(transactionData.moneyLaunderingColumns);
+      // setColumns(transactionData.moneyLaunderingColumns);
       setTitle("Analisis Pencucian Uang");
       navigate("/transactions-analysis/money-laundering");
     }
@@ -152,16 +159,17 @@ const MultiplePrediction = () => {
               </div>
               <Box sx={{ minHeight: 400, width: "100%" }}>
                 <DataGrid
+                  getRowId={(row) => row.AML_Transaction_Id}
                   rows={data}
                   columns={columns}
                   initialState={{
                     pagination: {
                       paginationModel: {
-                        pageSize: 5,
+                        pageSize: 10,
                       },
                     },
                   }}
-                  pageSizeOptions={[5]}
+                  pageSizeOptions={[10]}
                   checkboxSelection
                   disableRowSelectionOnClick
                   onRowSelectionModelChange={(ids) =>

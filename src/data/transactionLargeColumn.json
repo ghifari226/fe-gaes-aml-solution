@@ -1,0 +1,63 @@
+[
+  {
+    "field": "AML_isMoneyLaundering",
+    "headerName": "Money Laundering",
+    "width": 150,
+    "editable": true
+  },
+  {
+    "field": "AML_isSuspicious",
+    "headerName": "Suspicious",
+    "width": 150,
+    "editable": true
+  },
+  {
+    "field": "fuzzyAnalysis",
+    "headerName": "Analisa Fuzzy",
+    "width": 150,
+    "editable": true
+  },
+  {
+    "field": "AML_Transaction_Id",
+    "headerName": "ID Transaksi",
+    "width": 150,
+    "editable": true
+  },
+  {
+    "field": "AML_Sender_Customer_Id",
+    "headerName": "ID Nasabah Pengirim",
+    "width": 150,
+    "editable": true
+  },
+  {
+    "field": "AML_Sender_Institution",
+    "headerName": "Institusi Nasabah Pengirim",
+    "width": 150,
+    "editable": true
+  },
+  {
+    "field": "AML_Bene_Customer_Id",
+    "headerName": "ID Nasabah Penerima",
+    "width": 150,
+    "editable": true
+  },
+  {
+    "field": "AML_Bene_Institution",
+    "headerName": "Institusi Nasabah Penerima",
+    "width": 150,
+    "editable": true
+  },
+  {
+    "field": "AML_Time_Step",
+    "headerName": "Tanggal Transaksi",
+    "width": 150,
+    "editable": true
+  },
+  {
+    "field": "AML_Rp_Amount",
+    "headerName": "Jumlah Transaksi",
+    "type": "number",
+    "width": 150,
+    "editable": true
+  }
+]
