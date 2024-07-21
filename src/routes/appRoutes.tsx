@@ -1,6 +1,15 @@
 import DashboardPageLayout from "../pages/dashboard/DashboardPageLayout";
 import HomePage from "../pages/home/HomePage";
 import { RouteType } from "./config";
+
+// Transaction
+import TransactionFund from "../pages/transactionsAnalysis/transactionFund";
+import TransactionLoan from "../pages/transactionsAnalysis/transactionLoan";
+
+// Chat
+import ChatAiIndex from "../pages/chatAi/chatAiIndex";
+import ChatAiInterface from "../pages/chatAi/chatAiInterface";
+
 import DefaultPage from "../pages/dashboard/DefaultPage";
 import OverviewIndex from "../pages/overview/overviewIndex";
 import AlertSystemLayout from "../pages/alertSystem/alertSystemLayout";
@@ -40,6 +49,7 @@ import InstallationPage from "../pages/installation/InstallationPage";
 import DocumentationPage from "../pages/documentation/DocumentationPage";
 
 const appRoutes: RouteType[] = [
+  // Overview
   {
     path: "/",
     element: <OverviewIndex />,
@@ -49,6 +59,8 @@ const appRoutes: RouteType[] = [
       icon: <DashboardOutlinedIcon />,
     },
   },
+
+  // Alert
   {
     path: "/alert-system",
     element: <AlertSystemLayout />,
@@ -81,6 +93,8 @@ const appRoutes: RouteType[] = [
       },
     ],
   },
+
+  // Transactions
   {
     path: "/transactions-analysis",
     element: <TransactionsAnalysisLayout />,
@@ -94,6 +108,22 @@ const appRoutes: RouteType[] = [
         index: true,
         element: <TransactionsAnalysisIndex />,
         state: "transactions-analysis.index"
+      },
+      {
+        path: "/transactions-analysis/fund/new",
+        element: <TransactionFund />,
+        state: "transaction-analysis.fund",
+        sidebarProps: {
+          displayText: "CUCI UANG BARU"
+        }
+      },
+      {
+        path: "/transactions-analysis/loan/new",
+        element: <TransactionLoan />,
+        state: "transaction-analysis.loan",
+        sidebarProps: {
+          displayText: "PINJOL BARU"
+        }
       },
       {
         path: "/transactions-analysis/loan",
@@ -113,13 +143,30 @@ const appRoutes: RouteType[] = [
       },
     ],
   },
+
+  // Chat AI
+  {
+    path: "/chat",
+    element: <ChatAiIndex />,
+    state: "chat",
+    sidebarProps: {
+      displayText: "Asisten AI",
+      icon: <AssistantOutlinedIcon />,
+    },
+  },
+  {
+    path: "/chat/:id",
+    element: <ChatAiInterface />,
+    state: "chat",
+  },
+
   {
     path: "/ai-assistant",
     element: <AiAssistantLayout />,
     state: "ai-assistant",
     sidebarProps: {
-      displayText: "Asisten AI",
-      icon: <AssistantOutlinedIcon />,
+      displayText: "Scrapped",
+      // icon: <AssistantOutlinedIcon />,
     },
     child: [
       {
@@ -150,6 +197,7 @@ const appRoutes: RouteType[] = [
       },
     ],
   },
+
   {
     path: "/about",
     element: <AboutIndex />,

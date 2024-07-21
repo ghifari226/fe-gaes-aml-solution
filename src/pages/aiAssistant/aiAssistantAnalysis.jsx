@@ -82,7 +82,7 @@ const AiAssistantAnalysis = () => {
   };
 
   const handleHistoryClick = () => {
-    navigate("/ai-assistant/index");
+    // navigate("/ai-assistant/index");
     setDialogOpen(false);
   };
 
@@ -92,7 +92,7 @@ const AiAssistantAnalysis = () => {
   };
 
   const handleCloseDialog = () => {
-    navigate("/ai-assistant/index");
+    // navigate("/ai-assistant/index");
     setDialogOpen(false);
   };
 

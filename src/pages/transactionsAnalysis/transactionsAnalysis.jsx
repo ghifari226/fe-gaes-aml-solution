@@ -23,6 +23,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import transactionData from "../../data/transactionData";
 import transactionLarge from "../../data/transactionLarge";
 import transactionLargeColumn from "../../data/transactionLargeColumn";
+import axios from "axios";
 
 const CustomTab = styled(Tab)(({ theme }) => ({
   // border: "1px solid",
@@ -48,6 +49,56 @@ const MultiplePrediction = () => {
   const [value, setValue] = React.useState(0);
 
   useEffect(() => {
+    const login = async () => {
+      try {
+        const credential = {
+          username: "johndoe",
+          password: "secret",
+        };
+        let token;
+
+        const loginResponse = await axios.post(
+          process.env.REACT_APP_API_LOGIN_URL,
+          credential,
+          {
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          }
+        );
+
+        const loginRespData = loginResponse.data;
+
+        if (loginResponse.data) {
+          token = loginRespData.access_token;
+
+          console.log(token, process.env.REACT_APP_API_URL);
+
+          const response = await axios.get(
+            process.env.REACT_APP_API_URL +
+              "/get_data_pinjol?p2p_issuspicious=1&start_date=2022-07-01&end_date=2022-07-31",
+            {
+              headers: {
+                Accept: "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          console.log("Data received:", response.data);
+        } else {
+          console.error("Token not found in the login response");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    login();
+  }, []);
+
+  useEffect(() => {
     if (location.pathname.includes("loan")) {
       // setColumns(transactionData.loanAnalysisColumns);
       setTitle("Analisis Pinjaman Online");
@@ -60,8 +111,8 @@ const MultiplePrediction = () => {
   }, [location.pathname]);
 
   useEffect(() => {
-    console.log(transactionLargeColumn)
-    console.log(transactionLarge)
+    console.log(transactionLargeColumn);
+    console.log(transactionLarge);
   }, []);
 
   const handleChange = (event, newValue) => {
