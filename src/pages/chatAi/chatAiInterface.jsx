@@ -20,7 +20,6 @@ import SendIcon from "@mui/icons-material/Send";
 import { styled } from "@mui/system";
 import { useLocation, useNavigate } from "react-router-dom";
 import assets from "../../assets";
-import aiAssistantChatData from "../../data/aiAssistantChatData";
 import axios from "axios";
 
 const ChatSection = styled(Paper)({
