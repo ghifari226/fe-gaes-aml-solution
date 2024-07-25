@@ -1,8 +1,14 @@
-import DashboardPageLayout from "../pages/dashboard/DashboardPageLayout";
-import HomePage from "../pages/home/HomePage";
 import { RouteType } from "./config";
 
+// Alert
+import AlertLayout from "../pages/alert/alertLayout";
+import AlertIndex from "../pages/alert/alertIndex";
+import AlertDashboard from "../pages/alert/alertDashboard";
+import AlertDetail from "../pages/alert/alertDetail";
+
 // Transaction
+import TransactionsAnalysisLayout from "../pages/transactionsAnalysis/transactionsAnalysisLayout";
+import TransactionsAnalysisIndex from "../pages/transactionsAnalysis/transactionsAnalysisIndex";
 import TransactionFund from "../pages/transactionsAnalysis/transactionFund";
 import TransactionLoan from "../pages/transactionsAnalysis/transactionLoan";
 
@@ -12,27 +18,17 @@ import ChatAiInterface from "../pages/chatAi/chatAiInterface";
 
 import DefaultPage from "../pages/dashboard/DefaultPage";
 import OverviewIndex from "../pages/overview/overviewIndex";
-import AlertSystemLayout from "../pages/alertSystem/alertSystemLayout";
-import AlertSystemIndex from "../pages/alertSystem/alertSystemIndex";
-import AlertSystemDashboard from "../pages/alertSystem/alertSystemDashboard";
-import AlertSystemDetail from "../pages/alertSystem/alertSystemDetail";
-import TransactionsAnalysisLayout from "../pages/transactionsAnalysis/transactionsAnalysisLayout";
-import TransactionsAnalysisIndex from "../pages/transactionsAnalysis/transactionsAnalysisIndex";
-import TransactionsAnalysis from "../pages/transactionsAnalysis/transactionsAnalysis";
-import AiAssistantLayout from "../pages/aiAssistant/aiAssistantLayout";
-import AiAssistantIndex from "../pages/aiAssistant/aiAssistantIndex";
-import AiAssistantDashboard from "../pages/aiAssistant/aiAssistantDashboard";
-import AiAssistantAnalysis from "../pages/aiAssistant/aiAssistantAnalysis";
-import AiAnalysis from "../pages/transactionsAnalytics/aiAnalysis";
-import SinglePrediction from "../pages/transactionsAnalytics/singlePrediction";
-import MultiplePrediction from "../pages/transactionsAnalytics/multiplePrediction";
+import DashboardPageLayout from "../pages/dashboard/DashboardPageLayout";
+
 import CustomersAnalyticsIndex from "../pages/customersAnalytics/customersAnalyticsIndex";
 import AboutIndex from "../pages/about/aboutIndex";
+
 import DashboardIndex from "../pages/dashboard/DashboardIndex";
 import ChangelogPage from "../pages/changelog/ChangelogPage";
 import AnalyticsPage from "../pages/dashboard/AnalyticsPage";
 import SaasPage from "../pages/dashboard/SaasPage";
 import ComponentPageLayout from "../pages/component/ComponentPageLayout";
+
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
@@ -62,9 +58,9 @@ const appRoutes: RouteType[] = [
 
   // Alert
   {
-    path: "/alert-system",
-    element: <AlertSystemLayout />,
-    state: "alert-system",
+    path: "/alert",
+    element: <AlertLayout />,
+    state: "alert",
     sidebarProps: {
       displayText: "Alert AML",
       icon: <WarningAmberIcon />,
@@ -72,23 +68,23 @@ const appRoutes: RouteType[] = [
     child: [
       {
         index: true,
-        element: <AlertSystemIndex />,
-        state: "alert-system.index"
+        element: <AlertIndex />,
+        state: "alert.index"
       },
       {
-        path: "/alert-system/dashboard",
-        element: <AlertSystemDashboard />,
-        state: "alert-system.dashboard",
+        path: "/alert/dashboard",
+        element: <AlertDashboard />,
+        state: "alert.dashboard",
         sidebarProps: {
-          displayText: "Manajemen Peringatan"
+          displayText: "Dasbor"
         }
       },
       {
-        path: "/alert-system/detail",
-        element: <AlertSystemDetail />,
-        state: "alert-system.detail",
+        path: "/alert/detail",
+        element: <AlertDetail />,
+        state: "alert.detail",
         sidebarProps: {
-          displayText: "Rincian"
+          displayText: "Detail Peringatan"
         }
       },
     ],
@@ -110,35 +106,19 @@ const appRoutes: RouteType[] = [
         state: "transactions-analysis.index"
       },
       {
-        path: "/transactions-analysis/fund/new",
+        path: "/transactions-analysis/fund",
         element: <TransactionFund />,
         state: "transaction-analysis.fund",
         sidebarProps: {
-          displayText: "CUCI UANG BARU"
-        }
-      },
-      {
-        path: "/transactions-analysis/loan/new",
-        element: <TransactionLoan />,
-        state: "transaction-analysis.loan",
-        sidebarProps: {
-          displayText: "PINJOL BARU"
+          displayText: "Pencucian Uang"
         }
       },
       {
         path: "/transactions-analysis/loan",
-        element: <TransactionsAnalysis />,
-        state: "transactions-analysis.loan",
+        element: <TransactionLoan />,
+        state: "transaction-analysis.loan",
         sidebarProps: {
           displayText: "Pinjaman Online"
-        }
-      },
-      {
-        path: "/transactions-analysis/money-laundering",
-        element: <TransactionsAnalysis />,
-        state: "transactions-analysis.money-laundering",
-        sidebarProps: {
-          displayText: "Pencucian Uang"
         }
       },
     ],
@@ -158,44 +138,6 @@ const appRoutes: RouteType[] = [
     path: "/chat/:id",
     element: <ChatAiInterface />,
     state: "chat",
-  },
-
-  {
-    path: "/ai-assistant",
-    element: <AiAssistantLayout />,
-    state: "ai-assistant",
-    sidebarProps: {
-      displayText: "Scrapped",
-      // icon: <AssistantOutlinedIcon />,
-    },
-    child: [
-      {
-        index: true,
-        element: <AiAssistantIndex />,
-        state: "ai-assistant.index"
-      },
-      {
-        path: "/ai-assistant/index",
-        element: <AiAssistantDashboard />,
-        state: "ai-assistant.dashboard",
-        sidebarProps: {
-          displayText: "Indeks Riwayat Obrolan"
-        }
-      },
-      {
-        path: "/ai-assistant/analysis",
-        element: <AiAssistantAnalysis />,
-        state: "ai-assistant.analysis",
-        sidebarProps: {
-          displayText: "Asisten AI"
-        }
-      },
-      {
-        path: "/ai-assistant/analysis/:accountNumber",
-        element: <AiAssistantAnalysis />,
-        state: "ai-assistant.analysis",
-      },
-    ],
   },
 
   {
