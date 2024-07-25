@@ -1,5 +1,8 @@
 import { RouteType } from "./config";
 
+// Overview
+import OverviewIndex from "../pages/overview/overviewIndex";
+
 // Alert
 import AlertLayout from "../pages/alert/alertLayout";
 import AlertIndex from "../pages/alert/alertIndex";
@@ -16,33 +19,18 @@ import TransactionLoan from "../pages/transactionsAnalysis/transactionLoan";
 import ChatAiIndex from "../pages/chatAi/chatAiIndex";
 import ChatAiInterface from "../pages/chatAi/chatAiInterface";
 
-import DefaultPage from "../pages/dashboard/DefaultPage";
-import OverviewIndex from "../pages/overview/overviewIndex";
-import DashboardPageLayout from "../pages/dashboard/DashboardPageLayout";
-
+// SNA
 import CustomersAnalyticsIndex from "../pages/customersAnalytics/customersAnalyticsIndex";
+
+// About
 import AboutIndex from "../pages/about/aboutIndex";
 
-import DashboardIndex from "../pages/dashboard/DashboardIndex";
-import ChangelogPage from "../pages/changelog/ChangelogPage";
-import AnalyticsPage from "../pages/dashboard/AnalyticsPage";
-import SaasPage from "../pages/dashboard/SaasPage";
-import ComponentPageLayout from "../pages/component/ComponentPageLayout";
-
+// Icons
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
-import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
 import AssistantOutlinedIcon from '@mui/icons-material/AssistantOutlined';
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import AppsOutlinedIcon from "@mui/icons-material/AppsOutlined";
-import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
-import FormatListBulletedOutlinedIcon from "@mui/icons-material/FormatListBulletedOutlined";
-import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
-import AlertPage from "../pages/component/AlertPage";
-import ButtonPage from "../pages/component/ButtonPage";
-import InstallationPage from "../pages/installation/InstallationPage";
-import DocumentationPage from "../pages/documentation/DocumentationPage";
 
 const appRoutes: RouteType[] = [
   // Overview
