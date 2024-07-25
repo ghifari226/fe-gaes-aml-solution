@@ -1,9 +1,9 @@
 import { Outlet } from "react-router-dom";
 
-const DashboardPageLayout = () => {
+const AlertLayout = () => {
   return (
     <><Outlet /></>
   );
 };
 
-export default DashboardPageLayout;
+export default AlertLayout;

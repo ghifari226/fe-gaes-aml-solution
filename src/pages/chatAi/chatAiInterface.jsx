@@ -20,7 +20,7 @@ import SendIcon from "@mui/icons-material/Send";
 import { styled } from "@mui/system";
 import { useLocation, useNavigate } from "react-router-dom";
 import assets from "../../assets";
-import aiAssistantChatData from "../../data/aiAssistantChatData";
+import axios from "axios";
 
 const ChatSection = styled(Paper)({
   width: "100%",
@@ -42,25 +42,122 @@ const AiAssistantAnalysis = () => {
 
   const [inputValue, setInputValue] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
-  const [hasTicket, setHasTicket] = useState(false);
-  const [dialogOpen, setDialogOpen] = useState(false);
+  const [data, setData] = useState([]);
+  const [loadingResponse, setLoadingResponse] = useState(false);
 
   const messageAreaRef = useRef(null);
-  const ticketNumber = location.pathname.split("/")[3];
+  const chatId = location.pathname.split("/")[2];
 
   useEffect(() => {
-    if (ticketNumber && !isNaN(Number(ticketNumber))) {
-      setHasTicket(true);
-      const foundData = aiAssistantChatData.find(
-        (item) => item.ticketNumber === Number(ticketNumber)
+    fetchData();
+  }, [chatId]);
+
+  const fetchData = async () => {
+    try {
+      const credential = {
+        username: "johndoe",
+        password: "secret",
+      };
+      let token;
+
+      const loginResponse = await axios.post(
+        process.env.REACT_APP_API_LOGIN_URL,
+        credential,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
       );
-      if (foundData) {
-        setChatHistory(foundData.chatHistory);
+
+      const loginRespData = loginResponse.data;
+
+      if (loginResponse.data) {
+        token = loginRespData.access_token;
+
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/chat-detail/${chatId}`,
+          {
+            // params: {
+            //   start_date: moment(startDate).format("YYYY-MM-DD"),
+            //   end_date: moment(endDate).format("YYYY-MM-DD"),
+            // },
+            headers: {
+              Accept: "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const responseData = response.data.data;
+        const mappedData = responseData.map((item) => item.chat_content);
+        setChatHistory(mappedData);
+      } else {
+        console.error("Token not found in the login response");
       }
-    } else {
-      setDialogOpen(true);
+    } catch (error) {
+      console.error("Error:", error);
     }
-  }, [ticketNumber]);
+  };
+
+  const sendChat = async (prompt) => {
+    setLoadingResponse(true);
+    try {
+      const credential = {
+        username: "johndoe",
+        password: "secret",
+      };
+      let token;
+
+      const loginResponse = await axios.post(
+        process.env.REACT_APP_API_LOGIN_URL,
+        credential,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+
+      const loginRespData = loginResponse.data;
+
+      if (loginResponse.data) {
+        token = loginRespData.access_token;
+
+        const createdAt = new Date().toISOString();
+        let body = {
+          chat_content: prompt,
+          chat_history_id: chatId,
+          created_by: "John Doe",
+          created_at: createdAt,
+        };
+
+        const response = await axios.post(
+          `${process.env.REACT_APP_API_URL}/chat-detail`,
+          body,
+          {
+            headers: {
+              Accept: "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        setChatHistory([
+          ...chatHistory.slice(0, chatHistory.length - 1),
+          response.data.detail,
+        ]);
+      } else {
+        console.error("Token not found in the login response");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      setLoadingResponse(false);
+    }
+  };
 
   useEffect(() => {
     if (messageAreaRef.current) {
@@ -69,58 +166,15 @@ const AiAssistantAnalysis = () => {
   }, [chatHistory]);
 
   const handleSend = () => {
+    setChatHistory([
+      ...chatHistory,
+      { prompt: inputValue, response: { text: "loading", imageUrl: null } },
+    ]);
     if (inputValue.trim() !== "") {
-      setChatHistory([
-        ...chatHistory,
-        {
-          prompt: inputValue,
-          answer: { imgLink: assets.images.barchart, text: "Berikut adalah grafik batang mengenai Jumlah Transaksi nasabah B." },
-        },
-      ]);
+      sendChat(inputValue);
       setInputValue("");
     }
   };
-
-  const handleHistoryClick = () => {
-    navigate("/ai-assistant/index");
-    setDialogOpen(false);
-  };
-
-  const handleNewChatClick = () => {
-    navigate("/transactions-analysis/loan");
-    setDialogOpen(false);
-  };
-
-  const handleCloseDialog = () => {
-    navigate("/ai-assistant/index");
-    setDialogOpen(false);
-  };
-
-  if (!hasTicket) {
-    return (
-      <Dialog
-        open={dialogOpen}
-        onClose={handleCloseDialog}
-        disableBackdropClick
-        disableEscapeKeyDown
-      >
-        <DialogTitle>Tiket Tidak Ditemukan</DialogTitle>
-        <DialogContent>
-          <Typography variant="body1">
-            Untuk menggunakan fitur asisten AI, Anda membutuhkan nomor tiket yang valid. Anda dapat memulai obrolan melalui salah satu aksi berikut:
-          </Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleHistoryClick} autoFocus>
-            Lihat riwayat obrolan
-          </Button>
-          <Button onClick={handleNewChatClick} autoFocus>
-            Mulai obrolan baru
-          </Button>
-        </DialogActions>
-      </Dialog>
-    );
-  }
 
   return (
     <Box>
@@ -129,7 +183,7 @@ const AiAssistantAnalysis = () => {
           <Typography variant="h5" className="header-message">
             Asisten AI
           </Typography>
-          <Typography>Nomor Tiket: {ticketNumber || 623958173259}</Typography>
+          <Typography>Nomor Tiket: {"T20240721000002" || ""}</Typography>
         </Grid>
       </Grid>
       <ChatSection>
@@ -185,17 +239,24 @@ const AiAssistantAnalysis = () => {
                       }}
                     >
                       <Grid container justifyContent="center">
-                        <Grid item xs={12}>
-                          <ListItemText
-                            align="center"
-                            primary={chat.answer.text}
-                          />
-                        </Grid>
-                        {chat.answer.imgLink && (
+                        {chat.response?.text === "loading" && (
+                          <Grid item xs={12}>
+                            ...
+                          </Grid>
+                        )}
+                        {chat.response?.text && (
+                          <Grid item xs={12}>
+                            <ListItemText
+                              align="center"
+                              primary={chat.response.text}
+                            />
+                          </Grid>
+                        )}
+                        {chat.response?.imageUrl && (
                           <Grid item xs={12}>
                             <Box sx={{ textAlign: "center" }}>
                               <img
-                                src={chat.answer.imgLink}
+                                src={chat.response.imageUrl}
                                 alt="response"
                                 style={{ width: "800px" }}
                               />
@@ -216,7 +277,7 @@ const AiAssistantAnalysis = () => {
                     fullWidth
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
-                    onKeyPress={(e) => {
+                    onKeyDown={(e) => {
                       if (e.key === "Enter") {
                         handleSend();
                       }

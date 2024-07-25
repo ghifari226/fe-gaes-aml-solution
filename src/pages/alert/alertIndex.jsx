@@ -2,7 +2,7 @@ import React from 'react';
 import { Tabs, Tab, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-const AiAssistantIndex = () => {
+const AlertIndex = () => {
   return (
     <Box>
       <Tabs
@@ -20,4 +20,4 @@ const AiAssistantIndex = () => {
   );
 };
 
-export default AiAssistantIndex;
+export default AlertIndex;
