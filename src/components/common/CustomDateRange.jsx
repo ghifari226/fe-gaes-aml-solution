@@ -7,8 +7,6 @@ import "bootstrap-daterangepicker/daterangepicker.css";
 const CustomDateRange = ({ onChange, value, label = "Tanggal", setWarn }) => {
   const [isChange, setChange] = useState(null);
 
-  console.log(value, onChange )
-
   useEffect(() => {
     if (!value) {
       setChange(null);
@@ -28,14 +26,16 @@ const CustomDateRange = ({ onChange, value, label = "Tanggal", setWarn }) => {
             moment(endDate._d).format("YYYY-MM-DD")
           );
         }}
-        initialSettings={{ startDate: new Date(), endDate: new Date() }}>
+        initialSettings={{ 
+          startDate: moment("2022-07-01").toDate(), 
+          endDate: moment("2022-07-01").toDate() 
+        }}>
         <button
           className="btn p-2 w-100"
           style={{
             borderRadius: 0,
             fontSize: 12,
             minWidth: 120,
-            // height: '100%',
             borderBottom: setWarn ? `1px solid red` : "1px solid #000",
             backgroundColor: "none",
           }}>
