@@ -20,7 +20,7 @@ import ChatAiIndex from "../pages/chatAi/chatAiIndex";
 import ChatAiInterface from "../pages/chatAi/chatAiInterface";
 
 // SNA
-import CustomersAnalyticsIndex from "../pages/customersAnalytics/customersAnalyticsIndex";
+import SocialNetworkAnalysis from "../pages/socialNetworkAnalysis/socialNetworkAnalysis";
 
 // About
 import AboutIndex from "../pages/about/aboutIndex";
@@ -138,9 +138,9 @@ const appRoutes: RouteType[] = [
     },
   },
   {
-    path: "/social-network-analysis",
-    element: <CustomersAnalyticsIndex />,
-    state: "social-network-analysis",
+    path: "/sna",
+    element: <SocialNetworkAnalysis />,
+    state: "sna",
   },
 ];
 
