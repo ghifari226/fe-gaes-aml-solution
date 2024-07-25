@@ -1,7 +1,12 @@
 const transactionFundColumns = [
     {
       field: "aml_ismoneylaundering",
-      headerName: "Is Money Laundering?",
+      headerName: "Is Money Laundering",
+      width: 150,
+    },
+    {
+      field: "aml_issuspicious",
+      headerName: "Is Suspicious",
       width: 150,
     },
     {
@@ -9,6 +14,31 @@ const transactionFundColumns = [
       headerName: "ID Transaksi",
       width: 150,
     },
+    {
+      field: "aml_time_step",
+      headerName: "Waktu Transaksi",
+      width: 150,
+    },
+    {
+      field: "aml_rp_amount",
+      headerName: "Jumlah",
+      width: 150,
+    },
+    // {
+    //   field: "aml_transaction_id",
+    //   headerName: "ID Transaksi",
+    //   width: 150,
+    // },
+    // {
+    //   field: "aml_transaction_id",
+    //   headerName: "ID Transaksi",
+    //   width: 150,
+    // },
+    // {
+    //   field: "aml_transaction_id",
+    //   headerName: "ID Transaksi",
+    //   width: 150,
+    // },
   ];
   
   export default transactionFundColumns;
