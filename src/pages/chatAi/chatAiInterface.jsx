@@ -184,7 +184,7 @@ const AiAssistantAnalysis = () => {
           <Typography variant="h5" className="header-message">
             Asisten AI
           </Typography>
-          <Typography>Nomor Tiket: {data.chat_ticket_no || ""}</Typography>
+          <Typography>Nomor Tiket: {"T20240721000002" || ""}</Typography>
         </Grid>
       </Grid>
       <ChatSection>
@@ -253,7 +253,7 @@ const AiAssistantAnalysis = () => {
                             />
                           </Grid>
                         )}
-                        {chat.response?.imgLink && (
+                        {chat.response?.imageUrl && (
                           <Grid item xs={12}>
                             <Box sx={{ textAlign: "center" }}>
                               <img
