@@ -3,6 +3,7 @@ import axios from "axios";
 import moment from "moment";
 import {
   Box,
+  Button,
   Card,
   CardContent,
   Grid,
@@ -13,6 +14,7 @@ import {
   TableHead,
   TableRow,
   TablePagination,
+  Typography,
   Skeleton
 } from "@mui/material";
 import CustomDateRange from "../../components/common/CustomDateRange";
@@ -99,6 +101,35 @@ const AlertDetail = () => {
   const handleChangeRowsPerPage = (event) => {
     setPageSize(parseInt(event.target.value, 10));
     setPage(0);
+  };
+
+  const alertInfo = {
+    alertId: "12345",
+    score: 85,
+    queue: "Queue 1",
+    actionableEntityName: "Entity Name",
+    actionableEntityId: "Entity ID",
+  };
+
+  const statusInfo = {
+    status: "Active",
+    hold: "False",
+    suppress: "True",
+    productive: "True",
+    lastUpdatedBy: "User",
+    lastUpdatedDate: "2024-06-17",
+  };
+
+  const fromCustomer = {
+    name: "John Doe",
+    type: "Individual",
+    country: "China",
+  };
+
+  const toCustomer = {
+    name: "Jane Smith",
+    type: "Company",
+    country: "Indonesia",
   };
 
   return (
@@ -189,6 +220,143 @@ const AlertDetail = () => {
               </Box>
             </CardContent>
           </Card>
+        </Grid>
+
+        <Grid item xs={12}>
+          <Grid container spacing={2}>
+            <Grid item xs={5}>
+              <Card>
+                <CardContent>
+                  <Typography variant="h6" gutterBottom>
+                    Detail Peringatan
+                  </Typography>
+                  <Grid container spacing={1}>
+                    <Grid item xs={6}>
+                      <Typography variant="body2">ID:</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography variant="body2">{alertInfo.alertId}</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography variant="body2">Skor (dari 100):</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography variant="body2">{alertInfo.score}</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography variant="body2">Antrian:</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography variant="body2">{alertInfo.queue}</Typography>
+                    </Grid>
+                  </Grid>
+
+                  <Typography
+                    variant="h6"
+                    gutterBottom
+                    sx={{ marginTop: "10px" }}
+                  >
+                    Status
+                  </Typography>
+                  <Grid container spacing={1}>
+                    <Grid item xs={6}>
+                      <Typography variant="body2">Status:</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography variant="body2">{statusInfo.status}</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography variant="body2">Suppress:</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography variant="body2">{statusInfo.suppress}</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography variant="body2">Productive:</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography variant="body2">{statusInfo.productive}</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography variant="body2">Last Updated By:</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography variant="body2">{statusInfo.lastUpdatedBy}</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography variant="body2">Last Updated Date:</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography variant="body2">{statusInfo.lastUpdatedDate}</Typography>
+                    </Grid>
+                  </Grid>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={7}>
+              <Card>
+                <CardContent>
+                  <Typography variant="h6" gutterBottom>
+                    Alur Transaksi
+                  </Typography>
+                  <Grid container spacing={2}>
+                    <Grid item xs={6}>
+                      <Card>
+                        <CardContent>
+                          <Typography variant="h6" gutterBottom>
+                            Dari Nasabah
+                          </Typography>
+                          <Typography variant="body2">
+                            Nama: {fromCustomer.name}
+                          </Typography>
+                          <Typography variant="body2">
+                            Tipe: {fromCustomer.type}
+                          </Typography>
+                          <Typography variant="body2">
+                            Negara: {fromCustomer.country}
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Card>
+                        <CardContent>
+                          <Typography variant="h6" gutterBottom>
+                            Ke Nasabah
+                          </Typography>
+                          <Typography variant="body2">
+                            Nama: {toCustomer.name}
+                          </Typography>
+                          <Typography variant="body2">
+                            Tipe: {toCustomer.type}
+                          </Typography>
+                          <Typography variant="body2">
+                            Negara: {toCustomer.country}
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  </Grid>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      marginTop: "30px",
+                    }}
+                  >
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      href="/sna"
+                      target="_blank"
+                    >
+                      Analisis Lebih Lanjut
+                    </Button>
+                  </Box>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </div>
