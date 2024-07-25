@@ -6,6 +6,11 @@ const alertColumns = [
   //   editable: true,
   // },
   {
+    field: "alert_status",
+    headerName: "Status",
+    width: 130,
+  },
+  {
     field: "alert_id",
     headerName: "ID Alert",
     width: 150,
@@ -16,23 +21,18 @@ const alertColumns = [
     width: 130,
   },
   {
-    field: "alert_status",
-    headerName: "Status",
-    width: 130,
-  },
-  {
-    field: "alert_aml_issuspicious",
-    headerName: "Transaksi mencurigakan",
+    field: "alert_aml_ismoneylaundering",
+    headerName: "Pencucian Uang?",
     width: 150,
   },
   {
-    field: "alert_aml_ismoneylaundering",
-    headerName: "Pencucian Uang",
+    field: "alert_aml_issuspicious",
+    headerName: "Transaksi mencurigakan?",
     width: 150,
   },
   {
     field: "alert_aml_rp_amount",
-    headerName: "Jumlah",
+    headerName: "Nominal Transaksi",
     width: 150,
   },
   // {

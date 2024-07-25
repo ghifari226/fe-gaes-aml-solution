@@ -1,23 +1,27 @@
-import React from "react";
-import { Box, Typography, Button, Card, CardContent } from "@mui/material";
-import { styled } from "@mui/system";
-import assets from "../../assets";
+import React, { useEffect } from "react";
+import { Box, Typography } from "@mui/material";  
 
-const Image = styled("img")({
-  width: "100%",
-  height: "auto",
-  display: "block",
-  margin: "0 auto",
-});
+const SocialNetworkAnalysis = () => {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      window.open("http://34.34.218.37:3000/");
+    }, 2000);
 
-const PeopleAnalyticsIndex = () => {
+    return () => clearTimeout(timer); // Clean up the timer on unmount
+  }, []);
+
   return (
-    <Image
-      src={assets.images.neo4j}
-      alt="Neo4j"
-      style={{ width: "1350px", maxWidth: "none", maxHeight: "none" }}
-    />
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      minHeight="100vh"
+    >
+      <Typography variant="h4" align="center">
+        Loading...
+      </Typography>
+    </Box>
   );
 };
 
-export default PeopleAnalyticsIndex;
+export default SocialNetworkAnalysis;

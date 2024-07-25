@@ -189,7 +189,12 @@ const AlertDetail = () => {
                             <TableRow key={row.p2p_transaction_id}>
                               {alertColumns.map((column) => (
                                 <TableCell key={column.field}>
-                                  {row[column.field]}
+                                  {column.field === "alert_aml_ismoneylaundering" ||
+                                  column.field === "alert_aml_issuspicious"
+                                    ? row[column.field] == 1
+                                      ? "Ya"
+                                      : "Tidak"
+                                    : row[column.field]}
                                 </TableCell>
                               ))}
                             </TableRow>

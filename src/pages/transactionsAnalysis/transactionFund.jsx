@@ -158,7 +158,12 @@ const TransactionFund = () => {
                             <TableRow key={row.p2p_transaction_id}>
                               {transactionFundColumns.map((column) => (
                                 <TableCell key={column.field}>
-                                  {row[column.field]}
+                                  {column.field === "aml_ismoneylaundering" ||
+                                  column.field === "aml_issuspicious"
+                                    ? row[column.field] == 1
+                                      ? "Ya"
+                                      : "Tidak"
+                                    : row[column.field]}
                                 </TableCell>
                               ))}
                             </TableRow>
@@ -167,7 +172,11 @@ const TransactionFund = () => {
                           <TableRow>
                             <TableCell
                               colSpan={transactionFundColumns.length}
-                              sx={{ textAlign: 'center', fontStyle: 'italic', color: 'gray' }}
+                              sx={{
+                                textAlign: "center",
+                                fontStyle: "italic",
+                                color: "gray",
+                              }}
                             >
                               No data available
                             </TableCell>

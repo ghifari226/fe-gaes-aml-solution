@@ -13,7 +13,7 @@ import {
   TableHead,
   TableRow,
   TablePagination,
-  Skeleton
+  Skeleton,
 } from "@mui/material";
 import CustomDateRange from "../../components/common/CustomDateRange";
 
@@ -158,7 +158,11 @@ const TransactionLoan = () => {
                             <TableRow key={row.p2p_transaction_id}>
                               {transactionLoanColumns.map((column) => (
                                 <TableCell key={column.field}>
-                                  {row[column.field]}
+                                  {column.field === "p2p_issuspicious"
+                                    ? row[column.field] == 1
+                                      ? "Ya"
+                                      : "Tidak"
+                                    : row[column.field]}
                                 </TableCell>
                               ))}
                             </TableRow>
@@ -167,7 +171,11 @@ const TransactionLoan = () => {
                           <TableRow>
                             <TableCell
                               colSpan={transactionLoanColumns.length}
-                              sx={{ textAlign: 'center', fontStyle: 'italic', color: 'gray' }}
+                              sx={{
+                                textAlign: "center",
+                                fontStyle: "italic",
+                                color: "gray",
+                              }}
                             >
                               No data available
                             </TableCell>

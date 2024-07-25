@@ -1,7 +1,7 @@
 const transactionLoanColumns = [
     {
       field: "p2p_issuspicious",
-      headerName: "Is Suspicious?",
+      headerName: "Transaksi Mencurigakan?",
       width: 150,
     },
     {
