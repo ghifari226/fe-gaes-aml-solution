@@ -113,6 +113,17 @@ const appRoutes: RouteType[] = [
     ],
   },
 
+  // SNA
+  {
+    path: "/sna",
+    element: <SocialNetworkAnalysis />,
+    state: "sna",
+    sidebarProps: {
+      displayText: "Analisis Jaringan Sosial",
+      icon: <PeopleOutlineIcon />,
+    },
+  },
+
   // Chat AI
   {
     path: "/chat",
@@ -127,17 +138,6 @@ const appRoutes: RouteType[] = [
     path: "/chat/:id",
     element: <ChatAiInterface />,
     state: "chat",
-  },
-
-  // SNA
-  {
-    path: "/sna",
-    element: <SocialNetworkAnalysis />,
-    state: "sna",
-    sidebarProps: {
-      displayText: "Analisis Jaringan Sosial",
-      icon: <PeopleOutlineIcon />,
-    },
   },
 
   // About
