@@ -26,22 +26,26 @@ const CustomDateRange = ({ onChange, value, label = "Tanggal", setWarn }) => {
             moment(endDate._d).format("YYYY-MM-DD")
           );
         }}
-        initialSettings={{ 
-          startDate: moment("2022-07-01").toDate(), 
-          endDate: moment("2022-07-01").toDate() 
-        }}>
+        initialSettings={{
+          startDate: moment("2022-07-01").toDate(),
+          endDate: moment("2022-07-01").toDate(),
+        }}
+      >
         <button
           className="btn p-2 w-100"
           style={{
-            borderRadius: 0,
+            borderRadius: 4,
             fontSize: 12,
-            minWidth: 120,
-            borderBottom: setWarn ? `1px solid red` : "1px solid #000",
-            backgroundColor: "none",
-          }}>
-          {label + " : "}
+            minWidth: 160,
+            border: setWarn ? "1px solid red" : "1px solid #000",
+            backgroundColor: "#fff",
+            display: "inline-block",
+            textAlign: "left",
+          }}
+        >
+          {!isChange ? "" : label + " : "}
           {!isChange
-            ? "Start - End"
+            ? "Tanggal Awal - Tanggal Akhir"
             : `${isChange[0]} - ${isChange[1]}`}
         </button>
       </DateRangePicker>
