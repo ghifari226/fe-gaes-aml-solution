@@ -2,12 +2,12 @@ const transactionFundColumns = [
     {
       field: "aml_ismoneylaundering",
       headerName: "Pencucian Uang?",
-      width: 150,
+      width: 50,
     },
     {
-      field: "aml_issuspicious",
+      field: "p2p_issuspicious",
       headerName: "Transaksi Mencurigakan?",
-      width: 150,
+      width: 50,
     },
     {
       field: "aml_transaction_id",
