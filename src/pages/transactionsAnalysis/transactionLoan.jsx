@@ -14,9 +14,12 @@ import {
   TableRow,
   TablePagination,
   Skeleton,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
 } from "@mui/material";
 import CustomDateRange from "../../components/common/CustomDateRange";
-
 import transactionLoanColumns from "../../data/columns/transactionLoanColumns";
 
 const TransactionLoan = () => {
@@ -27,10 +30,17 @@ const TransactionLoan = () => {
   const [pageSize, setPageSize] = useState(10);
   const [page, setPage] = useState(0);
   const [totalRows, setTotalRows] = useState(0);
+  const [suspicious, setSuspicious] = useState("-");
+
+  const susOptions = [
+    { id: "-", label: "Semua" },
+    { id: "1", label: "Mencurigakan" },
+    { id: "0", label: "Tidak Mencurigakan" },
+  ];
 
   useEffect(() => {
     fetchData();
-  }, [startDate, endDate, page, pageSize]);
+  }, [startDate, endDate, page, pageSize, suspicious]);
 
   const fetchData = async () => {
     try {
@@ -63,10 +73,11 @@ const TransactionLoan = () => {
           `${process.env.REACT_APP_API_URL}/pinjol`,
           {
             params: {
-              start_date: moment(startDate).format("YYYY-MM-DD"),
-              end_date: moment(endDate).format("YYYY-MM-DD"),
+              startDate: moment(startDate).format("YYYY-MM-DD"),
+              endDate: moment(endDate).format("YYYY-MM-DD"),
               pageSize: pageSize,
               page: page + 1,
+              suspicious: suspicious === "-" ? null : suspicious,
             },
             headers: {
               Accept: "application/json",
@@ -101,19 +112,47 @@ const TransactionLoan = () => {
     setPage(0);
   };
 
+  const handleSuspiciousChange = (event) => {
+    setSuspicious(event.target.value);
+  };
+
   return (
     <div>
-      <h3>Analisis Pinjaman Online</h3>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Card>
             <CardContent>
-              <Box sx={{ display: "flex", alignItems: "center" }}>
-                <CustomDateRange
-                  onChange={(x, j) => handleDateRangeChange(x, j)}
-                  value={[startDate, endDate]}
-                />
-              </Box>
+              <h3 style={{ marginBottom: "45px " }}>
+                Analisis Pinjaman Online
+              </h3>
+              <div style={{ marginBottom: "5px " }} className="row">
+                <div className="col-6">
+                  <FormControl variant="outlined" sx={{ width: "100%" }}>
+                    <InputLabel id="suspicious-label">
+                      Transaksi Mencurigakan
+                    </InputLabel>
+                    <Select
+                      size="small"
+                      labelId="suspicious-label"
+                      value={suspicious}
+                      onChange={handleSuspiciousChange}
+                      label="Suspicious"
+                    >
+                      {susOptions.map((option) => (
+                        <MenuItem key={option.id} value={option.id}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </div>
+                <div className="col-6">
+                  <CustomDateRange
+                    onChange={(x, j) => handleDateRangeChange(x, j)}
+                    value={[startDate, endDate]}
+                  />
+                </div>
+              </div>
               <Box sx={{ minHeight: 400, width: "100%", marginTop: "16px" }}>
                 {loadingData ? (
                   <TableContainer>
