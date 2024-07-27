@@ -26,10 +26,11 @@ import SocialNetworkAnalysis from "../pages/socialNetworkAnalysis/socialNetworkA
 import AboutIndex from "../pages/about/aboutIndex";
 
 // Icons
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
-import AssistantOutlinedIcon from '@mui/icons-material/AssistantOutlined';
+import AssistantOutlinedIcon from "@mui/icons-material/AssistantOutlined";
+import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const appRoutes: RouteType[] = [
@@ -57,23 +58,23 @@ const appRoutes: RouteType[] = [
       {
         index: true,
         element: <AlertIndex />,
-        state: "alert.index"
+        state: "alert.index",
       },
       {
         path: "/alert/dashboard",
         element: <AlertDashboard />,
         state: "alert.dashboard",
         sidebarProps: {
-          displayText: "Dasbor"
-        }
+          displayText: "Dasbor",
+        },
       },
       {
         path: "/alert/detail",
         element: <AlertDetail />,
         state: "alert.detail",
         sidebarProps: {
-          displayText: "Detail Peringatan"
-        }
+          displayText: "Detail Peringatan",
+        },
       },
     ],
   },
@@ -91,25 +92,36 @@ const appRoutes: RouteType[] = [
       {
         index: true,
         element: <TransactionsAnalysisIndex />,
-        state: "transactions-analysis.index"
+        state: "transactions-analysis.index",
       },
       {
         path: "/transactions-analysis/fund",
         element: <TransactionFund />,
         state: "transaction-analysis.fund",
         sidebarProps: {
-          displayText: "Pencucian Uang"
-        }
+          displayText: "Pencucian Uang",
+        },
       },
       {
         path: "/transactions-analysis/loan",
         element: <TransactionLoan />,
         state: "transaction-analysis.loan",
         sidebarProps: {
-          displayText: "Pinjaman Online"
-        }
+          displayText: "Pinjaman Online",
+        },
       },
     ],
+  },
+
+  // SNA
+  {
+    path: "/sna",
+    element: <SocialNetworkAnalysis />,
+    state: "sna",
+    sidebarProps: {
+      displayText: "Analisis Jaringan Sosial",
+      icon: <PeopleOutlineIcon />,
+    },
   },
 
   // Chat AI
@@ -128,6 +140,7 @@ const appRoutes: RouteType[] = [
     state: "chat",
   },
 
+  // About
   {
     path: "/about",
     element: <AboutIndex />,
@@ -136,11 +149,6 @@ const appRoutes: RouteType[] = [
       displayText: "Tentang Kami",
       icon: <InfoOutlinedIcon />,
     },
-  },
-  {
-    path: "/sna",
-    element: <SocialNetworkAnalysis />,
-    state: "sna",
   },
 ];
 

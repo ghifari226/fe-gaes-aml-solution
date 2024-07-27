@@ -129,7 +129,7 @@ const ChatAiIndex = () => {
           password: "secret",
         };
         let token;
-  
+
         const loginResponse = await axios.post(
           process.env.REACT_APP_API_LOGIN_URL,
           credential,
@@ -140,9 +140,9 @@ const ChatAiIndex = () => {
             },
           }
         );
-  
+
         const loginRespData = loginResponse.data;
-  
+
         if (loginResponse.data) {
           token = loginRespData.access_token;
 
@@ -153,7 +153,7 @@ const ChatAiIndex = () => {
             created_by: "John Doe",
             created_at: createdAt,
           };
-  
+
           const response = await axios.post(
             `${process.env.REACT_APP_API_URL}/chat`,
             body,
@@ -164,7 +164,7 @@ const ChatAiIndex = () => {
               },
             }
           );
-  
+
           const responseData = response.data.data;
           const chatHistoryId = responseData.chat_history_id;
           navigate(`/chat/${chatHistoryId}`);
@@ -252,7 +252,18 @@ const ChatAiIndex = () => {
                               </TableCell>
                               {chatColumns.map((column) => (
                                 <TableCell key={column.field}>
-                                  {row[column.field]}
+                                  {column.field === "created_at"
+                                    ? new Date(row[column.field])
+                                        .toLocaleString("id-ID", {
+                                          day: "2-digit",
+                                          month: "2-digit",
+                                          year: "numeric",
+                                          hour: "2-digit",
+                                          minute: "2-digit",
+                                          second: "2-digit",
+                                        })
+                                        .replace(",", "")
+                                    : row[column.field]}
                                 </TableCell>
                               ))}
                             </TableRow>

@@ -14,6 +14,10 @@ import {
   TableHead,
   TableRow,
   TablePagination,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
 } from "@mui/material";
 import CustomDateRange from "../../components/common/CustomDateRange";
 import transactionFundColumns from "../../data/columns/transactionFundColumns";
@@ -26,10 +30,24 @@ const TransactionFund = () => {
   const [pageSize, setPageSize] = useState(10);
   const [page, setPage] = useState(0);
   const [totalRows, setTotalRows] = useState(0);
+  const [laundering, setLaundering] = useState("-");
+  const [suspicious, setSuspicious] = useState("-");
+
+  const launderingOptions = [
+    { id: "-", label: "Semua" },
+    { id: "1", label: "Pencucian Uang" },
+    { id: "0", label: "Bukan Pencucian Uang" },
+  ];
+
+  const susOptions = [
+    { id: "-", label: "Semua" },
+    { id: "1", label: "Mencurigakan" },
+    { id: "0", label: "Tidak Mencurigakan" },
+  ];
 
   useEffect(() => {
     fetchData();
-  }, [startDate, endDate, page, pageSize]);
+  }, [startDate, endDate, page, pageSize, laundering, suspicious]);
 
   const fetchData = async () => {
     try {
@@ -66,6 +84,8 @@ const TransactionFund = () => {
               endDate: moment(endDate).format("YYYY-MM-DD"),
               pageSize: pageSize,
               page: page + 1,
+              laundering: laundering === "-" ? null : laundering,
+              suspicious: suspicious === "-" ? null : suspicious,
             },
             headers: {
               Accept: "application/json",
@@ -101,19 +121,66 @@ const TransactionFund = () => {
     setPage(0);
   };
 
+  const handleSuspiciousChange = (event) => {
+    setSuspicious(event.target.value);
+  };
+
+  const handleLaunderingChange = (event) => {
+    setLaundering(event.target.value);
+  };
+
   return (
     <div>
-      <h3>Analisis Pencucian Uang</h3>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Card>
             <CardContent>
-              <Box sx={{ display: "flex", alignItems: "center" }}>
-                <CustomDateRange
-                  onChange={(x, j) => handleDateRangeChange(x, j)}
-                  value={[startDate, endDate]}
-                />
-              </Box>
+              <h3 style={{ marginBottom: "45px "}}>Analisis Pencucian Uang</h3>
+              <div style={{ marginBottom: "5px "}} className="row">
+                <div className="col-4">
+                  <FormControl variant="outlined" sx={{ width: "100%" }}>
+                    <InputLabel id="laundering-label">Pencucian Uang</InputLabel>
+                    <Select
+                      size="small"
+                      labelId="laundering-label"
+                      value={laundering}
+                      onChange={handleLaunderingChange}
+                      label="Laundering"
+                    >
+                      {launderingOptions.map((option) => (
+                        <MenuItem key={option.id} value={option.id}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </div>
+                <div className="col-4">
+                  <FormControl variant="outlined" sx={{ width: "100%" }}>
+                    <InputLabel id="suspicious-label">Transaksi Mencurigakan</InputLabel>
+                    <Select
+                      size="small"
+                      labelId="suspicious-label"
+                      value={suspicious}
+                      onChange={handleSuspiciousChange}
+                      label="Suspicious"
+                    >
+                      {susOptions.map((option) => (
+                        <MenuItem key={option.id} value={option.id}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </div>
+                <div className="col-4">
+                  <CustomDateRange
+                    onChange={(x, j) => handleDateRangeChange(x, j)}
+                    value={[startDate, endDate]}
+                  />
+                </div>
+              </div>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}></Box>
               <Box sx={{ minHeight: 400, width: "100%", marginTop: "16px" }}>
                 {loadingData ? (
                   <TableContainer>
@@ -159,10 +226,25 @@ const TransactionFund = () => {
                               {transactionFundColumns.map((column) => (
                                 <TableCell key={column.field}>
                                   {column.field === "aml_ismoneylaundering" ||
-                                  column.field === "aml_issuspicious"
+                                  column.field === "p2p_issuspicious"
                                     ? row[column.field] == 1
                                       ? "Ya"
                                       : "Tidak"
+                                    : column.field === "aml_rp_amount"
+                                    ? `Rp ${Math.floor(
+                                        row[column.field]
+                                      ).toLocaleString()}`
+                                    : column.field === "aml_time_step"
+                                    ? new Date(row[column.field])
+                                        .toLocaleString("id-ID", {
+                                          day: "2-digit",
+                                          month: "2-digit",
+                                          year: "numeric",
+                                          hour: "2-digit",
+                                          minute: "2-digit",
+                                          second: "2-digit",
+                                        })
+                                        .replace(",", "")
                                     : row[column.field]}
                                 </TableCell>
                               ))}
