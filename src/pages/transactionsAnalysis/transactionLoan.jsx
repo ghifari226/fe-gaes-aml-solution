@@ -162,6 +162,22 @@ const TransactionLoan = () => {
                                     ? row[column.field] == 1
                                       ? "Ya"
                                       : "Tidak"
+                                    : column.field === "p2p_paid_amount_rp" ||
+                                      column.field === "p2p_borrower_income"
+                                    ? `Rp ${Math.floor(
+                                        row[column.field]
+                                      ).toLocaleString()}`
+                                    : column.field === "p2p_repay_timestamp"
+                                    ? new Date(row[column.field])
+                                        .toLocaleString("id-ID", {
+                                          day: "2-digit",
+                                          month: "2-digit",
+                                          year: "numeric",
+                                          hour: "2-digit",
+                                          minute: "2-digit",
+                                          second: "2-digit",
+                                        })
+                                        .replace(",", "")
                                     : row[column.field]}
                                 </TableCell>
                               ))}
