@@ -15,7 +15,11 @@ import {
   TableRow,
   TablePagination,
   Typography,
-  Skeleton
+  Skeleton,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
 } from "@mui/material";
 import CustomDateRange from "../../components/common/CustomDateRange";
 
@@ -29,10 +33,21 @@ const AlertDetail = () => {
   const [pageSize, setPageSize] = useState(10);
   const [page, setPage] = useState(0);
   const [totalRows, setTotalRows] = useState(0);
+  const [status, setStatus] = useState("-");
+
+  const statusOptions = [
+    { id: "-", label: "Semua" },
+    { id: "Active", label: "Aktif" },
+    { id: "Active - Unacknowledged", label: "Aktif - Belum Ditinjau" },
+    { id: "Active - Acknowledged", label: "Aktif - Sudah Ditinjau" },
+    { id: "Cleared", label: "Selesai" },
+    { id: "Cleared - Unproven", label: "Selesai - Tidak Terbukti" },
+    { id: "Cleared - Confirmed", label: "Selesai - Terkonfirmasi" },
+  ];
 
   useEffect(() => {
     fetchData();
-  }, [startDate, endDate, page, pageSize]);
+  }, [startDate, endDate, page, pageSize, status]);
 
   const fetchData = async () => {
     try {
@@ -69,6 +84,7 @@ const AlertDetail = () => {
               end_date: moment(endDate).format("YYYY-MM-DD"),
               pageSize: pageSize,
               page: page + 1,
+              status: status === "-" ? null : status,
             },
             headers: {
               Accept: "application/json",
@@ -103,6 +119,10 @@ const AlertDetail = () => {
     setPage(0);
   };
 
+  const handleStatusChange = (event) => {
+    setStatus(event.target.value);
+  };
+
   const alertInfo = {
     alertId: "12345",
     score: 85,
@@ -134,17 +154,37 @@ const AlertDetail = () => {
 
   return (
     <div>
-      <h3>Detail Peringatan</h3>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Card>
             <CardContent>
-              <Box sx={{ display: "flex", alignItems: "center" }}>
-                <CustomDateRange
-                  onChange={(x, j) => handleDateRangeChange(x, j)}
-                  value={[startDate, endDate]}
-                />
-              </Box>
+              <h3 style={{ marginBottom: "45px " }}>Detail Peringatan</h3>
+              <div style={{ marginBottom: "5px " }} className="row">
+                <div className="col-6">
+                  <FormControl variant="outlined" sx={{ width: "100%" }}>
+                    <InputLabel id="alert-label">Status Alert</InputLabel>
+                    <Select
+                      size="small"
+                      labelId="alert-label"
+                      value={status}
+                      onChange={handleStatusChange}
+                      label="Status"
+                    >
+                      {statusOptions.map((option) => (
+                        <MenuItem key={option.id} value={option.id}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </div>
+                <div className="col-6">
+                  <CustomDateRange
+                    onChange={(x, j) => handleDateRangeChange(x, j)}
+                    value={[startDate, endDate]}
+                  />
+                </div>
+              </div>
               <Box sx={{ minHeight: 400, width: "100%", marginTop: "16px" }}>
                 {loadingData ? (
                   <TableContainer>
@@ -189,11 +229,27 @@ const AlertDetail = () => {
                             <TableRow key={row.p2p_transaction_id}>
                               {alertColumns.map((column) => (
                                 <TableCell key={column.field}>
-                                  {column.field === "alert_aml_ismoneylaundering" ||
+                                  {column.field ===
+                                    "alert_aml_ismoneylaundering" ||
                                   column.field === "alert_aml_issuspicious"
                                     ? row[column.field] == 1
                                       ? "Ya"
                                       : "Tidak"
+                                    : column.field === "alert_aml_rp_amount"
+                                    ? `Rp ${Math.floor(
+                                        row[column.field]
+                                      ).toLocaleString()}`
+                                    : column.field === "alert_timestamp"
+                                    ? new Date(row[column.field])
+                                        .toLocaleString("id-ID", {
+                                          day: "2-digit",
+                                          month: "2-digit",
+                                          year: "numeric",
+                                          hour: "2-digit",
+                                          minute: "2-digit",
+                                          second: "2-digit",
+                                        })
+                                        .replace(",", "")
                                     : row[column.field]}
                                 </TableCell>
                               ))}
@@ -203,7 +259,11 @@ const AlertDetail = () => {
                           <TableRow>
                             <TableCell
                               colSpan={alertColumns.length}
-                              sx={{ textAlign: 'center', fontStyle: 'italic', color: 'gray' }}
+                              sx={{
+                                textAlign: "center",
+                                fontStyle: "italic",
+                                color: "gray",
+                              }}
                             >
                               No data available
                             </TableCell>
@@ -240,7 +300,9 @@ const AlertDetail = () => {
                       <Typography variant="body2">ID:</Typography>
                     </Grid>
                     <Grid item xs={6}>
-                      <Typography variant="body2">{alertInfo.alertId}</Typography>
+                      <Typography variant="body2">
+                        {alertInfo.alertId}
+                      </Typography>
                     </Grid>
                     <Grid item xs={6}>
                       <Typography variant="body2">Skor (dari 100):</Typography>
@@ -268,31 +330,43 @@ const AlertDetail = () => {
                       <Typography variant="body2">Status:</Typography>
                     </Grid>
                     <Grid item xs={6}>
-                      <Typography variant="body2">{statusInfo.status}</Typography>
+                      <Typography variant="body2">
+                        {statusInfo.status}
+                      </Typography>
                     </Grid>
                     <Grid item xs={6}>
                       <Typography variant="body2">Suppress:</Typography>
                     </Grid>
                     <Grid item xs={6}>
-                      <Typography variant="body2">{statusInfo.suppress}</Typography>
+                      <Typography variant="body2">
+                        {statusInfo.suppress}
+                      </Typography>
                     </Grid>
                     <Grid item xs={6}>
                       <Typography variant="body2">Productive:</Typography>
                     </Grid>
                     <Grid item xs={6}>
-                      <Typography variant="body2">{statusInfo.productive}</Typography>
+                      <Typography variant="body2">
+                        {statusInfo.productive}
+                      </Typography>
                     </Grid>
                     <Grid item xs={6}>
                       <Typography variant="body2">Last Updated By:</Typography>
                     </Grid>
                     <Grid item xs={6}>
-                      <Typography variant="body2">{statusInfo.lastUpdatedBy}</Typography>
+                      <Typography variant="body2">
+                        {statusInfo.lastUpdatedBy}
+                      </Typography>
                     </Grid>
                     <Grid item xs={6}>
-                      <Typography variant="body2">Last Updated Date:</Typography>
+                      <Typography variant="body2">
+                        Last Updated Date:
+                      </Typography>
                     </Grid>
                     <Grid item xs={6}>
-                      <Typography variant="body2">{statusInfo.lastUpdatedDate}</Typography>
+                      <Typography variant="body2">
+                        {statusInfo.lastUpdatedDate}
+                      </Typography>
                     </Grid>
                   </Grid>
                 </CardContent>
