@@ -137,10 +137,16 @@ const appRoutes: RouteType[] = [
       icon: <InfoOutlinedIcon />,
     },
   },
+
+  // SNA
   {
     path: "/sna",
     element: <SocialNetworkAnalysis />,
     state: "sna",
+    sidebarProps: {
+      displayText: "Analisis Jaringan Sosial",
+      icon: <InfoOutlinedIcon />,
+    },
   },
 ];
 
