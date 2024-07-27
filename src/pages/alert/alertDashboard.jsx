@@ -98,7 +98,6 @@ const AlertDashboard = () => {
   }, [viz4]);
 
   useEffect(() => {
-    console.log('kok masuk sini')
     fetchData();
   }, []);
 
