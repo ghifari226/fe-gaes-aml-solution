@@ -62,9 +62,8 @@ const SocialNetworkAnalysis = () => {
         }}
       >
         <DialogTitle style={{ textAlign: "center" }}>
-          Anda akan diarahkan ke dasbor NeoDash.
-          <br />
-          Anda yakin ingin melanjutkan?
+          Fitur Analisis Jaringan Sosial akan diarahkan ke NeoDash. Anda yakin
+          ingin melanjutkan?
         </DialogTitle>
         <DialogActions>
           <Button onClick={handleClose} color="primary">

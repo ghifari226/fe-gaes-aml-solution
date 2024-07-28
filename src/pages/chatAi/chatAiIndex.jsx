@@ -4,10 +4,11 @@ import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import {
   Box,
-  Button,
   Card,
   CardContent,
   Grid,
+  IconButton,
+  Skeleton,
   Table,
   TableBody,
   TableCell,
@@ -15,8 +16,7 @@ import {
   TableHead,
   TableRow,
   TablePagination,
-  Skeleton,
-  IconButton,
+  Tooltip,
 } from "@mui/material";
 import ChatIcon from "@mui/icons-material/Chat";
 import CustomDateRange from "../../components/common/CustomDateRange";
@@ -108,16 +108,18 @@ const ChatAiIndex = () => {
 
   const actionColumn = {
     field: "action",
-    headerName: "Action",
+    headerName: "Aksi",
     width: 80,
     renderCell: (params) => (
-      <IconButton
-        onClick={() =>
-          window.open(`/chat/${params.row.chat_history_id}`, "_blank")
-        }
-      >
-        <ChatIcon />
-      </IconButton>
+      <Tooltip title="Buka obrolan ini">
+        <IconButton
+          onClick={() =>
+            window.open(`/chat/${params.row.chat_history_id}`, "_blank")
+          }
+        >
+          <ChatIcon />
+        </IconButton>
+      </Tooltip>
     ),
   };
 
