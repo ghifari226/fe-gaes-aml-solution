@@ -136,7 +136,7 @@ const TransactionLoan = () => {
                       labelId="suspicious-label"
                       value={suspicious}
                       onChange={handleSuspiciousChange}
-                      label="Suspicious"
+                      label="Transaksi Mencurigakan"
                     >
                       {susOptions.map((option) => (
                         <MenuItem key={option.id} value={option.id}>

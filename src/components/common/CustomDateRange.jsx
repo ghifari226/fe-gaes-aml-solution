@@ -37,7 +37,7 @@ const CustomDateRange = ({ onChange, value, label = "Tanggal", setWarn }) => {
             borderRadius: 4,
             fontSize: 12,
             minWidth: 160,
-            border: setWarn ? "1px solid red" : "1px solid #000",
+            border: setWarn ? "1px solid red" : "1px solid #C4C4C4",
             backgroundColor: "#fff",
             display: "inline-block",
             textAlign: "left",
