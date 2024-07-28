@@ -14,6 +14,7 @@ import {
   FormControl,
   Grid,
   IconButton,
+  InputAdornment,
   InputLabel,
   MenuItem,
   Select,
@@ -25,9 +26,13 @@ import {
   TableHead,
   TableRow,
   TablePagination,
+  TextField,
   Tooltip,
   Typography,
 } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import ClearIcon from "@mui/icons-material/Clear";
+import { blue, red } from "@mui/material/colors";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CustomDateRange from "../../components/common/CustomDateRange";
 import alertColumns from "../../data/columns/alertColumns";
@@ -38,8 +43,14 @@ const AlertDetail = () => {
   const [selectedId, setSelectedId] = useState("");
   const [loadingDetail, setLoadingDetail] = useState(false);
   const [detail, setDetail] = useState({});
-  const [startDate, setStartDate] = useState(new Date("2022-09-01"));
-  const [endDate, setEndDate] = useState(new Date("2022-09-30"));
+  const [startDate, setStartDate] = useState(new Date("2024-07-01"));
+  const [endDate, setEndDate] = useState(new Date("2024-07-30"));
+  const [startDateTransaction, setStartDateTransaction] = useState(
+    new Date("2022-07-01")
+  );
+  const [endDateTransaction, setEndDateTransaction] = useState(
+    new Date("2022-07-30")
+  );
   const [pageSize, setPageSize] = useState(10);
   const [page, setPage] = useState(0);
   const [totalRows, setTotalRows] = useState(0);
@@ -49,6 +60,12 @@ const AlertDetail = () => {
   const [selectedAlertCurrentStatus, setSelectedAlertCurrentStatus] =
     useState(null);
   const [selectedAlertStatus, setSelectedAlertStatus] = useState(null);
+  const [laundering, setLaundering] = useState("-");
+  const [suspicious, setSuspicious] = useState("-");
+  const [transactionId, setTransactionId] = useState(null);
+  const [inputTransactionId, setInputTransactionId] = useState(null);
+  const [customerId, setCustomerId] = useState(null);
+  const [inputCustomerId, setInputCustomerId] = useState(null);
 
   const statusOptions = [
     { id: "-", label: "Semua" },
@@ -157,9 +174,33 @@ const AlertDetail = () => {
     }
   };
 
+  const launderingOptions = [
+    { id: "-", label: "Semua" },
+    { id: "1", label: "Pencucian Uang" },
+    { id: "0", label: "Bukan Pencucian Uang" },
+  ];
+
+  const susOptions = [
+    { id: "-", label: "Semua" },
+    { id: "1", label: "Mencurigakan" },
+    { id: "0", label: "Tidak Mencurigakan" },
+  ];
+
   useEffect(() => {
     fetchData();
-  }, [startDate, endDate, page, pageSize, status]);
+  }, [
+    startDate,
+    endDate,
+    startDateTransaction,
+    endDateTransaction,
+    page,
+    pageSize,
+    status,
+    laundering,
+    suspicious,
+    transactionId,
+    customerId,
+  ]);
 
   useEffect(() => {
     if (selectedId) {
@@ -200,9 +241,15 @@ const AlertDetail = () => {
             params: {
               start_date: moment(startDate).format("YYYY-MM-DD"),
               end_date: moment(endDate).format("YYYY-MM-DD"),
+              start_date_transaction: moment(startDate).format("YYYY-MM-DD"),
+              end_date_transaction: moment(endDate).format("YYYY-MM-DD"),
               pageSize: pageSize,
               page: page + 1,
               status: status === "-" ? null : status,
+              laundering: laundering === "-" ? null : laundering,
+              suspicious: suspicious === "-" ? null : suspicious,
+              transactionId: transactionId || null,
+              customerId: customerId || null,
             },
             headers: {
               Accept: "application/json",
@@ -275,9 +322,60 @@ const AlertDetail = () => {
     setSelectedId(id);
   };
 
+  const handleSuspiciousChange = (event) => {
+    setSuspicious(event.target.value);
+  };
+
+  const handleLaunderingChange = (event) => {
+    setLaundering(event.target.value);
+  };
+
+  const handleInputTransactionIdChange = (event) => {
+    setInputTransactionId(event.target.value);
+  };
+
+  const handleTransactionIdChange = () => {
+    setTransactionId(inputTransactionId);
+  };
+
+  const handleTransactionIdKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleTransactionIdChange();
+    }
+  };
+
+  const clearTransactionId = () => {
+    setInputTransactionId("");
+    setTransactionId("");
+  };
+
+  const handleInputCustomerIdChange = (event) => {
+    setInputCustomerId(event.target.value);
+  };
+
+  const handleCustomerIdChange = () => {
+    setCustomerId(inputCustomerId);
+  };
+
+  const handleCustomerIdKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleCustomerIdChange();
+    }
+  };
+
+  const clearCustomerId = () => {
+    setInputCustomerId("");
+    setCustomerId("");
+  };
+
   const handleDateRangeChange = (start, end) => {
     setStartDate(start);
     setEndDate(end);
+  };
+
+  const handleDateRangeTransactionChange = (start, end) => {
+    setStartDateTransaction(start);
+    setEndDateTransaction(end);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -320,8 +418,8 @@ const AlertDetail = () => {
         <Card>
           <CardContent>
             <h3 style={{ marginBottom: "45px " }}>Detail Peringatan</h3>
-            <div style={{ marginBottom: "5px " }} className="row">
-              <div className="col-6">
+            <div style={{ marginBottom: "25px " }} className="row">
+              <div className="col-3">
                 <FormControl variant="outlined" sx={{ width: "100%" }}>
                   <InputLabel id="alert-label">Status Alert</InputLabel>
                   <Select
@@ -339,10 +437,134 @@ const AlertDetail = () => {
                   </Select>
                 </FormControl>
               </div>
-              <div className="col-6">
+              <div className="col-3">
+                <FormControl variant="outlined" sx={{ width: "100%" }}>
+                  <InputLabel id="laundering-label">Pencucian Uang</InputLabel>
+                  <Select
+                    size="small"
+                    labelId="laundering-label"
+                    value={laundering}
+                    onChange={handleLaunderingChange}
+                    label="Pencucian Uang"
+                  >
+                    {launderingOptions.map((option) => (
+                      <MenuItem key={option.id} value={option.id}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
+              <div className="col-3">
+                <FormControl variant="outlined" sx={{ width: "100%" }}>
+                  <InputLabel id="suspicious-label">
+                    Transaksi Mencurigakan
+                  </InputLabel>
+                  <Select
+                    size="small"
+                    labelId="suspicious-label"
+                    value={suspicious}
+                    onChange={handleSuspiciousChange}
+                    label="Transaksi Mencurigakan"
+                  >
+                    {susOptions.map((option) => (
+                      <MenuItem key={option.id} value={option.id}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
+              <div className="col-3">
                 <CustomDateRange
+                  label="Tanggal Alert"
                   onChange={(x, j) => handleDateRangeChange(x, j)}
                   value={[startDate, endDate]}
+                />
+              </div>
+            </div>
+            <div style={{ marginBottom: "5px " }} className="row">
+              <div className="col-3">
+                <FormControl variant="outlined" sx={{ width: "100%" }}>
+                  <TextField
+                    size="small"
+                    labelId="transaction-id-label"
+                    value={inputTransactionId || ""}
+                    onChange={(e) => {
+                      handleInputTransactionIdChange(e);
+                    }}
+                    onKeyDown={(e) => {
+                      handleTransactionIdKeyDown(e);
+                    }}
+                    label="ID Transaksi"
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          {inputTransactionId && (
+                            <IconButton
+                              onClick={(e) => {
+                                clearTransactionId(e);
+                              }}
+                              edge="end"
+                            >
+                              <ClearIcon style={{ color: red[500] }} />
+                            </IconButton>
+                          )}
+                          <IconButton
+                            onClick={handleTransactionIdChange}
+                            edge="end"
+                          >
+                            <SearchIcon style={{ color: blue[500] }} />
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </FormControl>
+              </div>
+              <div className="col-3">
+                <FormControl variant="outlined" sx={{ width: "100%" }}>
+                  <TextField
+                    size="small"
+                    labelId="customer-id-label"
+                    value={inputCustomerId || ""}
+                    onChange={(e) => {
+                      handleInputCustomerIdChange(e);
+                    }}
+                    onKeyDown={(e) => {
+                      handleCustomerIdKeyDown(e);
+                    }}
+                    label="ID Pengirim"
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          {inputCustomerId && (
+                            <IconButton
+                              onClick={(e) => {
+                                clearCustomerId(e);
+                              }}
+                              edge="end"
+                            >
+                              <ClearIcon style={{ color: red[500] }} />
+                            </IconButton>
+                          )}
+                          <IconButton
+                            onClick={handleCustomerIdChange}
+                            edge="end"
+                          >
+                            <SearchIcon style={{ color: blue[500] }} />
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </FormControl>
+              </div>
+              <div className="col-3">
+                <CustomDateRange
+                  label="Tanggal Transaksi"
+                  onChange={(x, j) => handleDateRangeTransactionChange(x, j)}
+                  value={[startDateTransaction, endDateTransaction]}
                 />
               </div>
             </div>
@@ -419,7 +641,8 @@ const AlertDetail = () => {
                                   ? `Rp ${Math.floor(
                                       row[column.field]
                                     ).toLocaleString()}`
-                                  : column.field === "alert_timestamp"
+                                  : column.field === "alert_timestamp" ||
+                                    column.field === "alert_aml_timestamp"
                                   ? new Date(row[column.field])
                                       .toLocaleString("id-ID", {
                                         day: "2-digit",
@@ -501,7 +724,10 @@ const AlertDetail = () => {
                     </Grid>
                     <Grid item xs={6}>
                       <Typography variant="body2">
-                        {detail.aml_rp_amount}
+                        {detail.aml_rp_amount &&
+                          `Rp ${Math.floor(
+                            detail.aml_rp_amount
+                          ).toLocaleString()}`}
                       </Typography>
                     </Grid>
                   </Grid>
@@ -512,7 +738,7 @@ const AlertDetail = () => {
                     gutterBottom
                     sx={{ marginTop: "10px" }}
                   >
-                    Pelanggaran Aturan Fuzzy
+                    Pelanggaran Aturan
                   </Typography>
                   <Grid container spacing={1}>
                     {detail.aml_fuzzy_result && data.aml_fuzzy_result > 0 ? (
@@ -595,7 +821,7 @@ const AlertDetail = () => {
                 href={`/transactions-analysis/fund?senderId=${detail.customer_sender_id}`}
                 target="_blank"
               >
-                Analisis Lebih Lanjut
+                Analisis Lebih Lanjut (Pencucian Uang)
               </Button>
             </Box>
           </Grid>

@@ -45,7 +45,7 @@ const CustomDateRange = ({ onChange, value, label = "Tanggal", setWarn }) => {
         >
           {!isChange ? "" : label + " : "}
           {!isChange
-            ? "Tanggal Awal - Tanggal Akhir"
+            ? `${label}: Awal - Akhir`
             : `${isChange[0]} - ${isChange[1]}`}
         </button>
       </DateRangePicker>
