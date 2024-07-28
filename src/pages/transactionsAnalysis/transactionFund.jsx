@@ -29,7 +29,7 @@ import {
   IconButton,
   InputAdornment,
 } from "@mui/material";
-import AssistantOutlinedIcon from '@mui/icons-material/AssistantOutlined';
+import AssistantOutlinedIcon from "@mui/icons-material/AssistantOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
 import { blue, red } from "@mui/material/colors";
@@ -46,13 +46,17 @@ const TransactionFund = () => {
 
   const [loadingData, setLoadingData] = useState(false);
   const [data, setData] = useState([]);
-  const [startDate, setStartDate] = useState(new Date("2022-07-01"));
-  const [endDate, setEndDate] = useState(new Date("2022-07-31"));
+  const [startDate, setStartDate] = useState(
+    query.get("startDate") || new Date("2022-07-01")
+  );
+  const [endDate, setEndDate] = useState(
+    query.get("endDate") || new Date("2022-07-31")
+  );
   const [pageSize, setPageSize] = useState(10);
   const [page, setPage] = useState(0);
   const [totalRows, setTotalRows] = useState(0);
   const [laundering, setLaundering] = useState("-");
-  const [suspicious, setSuspicious] = useState("-");
+  const [suspicious, setSuspicious] = useState(query.get("suspicious") || "-");
   const [riskScoreEq, setRiskScoreEq] = useState(null);
   const [riskScoreGt, setRiskScoreGt] = useState(null);
   const [riskScoreGe, setRiskScoreGe] = useState(null);
@@ -65,7 +69,7 @@ const TransactionFund = () => {
   const [chatDialogIsOpen, setChatDialogIsOpen] = useState(false);
 
   const closeChatDialog = () => {
-    setChatDialogIsOpen(false)
+    setChatDialogIsOpen(false);
   };
 
   const createNewChat = () => {
@@ -139,10 +143,9 @@ const TransactionFund = () => {
   ];
 
   useEffect(() => {
-    // Clear query parameters on refresh
-    if (senderId) {
-      const newUrl = window.location.pathname; // get current path without query
-      navigate(newUrl, { replace: true }); // replace current URL with new URL without query parameters
+    if (senderId || suspicious || startDate || endDate) {
+      const newUrl = window.location.pathname;
+      navigate(newUrl, { replace: true });
     }
   }, []);
 
@@ -525,7 +528,11 @@ const TransactionFund = () => {
       </Grid>
 
       <Dialog open={chatDialogIsOpen} onClose={closeChatDialog}>
-        <DialogTitle style={{ textAlign: 'center' }}>Anda akan membuat tiket obrolan<br/>Asisten AI dengan data berikut:</DialogTitle>
+        <DialogTitle style={{ textAlign: "center" }}>
+          Anda akan membuat tiket obrolan
+          <br />
+          Asisten AI dengan data berikut:
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
             {"1. Rentang Waktu: 1 Juli 2022 - 31 Juli 2022"}
