@@ -529,7 +529,7 @@ const TransactionFund = () => {
 
       <Dialog open={chatDialogIsOpen} onClose={closeChatDialog}>
         <DialogTitle style={{ textAlign: "center" }}>
-          Anda akan membuat tiket obrolan
+          Anda akan membuat tiket
           <br />
           Asisten AI dengan data berikut:
         </DialogTitle>
