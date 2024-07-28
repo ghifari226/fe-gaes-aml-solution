@@ -65,7 +65,7 @@ const appRoutes: RouteType[] = [
         element: <AlertDashboard />,
         state: "alert.dashboard",
         sidebarProps: {
-          displayText: "Dasbor",
+          displayText: "Dasbor Peringatan",
         },
       },
       {
