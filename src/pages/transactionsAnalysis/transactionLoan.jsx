@@ -139,7 +139,7 @@ const TransactionLoan = () => {
                   }${endDate && `&endDate=${formattedEndDate}`}`}
                   target="_blank"
                 >
-                  Analisis Lebih Lanjut
+                  Analisis Lebih Lanjut (Pencucian Uang)
                 </Button>
               </div>
             </h3>
@@ -166,6 +166,7 @@ const TransactionLoan = () => {
               </div>
               <div className="col-6">
                 <CustomDateRange
+                  label="Tanggal Pembayaran"
                   onChange={(x, j) => handleDateRangeChange(x, j)}
                   value={[startDate, endDate]}
                 />

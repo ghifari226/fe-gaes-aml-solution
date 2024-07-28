@@ -347,6 +347,7 @@ const TransactionFund = () => {
                 </div>
                 <div className="col-4">
                   <CustomDateRange
+                    label="Tanggal Transaksi"
                     onChange={(x, j) => handleDateRangeChange(x, j)}
                     value={[startDate, endDate]}
                   />
@@ -470,7 +471,11 @@ const TransactionFund = () => {
                               {transactionFundColumns.map((column) => (
                                 <TableCell key={column.field}>
                                   {column.field === "aml_ismoneylaundering" ||
-                                  column.field === "p2p_issuspicious"
+                                  column.field === "p2p_issuspicious" ||
+                                  column.field ===
+                                    "customer_sender_pinjol_account" ||
+                                  column.field ===
+                                    "customer_bene_pinjol_account"
                                     ? row[column.field] == 1
                                       ? "Ya"
                                       : "Tidak"
