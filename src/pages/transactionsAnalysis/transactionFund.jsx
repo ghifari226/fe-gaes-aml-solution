@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import moment from "moment";
 import {
@@ -18,11 +19,24 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
+  TextField,
+  IconButton,
+  InputAdornment,
 } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import ClearIcon from "@mui/icons-material/Clear";
+import { blue, red } from "@mui/material/colors";
 import CustomDateRange from "../../components/common/CustomDateRange";
 import transactionFundColumns from "../../data/columns/transactionFundColumns";
 
+const useQuery = () => {
+  return new URLSearchParams(useLocation().search);
+};
+
 const TransactionFund = () => {
+  const query = useQuery();
+  const navigate = useNavigate();
+  
   const [loadingData, setLoadingData] = useState(false);
   const [data, setData] = useState([]);
   const [startDate, setStartDate] = useState(new Date("2022-07-01"));
@@ -32,6 +46,15 @@ const TransactionFund = () => {
   const [totalRows, setTotalRows] = useState(0);
   const [laundering, setLaundering] = useState("-");
   const [suspicious, setSuspicious] = useState("-");
+  const [riskScoreEq, setRiskScoreEq] = useState(null);
+  const [riskScoreGt, setRiskScoreGt] = useState(null);
+  const [riskScoreGe, setRiskScoreGe] = useState(null);
+  const [riskScoreLt, setRiskScoreLt] = useState(null);
+  const [riskScoreLe, setRiskScoreLe] = useState(null);
+  const [senderId, setSenderId] = useState(query.get('senderId'));
+  const [inputSenderId, setInputSenderId] = useState(query.get('senderId'));
+  const [beneId, setBeneId] = useState(null);
+  const [inputBeneId, setInputBeneId] = useState(null);
 
   const launderingOptions = [
     { id: "-", label: "Semua" },
@@ -46,8 +69,25 @@ const TransactionFund = () => {
   ];
 
   useEffect(() => {
+    // Clear query parameters on refresh
+    if (senderId) {
+      const newUrl = window.location.pathname; // get current path without query
+      navigate(newUrl, { replace: true }); // replace current URL with new URL without query parameters
+    }
+  }, []);
+
+  useEffect(() => {
     fetchData();
-  }, [startDate, endDate, page, pageSize, laundering, suspicious]);
+  }, [
+    startDate,
+    endDate,
+    page,
+    pageSize,
+    laundering,
+    suspicious,
+    senderId,
+    beneId,
+  ]);
 
   const fetchData = async () => {
     try {
@@ -86,6 +126,8 @@ const TransactionFund = () => {
               page: page + 1,
               laundering: laundering === "-" ? null : laundering,
               suspicious: suspicious === "-" ? null : suspicious,
+              senderId: senderId || null,
+              beneId: beneId || null,
             },
             headers: {
               Accept: "application/json",
@@ -129,23 +171,63 @@ const TransactionFund = () => {
     setLaundering(event.target.value);
   };
 
+  const handleInputSenderChange = (event) => {
+    setInputSenderId(event.target.value);
+  };
+
+  const handleSenderChange = () => {
+    setSenderId(inputSenderId);
+  };
+
+  const handleSenderKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleSenderChange();
+    }
+  };
+
+  const clearSenderId = () => {
+    setInputSenderId("");
+    setSenderId("");
+  };
+
+  const handleInputBeneChange = (event) => {
+    setInputBeneId(event.target.value);
+  };
+
+  const handleBeneChange = () => {
+    setBeneId(inputBeneId);
+  };
+
+  const handleBeneKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleBeneChange();
+    }
+  };
+
+  const clearBeneId = () => {
+    setInputBeneId("");
+    setBeneId("");
+  };
+
   return (
     <div>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Card>
             <CardContent>
-              <h3 style={{ marginBottom: "45px "}}>Analisis Pencucian Uang</h3>
-              <div style={{ marginBottom: "5px "}} className="row">
+              <h3 style={{ marginBottom: "45px " }}>Analisis Pencucian Uang</h3>
+              <div style={{ marginBottom: "25px " }} className="row">
                 <div className="col-4">
                   <FormControl variant="outlined" sx={{ width: "100%" }}>
-                    <InputLabel id="laundering-label">Pencucian Uang</InputLabel>
+                    <InputLabel id="laundering-label">
+                      Pencucian Uang
+                    </InputLabel>
                     <Select
                       size="small"
                       labelId="laundering-label"
                       value={laundering}
                       onChange={handleLaunderingChange}
-                      label="Laundering"
+                      label="Pencucian Uang"
                     >
                       {launderingOptions.map((option) => (
                         <MenuItem key={option.id} value={option.id}>
@@ -157,13 +239,15 @@ const TransactionFund = () => {
                 </div>
                 <div className="col-4">
                   <FormControl variant="outlined" sx={{ width: "100%" }}>
-                    <InputLabel id="suspicious-label">Transaksi Mencurigakan</InputLabel>
+                    <InputLabel id="suspicious-label">
+                      Transaksi Mencurigakan
+                    </InputLabel>
                     <Select
                       size="small"
                       labelId="suspicious-label"
                       value={suspicious}
                       onChange={handleSuspiciousChange}
-                      label="Suspicious"
+                      label="Transaksi Mencurigakan"
                     >
                       {susOptions.map((option) => (
                         <MenuItem key={option.id} value={option.id}>
@@ -178,6 +262,78 @@ const TransactionFund = () => {
                     onChange={(x, j) => handleDateRangeChange(x, j)}
                     value={[startDate, endDate]}
                   />
+                </div>
+              </div>
+              <div style={{ marginBottom: "5px " }} className="row">
+                <div className="col-4">
+                  <FormControl variant="outlined" sx={{ width: "100%" }}>
+                    <TextField
+                      size="small"
+                      labelId="sender-id-label"
+                      value={inputSenderId || ""}
+                      onChange={(e) => {
+                        handleInputSenderChange(e);
+                      }}
+                      onKeyDown={(e) => {
+                        handleSenderKeyDown(e);
+                      }}
+                      label="ID Pengirim"
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            {inputSenderId && (
+                              <IconButton
+                                onClick={(e) => {
+                                  clearSenderId(e);
+                                }}
+                                edge="end"
+                              >
+                                <ClearIcon style={{ color: red[500] }} />
+                              </IconButton>
+                            )}
+                            <IconButton onClick={handleSenderChange} edge="end">
+                              <SearchIcon style={{ color: blue[500] }} />
+                            </IconButton>
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  </FormControl>
+                </div>
+                <div className="col-4">
+                  <FormControl variant="outlined" sx={{ width: "100%" }}>
+                    <TextField
+                      size="small"
+                      labelId="bene-id-label"
+                      value={inputBeneId || ""}
+                      onChange={(e) => {
+                        handleInputBeneChange(e);
+                      }}
+                      onKeyDown={(e) => {
+                        handleBeneKeyDown(e);
+                      }}
+                      label="ID Penerima"
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            {inputBeneId && (
+                              <IconButton
+                                onClick={(e) => {
+                                  clearBeneId(e);
+                                }}
+                                edge="end"
+                              >
+                                <ClearIcon style={{ color: red[500] }} />
+                              </IconButton>
+                            )}
+                            <IconButton onClick={handleBeneChange} edge="end">
+                              <SearchIcon style={{ color: blue[500] }} />
+                            </IconButton>
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  </FormControl>
                 </div>
               </div>
               <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}></Box>

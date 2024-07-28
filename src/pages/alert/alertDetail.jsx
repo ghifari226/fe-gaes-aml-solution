@@ -28,6 +28,9 @@ import alertColumns from "../../data/columns/alertColumns";
 const AlertDetail = () => {
   const [loadingData, setLoadingData] = useState(false);
   const [data, setData] = useState([]);
+  const [selectedId, setSelectedId] = useState("");
+  const [loadingDetail, setLoadingDetail] = useState(false);
+  const [detail, setDetail] = useState({});
   const [startDate, setStartDate] = useState(new Date("2022-09-01"));
   const [endDate, setEndDate] = useState(new Date("2022-09-30"));
   const [pageSize, setPageSize] = useState(10);
@@ -48,6 +51,12 @@ const AlertDetail = () => {
   useEffect(() => {
     fetchData();
   }, [startDate, endDate, page, pageSize, status]);
+
+  useEffect(() => {
+    if (selectedId) {
+      fetchDetail();
+    }
+  }, [selectedId]);
 
   const fetchData = async () => {
     try {
@@ -103,6 +112,59 @@ const AlertDetail = () => {
     } finally {
       setLoadingData(false);
     }
+  };
+
+  const fetchDetail = async () => {
+    try {
+      setDetail({});
+      setLoadingDetail(true);
+
+      const credential = {
+        username: "johndoe",
+        password: "secret",
+      };
+      let token;
+
+      const loginResponse = await axios.post(
+        process.env.REACT_APP_API_LOGIN_URL,
+        credential,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+
+      const loginRespData = loginResponse.data;
+
+      if (loginResponse.data) {
+        token = loginRespData.access_token;
+
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/alert-detail/${selectedId}`,
+          {
+            headers: {
+              Accept: "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        console.log("detailnya", response.data.data);
+        setDetail(response.data.data);
+      } else {
+        console.error("Token not found in the login response");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      setLoadingDetail(false);
+    }
+  };
+
+  const handleRowClick = (id) => {
+    setSelectedId(id);
   };
 
   const handleDateRangeChange = (start, end) => {
@@ -168,7 +230,7 @@ const AlertDetail = () => {
                       labelId="alert-label"
                       value={status}
                       onChange={handleStatusChange}
-                      label="Status"
+                      label="Status Alert"
                     >
                       {statusOptions.map((option) => (
                         <MenuItem key={option.id} value={option.id}>
@@ -226,7 +288,13 @@ const AlertDetail = () => {
                       <TableBody>
                         {data.length ? (
                           data.map((row) => (
-                            <TableRow key={row.p2p_transaction_id}>
+                            <TableRow
+                              key={row.alert_aml_transaction_id}
+                              onClick={() =>
+                                handleRowClick(row.alert_aml_transaction_id)
+                              }
+                              style={{ cursor: "pointer" }}
+                            >
                               {alertColumns.map((column) => (
                                 <TableCell key={column.field}>
                                   {column.field ===
@@ -286,157 +354,141 @@ const AlertDetail = () => {
             </CardContent>
           </Card>
         </Grid>
-
-        <Grid item xs={12}>
-          <Grid container spacing={2}>
-            <Grid item xs={5}>
-              <Card>
+        {selectedId && (
+          <>
+            <Grid item xs={6}>
+              <Card style={{ minHeight: "270px" }}>
                 <CardContent>
-                  <Typography variant="h6" gutterBottom>
-                    Detail Peringatan
-                  </Typography>
-                  <Grid container spacing={1}>
-                    <Grid item xs={6}>
-                      <Typography variant="body2">ID:</Typography>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Typography variant="body2">
-                        {alertInfo.alertId}
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Typography variant="body2">Skor (dari 100):</Typography>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Typography variant="body2">{alertInfo.score}</Typography>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Typography variant="body2">Antrian:</Typography>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Typography variant="body2">{alertInfo.queue}</Typography>
+                  <Grid item xs={6}>
+                    <Typography variant="h6" gutterBottom>
+                      Detail Peringatan
+                    </Typography>
+                    <Grid container spacing={1}>
+                      <Grid item xs={6}>
+                        <Typography variant="body2">ID Transaksi:</Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Typography variant="body2">
+                          {detail.aml_transaction_id}
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Typography variant="body2">
+                          Skor Kecurigaan (dari 100):
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Typography variant="body2">
+                          {detail.aml_risk_score}
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Typography variant="body2">
+                          Nominal Transaksi:
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Typography variant="body2">
+                          {detail.aml_rp_amount}
+                        </Typography>
+                      </Grid>
                     </Grid>
                   </Grid>
-
-                  <Typography
-                    variant="h6"
-                    gutterBottom
-                    sx={{ marginTop: "10px" }}
-                  >
-                    Status
-                  </Typography>
-                  <Grid container spacing={1}>
-                    <Grid item xs={6}>
-                      <Typography variant="body2">Status:</Typography>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Typography variant="body2">
-                        {statusInfo.status}
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Typography variant="body2">Suppress:</Typography>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Typography variant="body2">
-                        {statusInfo.suppress}
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Typography variant="body2">Productive:</Typography>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Typography variant="body2">
-                        {statusInfo.productive}
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Typography variant="body2">Last Updated By:</Typography>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Typography variant="body2">
-                        {statusInfo.lastUpdatedBy}
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Typography variant="body2">
-                        Last Updated Date:
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Typography variant="body2">
-                        {statusInfo.lastUpdatedDate}
-                      </Typography>
+                  <Grid item xs={6}>
+                    <Typography
+                      variant="h6"
+                      gutterBottom
+                      sx={{ marginTop: "10px" }}
+                    >
+                      Pelanggaran Aturan Fuzzy
+                    </Typography>
+                    <Grid container spacing={1}>
+                      {detail.aml_fuzzy_result && data.aml_fuzzy_result > 0 ? (
+                        data.aml_fuzzy_result.map((data, index) => (
+                          <Grid item xs={12}>
+                            <Typography variant="body2">
+                              {index}. {data}
+                            </Typography>
+                          </Grid>
+                        ))
+                      ) : (
+                        <Grid item xs={12}>
+                          <Typography variant="body2">-</Typography>
+                        </Grid>
+                      )}
                     </Grid>
                   </Grid>
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item xs={7}>
-              <Card>
+            <Grid item xs={6}>
+              <Card style={{ minHeight: "270px" }}>
                 <CardContent>
                   <Typography variant="h6" gutterBottom>
                     Alur Transaksi
                   </Typography>
-                  <Grid container spacing={2}>
+                  <Grid container spacing={1}>
                     <Grid item xs={6}>
-                      <Card>
-                        <CardContent>
-                          <Typography variant="h6" gutterBottom>
-                            Dari Nasabah
-                          </Typography>
-                          <Typography variant="body2">
-                            Nama: {fromCustomer.name}
-                          </Typography>
-                          <Typography variant="body2">
-                            Tipe: {fromCustomer.type}
-                          </Typography>
-                          <Typography variant="body2">
-                            Negara: {fromCustomer.country}
-                          </Typography>
-                        </CardContent>
-                      </Card>
+                      <Typography variant="body2">ID Pengirim:</Typography>
                     </Grid>
                     <Grid item xs={6}>
-                      <Card>
-                        <CardContent>
-                          <Typography variant="h6" gutterBottom>
-                            Ke Nasabah
-                          </Typography>
-                          <Typography variant="body2">
-                            Nama: {toCustomer.name}
-                          </Typography>
-                          <Typography variant="body2">
-                            Tipe: {toCustomer.type}
-                          </Typography>
-                          <Typography variant="body2">
-                            Negara: {toCustomer.country}
-                          </Typography>
-                        </CardContent>
-                      </Card>
+                      <Typography variant="body2">
+                        {detail.customer_sender_id}
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography variant="body2">
+                        Nama Pengirim (disamarkan):
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography variant="body2">
+                        {detail.customer_sender_name}
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography variant="body2">ID Penerima:</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography variant="body2">
+                        {detail.customer_bene_id}
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography variant="body2">
+                        Nama Penerima (disamarkan):
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography variant="body2">
+                        {detail.customer_bene_name}
+                      </Typography>
                     </Grid>
                   </Grid>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      marginTop: "30px",
-                    }}
-                  >
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      href="/sna"
-                      target="_blank"
-                    >
-                      Analisis Lebih Lanjut
-                    </Button>
-                  </Box>
                 </CardContent>
               </Card>
             </Grid>
-          </Grid>
-        </Grid>
+            <Grid item xs={12} style={{ marginTop: "-25px" }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: "30px",
+                }}
+              >
+                <Button
+                  sx={{ width: "100%" }}
+                  variant="contained"
+                  color="primary"
+                  href={`/transactions-analysis/fund?senderId=${detail.customer_sender_id}`}
+                  target="_blank"
+                >
+                  Analisis Lebih Lanjut
+                </Button>
+              </Box>
+            </Grid>
+          </>
+        )}
       </Grid>
     </div>
   );
