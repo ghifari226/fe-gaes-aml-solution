@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
 import {
   Box,
+  Button,
   Card,
   CardContent,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   Grid,
   Skeleton,
   Table,
@@ -23,6 +29,7 @@ import {
   IconButton,
   InputAdornment,
 } from "@mui/material";
+import AssistantOutlinedIcon from '@mui/icons-material/AssistantOutlined';
 import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
 import { blue, red } from "@mui/material/colors";
@@ -36,7 +43,7 @@ const useQuery = () => {
 const TransactionFund = () => {
   const query = useQuery();
   const navigate = useNavigate();
-  
+
   const [loadingData, setLoadingData] = useState(false);
   const [data, setData] = useState([]);
   const [startDate, setStartDate] = useState(new Date("2022-07-01"));
@@ -51,10 +58,73 @@ const TransactionFund = () => {
   const [riskScoreGe, setRiskScoreGe] = useState(null);
   const [riskScoreLt, setRiskScoreLt] = useState(null);
   const [riskScoreLe, setRiskScoreLe] = useState(null);
-  const [senderId, setSenderId] = useState(query.get('senderId'));
-  const [inputSenderId, setInputSenderId] = useState(query.get('senderId'));
+  const [senderId, setSenderId] = useState(query.get("senderId"));
+  const [inputSenderId, setInputSenderId] = useState(query.get("senderId"));
   const [beneId, setBeneId] = useState(null);
   const [inputBeneId, setInputBeneId] = useState(null);
+  const [chatDialogIsOpen, setChatDialogIsOpen] = useState(false);
+
+  const closeChatDialog = () => {
+    setChatDialogIsOpen(false)
+  };
+
+  const createNewChat = () => {
+    const goToNewChat = async () => {
+      try {
+        const credential = {
+          username: "johndoe",
+          password: "secret",
+        };
+        let token;
+
+        const loginResponse = await axios.post(
+          process.env.REACT_APP_API_LOGIN_URL,
+          credential,
+          {
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          }
+        );
+
+        const loginRespData = loginResponse.data;
+
+        if (loginResponse.data) {
+          token = loginRespData.access_token;
+
+          const createdAt = new Date().toISOString();
+          let body = {
+            aml_data_filter: "",
+            agent_user_id: "1",
+            created_by: "John Doe",
+            created_at: createdAt,
+          };
+
+          const response = await axios.post(
+            `${process.env.REACT_APP_API_URL}/chat`,
+            body,
+            {
+              headers: {
+                Accept: "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          const responseData = response.data.data;
+          const chatHistoryId = responseData.chat_history_id;
+          navigate(`/chat/${chatHistoryId}`);
+        } else {
+          console.error("Token not found in the login response");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    goToNewChat();
+  };
 
   const launderingOptions = [
     { id: "-", label: "Semua" },
@@ -215,7 +285,22 @@ const TransactionFund = () => {
         <Grid item xs={12}>
           <Card>
             <CardContent>
-              <h3 style={{ marginBottom: "45px " }}>Analisis Pencucian Uang</h3>
+              <h3 style={{ marginBottom: "45px " }}>
+                Analisis Pencucian Uang
+                <div style={{ float: "right" }}>
+                  <Button
+                    style={{ margin: 0 }}
+                    onClick={() => {
+                      setChatDialogIsOpen(true);
+                    }}
+                    variant="contained"
+                    color="primary"
+                    startIcon={<AssistantOutlinedIcon />}
+                  >
+                    Mulai Obrolan Baru
+                  </Button>
+                </div>
+              </h3>
               <div style={{ marginBottom: "25px " }} className="row">
                 <div className="col-4">
                   <FormControl variant="outlined" sx={{ width: "100%" }}>
@@ -438,6 +523,24 @@ const TransactionFund = () => {
           </Card>
         </Grid>
       </Grid>
+
+      <Dialog open={chatDialogIsOpen} onClose={closeChatDialog}>
+        <DialogTitle style={{ textAlign: 'center' }}>Anda akan membuat tiket obrolan<br/>Asisten AI dengan data berikut:</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            {"1. Rentang Waktu: 1 Juli 2022 - 31 Juli 2022"}
+          </DialogContentText>
+        </DialogContent>
+        <DialogTitle>Anda yakin ingin melanjutkan?</DialogTitle>
+        <DialogActions>
+          <Button onClick={closeChatDialog} color="primary">
+            Tidak
+          </Button>
+          <Button onClick={createNewChat} color="primary">
+            Ya
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
