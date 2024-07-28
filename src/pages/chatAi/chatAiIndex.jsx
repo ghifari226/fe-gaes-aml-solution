@@ -181,25 +181,19 @@ const ChatAiIndex = () => {
 
   return (
     <div>
-      <h3>Analisis Pinjaman Online</h3>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Card>
             <CardContent>
-              <Button
-                style={{ margin: 0 }}
-                onClick={handleNewChat}
-                variant="contained"
-                color="primary"
-              >
-                Mulai Obrolan Baru
-              </Button>
-              <Box sx={{ display: "flex", alignItems: "center" }}>
-                <CustomDateRange
-                  onChange={(x, j) => handleDateRangeChange(x, j)}
-                  value={[startDate, endDate]}
-                />
-              </Box>
+              <h3 style={{ marginBottom: "45px " }}>Riwayat Obrolan AI</h3>
+              <div style={{ marginBottom: "5px " }} className="row">
+                <div className="col-6">
+                  <CustomDateRange
+                    onChange={(x, j) => handleDateRangeChange(x, j)}
+                    value={[startDate, endDate]}
+                  />
+                </div>
+              </div>
               <Box sx={{ minHeight: 200, width: "100%", marginTop: "16px" }}>
                 {loadingData ? (
                   <TableContainer>
