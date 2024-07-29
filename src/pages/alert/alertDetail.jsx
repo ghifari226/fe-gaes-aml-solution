@@ -458,14 +458,14 @@ const AlertDetail = () => {
               <div className="col-3">
                 <FormControl variant="outlined" sx={{ width: "100%" }}>
                   <InputLabel id="suspicious-label">
-                    Transaksi Mencurigakan
+                    Status Kecurigaan P2PL
                   </InputLabel>
                   <Select
                     size="small"
                     labelId="suspicious-label"
                     value={suspicious}
                     onChange={handleSuspiciousChange}
-                    label="Transaksi Mencurigakan"
+                    label="Status Kecurigaan P2PL"
                   >
                     {susOptions.map((option) => (
                       <MenuItem key={option.id} value={option.id}>

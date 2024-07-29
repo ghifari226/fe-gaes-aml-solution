@@ -57,15 +57,12 @@ const TransactionFund = () => {
   const [totalRows, setTotalRows] = useState(0);
   const [laundering, setLaundering] = useState("-");
   const [suspicious, setSuspicious] = useState(query.get("suspicious") || "-");
-  const [riskScoreEq, setRiskScoreEq] = useState(null);
-  const [riskScoreGt, setRiskScoreGt] = useState(null);
-  const [riskScoreGe, setRiskScoreGe] = useState(null);
-  const [riskScoreLt, setRiskScoreLt] = useState(null);
-  const [riskScoreLe, setRiskScoreLe] = useState(null);
   const [senderId, setSenderId] = useState(query.get("senderId"));
   const [inputSenderId, setInputSenderId] = useState(query.get("senderId"));
   const [beneId, setBeneId] = useState(null);
   const [inputBeneId, setInputBeneId] = useState(null);
+  const [transactionId, setTransactionId] = useState(null);
+  const [inputTransactionId, setInputTransactionId] = useState(null);
   const [chatDialogIsOpen, setChatDialogIsOpen] = useState(false);
 
   const closeChatDialog = () => {
@@ -160,6 +157,7 @@ const TransactionFund = () => {
     suspicious,
     senderId,
     beneId,
+    transactionId,
   ]);
 
   const fetchData = async () => {
@@ -201,6 +199,7 @@ const TransactionFund = () => {
               suspicious: suspicious === "-" ? null : suspicious,
               senderId: senderId || null,
               beneId: beneId || null,
+              transactionId: transactionId || null,
             },
             headers: {
               Accept: "application/json",
@@ -282,6 +281,25 @@ const TransactionFund = () => {
     setBeneId("");
   };
 
+  const handleInputTransactionChange = (event) => {
+    setInputTransactionId(event.target.value);
+  };
+
+  const handleTransactionChange = () => {
+    setTransactionId(inputTransactionId);
+  };
+
+  const handleTransactionKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleTransactionChange();
+    }
+  };
+
+  const clearTransactionId = () => {
+    setInputTransactionId("");
+    setTransactionId("");
+  };
+
   return (
     <div>
       <Grid container spacing={2}>
@@ -300,7 +318,7 @@ const TransactionFund = () => {
                     color="primary"
                     startIcon={<AssistantOutlinedIcon />}
                   >
-                    Mulai Obrolan Baru
+                    Mulai Obrolan Baru (Asisten AI)
                   </Button>
                 </div>
               </h3>
@@ -328,14 +346,14 @@ const TransactionFund = () => {
                 <div className="col-4">
                   <FormControl variant="outlined" sx={{ width: "100%" }}>
                     <InputLabel id="suspicious-label">
-                      Transaksi Mencurigakan
+                      Status Kecurigaan P2PL
                     </InputLabel>
                     <Select
                       size="small"
                       labelId="suspicious-label"
                       value={suspicious}
                       onChange={handleSuspiciousChange}
-                      label="Transaksi Mencurigakan"
+                      label="Status Kecurigaan P2PL"
                     >
                       {susOptions.map((option) => (
                         <MenuItem key={option.id} value={option.id}>
@@ -416,6 +434,44 @@ const TransactionFund = () => {
                               </IconButton>
                             )}
                             <IconButton onClick={handleBeneChange} edge="end">
+                              <SearchIcon style={{ color: blue[500] }} />
+                            </IconButton>
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  </FormControl>
+                </div>
+                <div className="col-4">
+                  <FormControl variant="outlined" sx={{ width: "100%" }}>
+                    <TextField
+                      size="small"
+                      labelId="transaction-id-label"
+                      value={inputTransactionId || ""}
+                      onChange={(e) => {
+                        handleInputTransactionChange(e);
+                      }}
+                      onKeyDown={(e) => {
+                        handleTransactionKeyDown(e);
+                      }}
+                      label="ID Transaksi"
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            {inputTransactionId && (
+                              <IconButton
+                                onClick={(e) => {
+                                  clearTransactionId(e);
+                                }}
+                                edge="end"
+                              >
+                                <ClearIcon style={{ color: red[500] }} />
+                              </IconButton>
+                            )}
+                            <IconButton
+                              onClick={handleTransactionChange}
+                              edge="end"
+                            >
                               <SearchIcon style={{ color: blue[500] }} />
                             </IconButton>
                           </InputAdornment>

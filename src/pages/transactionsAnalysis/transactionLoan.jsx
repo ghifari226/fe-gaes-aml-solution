@@ -6,7 +6,14 @@ import {
   Button,
   Card,
   CardContent,
+  FormControl,
   Grid,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  MenuItem,
+  Select,
+  Skeleton,
   Table,
   TableBody,
   TableCell,
@@ -14,12 +21,11 @@ import {
   TableHead,
   TableRow,
   TablePagination,
-  Skeleton,
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
+  TextField,
 } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import ClearIcon from "@mui/icons-material/Clear";
+import { blue, red } from "@mui/material/colors";
 import CustomDateRange from "../../components/common/CustomDateRange";
 import transactionLoanColumns from "../../data/columns/transactionLoanColumns";
 
@@ -32,6 +38,12 @@ const TransactionLoan = () => {
   const [page, setPage] = useState(0);
   const [totalRows, setTotalRows] = useState(0);
   const [suspicious, setSuspicious] = useState("-");
+  const [senderId, setSenderId] = useState(null);
+  const [inputSenderId, setInputSenderId] = useState(null);
+  const [beneId, setBeneId] = useState(null);
+  const [inputBeneId, setInputBeneId] = useState(null);
+  const [transactionId, setTransactionId] = useState(null);
+  const [inputTransactionId, setInputTransactionId] = useState(null);
 
   const formattedStartDate = startDate
     ? moment(startDate).format("YYYY-MM-DD")
@@ -46,7 +58,16 @@ const TransactionLoan = () => {
 
   useEffect(() => {
     fetchData();
-  }, [startDate, endDate, page, pageSize, suspicious]);
+  }, [
+    startDate,
+    endDate,
+    page,
+    pageSize,
+    suspicious,
+    senderId,
+    beneId,
+    transactionId,
+  ]);
 
   const fetchData = async () => {
     try {
@@ -84,6 +105,9 @@ const TransactionLoan = () => {
               pageSize: pageSize,
               page: page + 1,
               suspicious: suspicious === "-" ? null : suspicious,
+              senderId: senderId || null,
+              beneId: beneId || null,
+              transactionId: transactionId || null,
             },
             headers: {
               Accept: "application/json",
@@ -122,6 +146,63 @@ const TransactionLoan = () => {
     setSuspicious(event.target.value);
   };
 
+  const handleInputSenderChange = (event) => {
+    setInputSenderId(event.target.value);
+  };
+
+  const handleSenderChange = () => {
+    setSenderId(inputSenderId);
+  };
+
+  const handleSenderKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleSenderChange();
+    }
+  };
+
+  const clearSenderId = () => {
+    setInputSenderId("");
+    setSenderId("");
+  };
+
+  const handleInputBeneChange = (event) => {
+    setInputBeneId(event.target.value);
+  };
+
+  const handleBeneChange = () => {
+    setBeneId(inputBeneId);
+  };
+
+  const handleBeneKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleBeneChange();
+    }
+  };
+
+  const clearBeneId = () => {
+    setInputBeneId("");
+    setBeneId("");
+  };
+
+  const handleInputTransactionChange = (event) => {
+    setInputTransactionId(event.target.value);
+  };
+
+  const handleTransactionChange = () => {
+    setTransactionId(inputTransactionId);
+  };
+
+  const handleTransactionKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleTransactionChange();
+    }
+  };
+
+  const clearTransactionId = () => {
+    setInputTransactionId("");
+    setTransactionId("");
+  };
+
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
@@ -143,18 +224,18 @@ const TransactionLoan = () => {
                 </Button>
               </div>
             </h3>
-            <div style={{ marginBottom: "5px " }} className="row">
-              <div className="col-6">
+            <div style={{ marginBottom: "25px " }} className="row">
+              <div className="col-4">
                 <FormControl variant="outlined" sx={{ width: "100%" }}>
                   <InputLabel id="suspicious-label">
-                    Transaksi Mencurigakan
+                    Status Kecurigaan P2PL
                   </InputLabel>
                   <Select
                     size="small"
                     labelId="suspicious-label"
                     value={suspicious}
                     onChange={handleSuspiciousChange}
-                    label="Transaksi Mencurigakan"
+                    label="Status Kecurigaan P2PL"
                   >
                     {susOptions.map((option) => (
                       <MenuItem key={option.id} value={option.id}>
@@ -164,12 +245,122 @@ const TransactionLoan = () => {
                   </Select>
                 </FormControl>
               </div>
-              <div className="col-6">
+              <div className="col-4">
+                <FormControl variant="outlined" sx={{ width: "100%" }}>
+                  <TextField
+                    size="small"
+                    labelId="transaction-id-label"
+                    value={inputTransactionId || ""}
+                    onChange={(e) => {
+                      handleInputTransactionChange(e);
+                    }}
+                    onKeyDown={(e) => {
+                      handleTransactionKeyDown(e);
+                    }}
+                    label="ID Transaksi"
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          {inputTransactionId && (
+                            <IconButton
+                              onClick={(e) => {
+                                clearTransactionId(e);
+                              }}
+                              edge="end"
+                            >
+                              <ClearIcon style={{ color: red[500] }} />
+                            </IconButton>
+                          )}
+                          <IconButton
+                            onClick={handleTransactionChange}
+                            edge="end"
+                          >
+                            <SearchIcon style={{ color: blue[500] }} />
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </FormControl>
+              </div>
+              <div className="col-4">
                 <CustomDateRange
                   label="Tanggal Pembayaran"
                   onChange={(x, j) => handleDateRangeChange(x, j)}
                   value={[startDate, endDate]}
                 />
+              </div>
+            </div>
+            <div style={{ marginBottom: "5px " }} className="row">
+              <div className="col-4">
+                <FormControl variant="outlined" sx={{ width: "100%" }}>
+                  <TextField
+                    size="small"
+                    labelId="sender-id-label"
+                    value={inputSenderId || ""}
+                    onChange={(e) => {
+                      handleInputSenderChange(e);
+                    }}
+                    onKeyDown={(e) => {
+                      handleSenderKeyDown(e);
+                    }}
+                    label="ID Pengirim"
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          {inputSenderId && (
+                            <IconButton
+                              onClick={(e) => {
+                                clearSenderId(e);
+                              }}
+                              edge="end"
+                            >
+                              <ClearIcon style={{ color: red[500] }} />
+                            </IconButton>
+                          )}
+                          <IconButton onClick={handleSenderChange} edge="end">
+                            <SearchIcon style={{ color: blue[500] }} />
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </FormControl>
+              </div>
+              <div className="col-4">
+                <FormControl variant="outlined" sx={{ width: "100%" }}>
+                  <TextField
+                    size="small"
+                    labelId="bene-id-label"
+                    value={inputBeneId || ""}
+                    onChange={(e) => {
+                      handleInputBeneChange(e);
+                    }}
+                    onKeyDown={(e) => {
+                      handleBeneKeyDown(e);
+                    }}
+                    label="ID Penerima"
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          {inputBeneId && (
+                            <IconButton
+                              onClick={(e) => {
+                                clearBeneId(e);
+                              }}
+                              edge="end"
+                            >
+                              <ClearIcon style={{ color: red[500] }} />
+                            </IconButton>
+                          )}
+                          <IconButton onClick={handleBeneChange} edge="end">
+                            <SearchIcon style={{ color: blue[500] }} />
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </FormControl>
               </div>
             </div>
             <Box sx={{ minHeight: 400, width: "100%", marginTop: "16px" }}>
