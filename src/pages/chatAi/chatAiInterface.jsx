@@ -1,26 +1,40 @@
 import React, { useState, useRef, useEffect } from "react";
 import {
-  Paper,
-  Grid,
+  Accordion,
+  AccordionActions,
+  AccordionDetails,
+  AccordionSummary,
   Box,
-  Divider,
-  TextField,
-  Typography,
-  List,
-  ListItem,
-  ListItemText,
-  Fab,
+  Button,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
-  Button,
+  Divider,
+  Fab,
+  Grid,
+  Paper,
+  List,
+  ListItem,
+  ListItemText,
+  Skeleton,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TablePagination,
+  TextField,
+  Typography,
 } from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import SendIcon from "@mui/icons-material/Send";
 import { styled } from "@mui/system";
 import { useLocation, useNavigate } from "react-router-dom";
 import assets from "../../assets";
 import axios from "axios";
+import alertInfoColumns from "../../data/columns/alertInfoColumns";
 
 const ChatSection = styled(Paper)({
   width: "100%",
@@ -40,8 +54,13 @@ const AiAssistantAnalysis = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const [pageSize, setPageSize] = useState(5);
+  const [page, setPage] = useState(0);
+  const [totalRows, setTotalRows] = useState(0);
   const [inputValue, setInputValue] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
+  const [dataFilter, setDataFilter] = useState("");
+  const [loadingData, setLoadingData] = useState(false);
   const [data, setData] = useState([]);
   const [loadingResponse, setLoadingResponse] = useState(false);
 
@@ -49,10 +68,117 @@ const AiAssistantAnalysis = () => {
   const chatId = location.pathname.split("/")[2];
 
   useEffect(() => {
-    fetchData();
+    setLoadingData(true);
+    fetchDataFilter();
+  }, []);
+
+  useEffect(() => {
+    if (dataFilter) {
+      fetchData();
+    }
+  }, [dataFilter, page, pageSize]);
+
+  useEffect(() => {
+    fetchHistory();
   }, [chatId]);
 
+  const fetchDataFilter = async () => {
+    try {
+      const credential = {
+        username: "johndoe",
+        password: "secret",
+      };
+      let token;
+
+      const loginResponse = await axios.post(
+        process.env.REACT_APP_API_LOGIN_URL,
+        credential,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+
+      const loginRespData = loginResponse.data;
+
+      if (loginResponse.data) {
+        token = loginRespData.access_token;
+
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/chat/${chatId}`,
+          {
+            headers: {
+              Accept: "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const responseData = response.data.data;
+        setDataFilter(responseData.aml_data_filter);
+      } else {
+        console.error("Token not found in the login response");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   const fetchData = async () => {
+    setLoadingData(true);
+    try {
+      const credential = {
+        username: "johndoe",
+        password: "secret",
+      };
+      let token;
+
+      const loginResponse = await axios.post(
+        process.env.REACT_APP_API_LOGIN_URL,
+        credential,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+
+      const loginRespData = loginResponse.data;
+
+      if (loginResponse.data) {
+        token = loginRespData.access_token;
+
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/alert-detail`,
+          {
+            params: {
+              pageSize: pageSize,
+              page: page + 1,
+              dataFilter: dataFilter || null,
+            },
+            headers: {
+              Accept: "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        setData(response.data.data);
+        setTotalRows(response.data.total);
+      } else {
+        console.error("Token not found in the login response");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      setLoadingData(false);
+    }
+  };
+
+  const fetchHistory = async () => {
     try {
       const credential = {
         username: "johndoe",
@@ -79,10 +205,6 @@ const AiAssistantAnalysis = () => {
         const response = await axios.get(
           `${process.env.REACT_APP_API_URL}/chat-detail/${chatId}`,
           {
-            // params: {
-            //   start_date: moment(startDate).format("YYYY-MM-DD"),
-            //   end_date: moment(endDate).format("YYYY-MM-DD"),
-            // },
             headers: {
               Accept: "application/json",
               Authorization: `Bearer ${token}`,
@@ -165,6 +287,15 @@ const AiAssistantAnalysis = () => {
     }
   }, [chatHistory]);
 
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setPageSize(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
   const handleSend = () => {
     setChatHistory([
       ...chatHistory,
@@ -186,6 +317,118 @@ const AiAssistantAnalysis = () => {
           <Typography>Nomor Tiket: {"T20240721000002" || ""}</Typography>
         </Grid>
       </Grid>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1-content"
+          id="panel1-header"
+        >
+          Lihat Detail Data
+        </AccordionSummary>
+        <AccordionDetails>
+          <Box sx={{ width: "100%", marginTop: "10px" }}>
+            {loadingData ? (
+              <TableContainer>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      {alertInfoColumns.map((column) => (
+                        <TableCell key={column.field}>
+                          {column.headerName}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {Array.from({ length: pageSize }).map((_, idx) => (
+                      <TableRow key={idx}>
+                        {alertInfoColumns.map((column) => (
+                          <TableCell key={column.field}>
+                            <Skeleton />
+                          </TableCell>
+                        ))}
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            ) : (
+              <TableContainer>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      {alertInfoColumns.map((column) => (
+                        <TableCell key={column.field}>
+                          {column.headerName}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {data.length ? (
+                      data.map((row) => (
+                        <TableRow key={row.p2p_transaction_id}>
+                          {alertInfoColumns.map((column) => (
+                            <TableCell key={column.field}>
+                              {column.field === "aml_ismoneylaundering" ||
+                              column.field === "p2p_issuspicious" ||
+                              column.field ===
+                                "customer_sender_pinjol_account" ||
+                              column.field === "customer_bene_pinjol_account"
+                                ? row[column.field] == 1
+                                  ? "Ya"
+                                  : "Tidak"
+                                : column.field === "aml_rp_amount"
+                                ? `Rp ${Math.floor(
+                                    row[column.field]
+                                  ).toLocaleString()}`
+                                : column.field === "aml_time_step"
+                                ? new Date(row[column.field])
+                                    .toLocaleString("id-ID", {
+                                      day: "2-digit",
+                                      month: "2-digit",
+                                      year: "numeric",
+                                      hour: "2-digit",
+                                      minute: "2-digit",
+                                      second: "2-digit",
+                                    })
+                                    .replace(",", "")
+                                : row[column.field]}
+                            </TableCell>
+                          ))}
+                        </TableRow>
+                      ))
+                    ) : (
+                      <TableRow>
+                        <TableCell
+                          colSpan={alertInfoColumns.length}
+                          sx={{
+                            textAlign: "center",
+                            fontStyle: "italic",
+                            color: "gray",
+                          }}
+                        >
+                          No data available
+                        </TableCell>
+                      </TableRow>
+                    )}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            )}
+            <TablePagination
+              rowsPerPageOptions={[10, 25, 50]}
+              component="div"
+              count={totalRows}
+              rowsPerPage={pageSize}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </Box>
+        </AccordionDetails>
+      </Accordion>
+
       <ChatSection>
         <Grid container>
           <Grid item xs={12}>
