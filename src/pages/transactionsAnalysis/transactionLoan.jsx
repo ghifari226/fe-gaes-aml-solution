@@ -32,8 +32,8 @@ import transactionLoanColumns from "../../data/columns/transactionLoanColumns";
 const TransactionLoan = () => {
   const [loadingData, setLoadingData] = useState(false);
   const [data, setData] = useState([]);
-  const [startDate, setStartDate] = useState(new Date("2022-07-01"));
-  const [endDate, setEndDate] = useState(new Date("2022-07-31"));
+  const [startDate, setStartDate] = useState(new Date("2022-01-01"));
+  const [endDate, setEndDate] = useState(new Date("2022-12-31"));
   const [pageSize, setPageSize] = useState(10);
   const [page, setPage] = useState(0);
   const [totalRows, setTotalRows] = useState(0);
