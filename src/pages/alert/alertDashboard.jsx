@@ -37,8 +37,8 @@ const SmallCard = ({ color, title, value }) => (
 );
 
 const AlertDashboard = () => {
-  const [startDate, setStartDate] = useState(new Date("2022-07-01"));
-  const [endDate, setEndDate] = useState(new Date("2022-07-31"));
+  const [startDate, setStartDate] = useState(new Date("2022-01-01"));
+  const [endDate, setEndDate] = useState(new Date("2022-12-31"));
   const [viz1, setViz1] = useState({});
   const [viz2, setViz2] = useState({});
   const [viz3, setViz3] = useState({});

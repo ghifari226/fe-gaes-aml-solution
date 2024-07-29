@@ -27,8 +27,8 @@ const ChatAiIndex = () => {
 
   const [loadingData, setLoadingData] = useState(false);
   const [data, setData] = useState([]);
-  const [startDate, setStartDate] = useState(new Date("2022-09-01"));
-  const [endDate, setEndDate] = useState(new Date("2022-09-30"));
+  const [startDate, setStartDate] = useState(new Date("2024-07-01"));
+  const [endDate, setEndDate] = useState(new Date("2024-07-31"));
   const [pageSize, setPageSize] = useState(10);
   const [page, setPage] = useState(0);
   const [totalRows, setTotalRows] = useState(0);

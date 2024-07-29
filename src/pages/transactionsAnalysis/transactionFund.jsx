@@ -47,10 +47,10 @@ const TransactionFund = () => {
   const [loadingData, setLoadingData] = useState(false);
   const [data, setData] = useState([]);
   const [startDate, setStartDate] = useState(
-    query.get("startDate") || new Date("2022-07-01")
+    query.get("startDate") || new Date("2022-01-01")
   );
   const [endDate, setEndDate] = useState(
-    query.get("endDate") || new Date("2022-07-31")
+    query.get("endDate") || new Date("2022-12-31")
   );
   const [pageSize, setPageSize] = useState(10);
   const [page, setPage] = useState(0);
@@ -94,9 +94,39 @@ const TransactionFund = () => {
         if (loginResponse.data) {
           token = loginRespData.access_token;
 
+          const param_start_date = !startDate
+            ? null
+            : moment(startDate).format("YYYY-MM-DD");
+          const param_end_date = !endDate
+            ? null
+            : moment(endDate).format("YYYY-MM-DD");
+          const param_laundering = laundering === "-" ? null : laundering;
+          const param_suspicious = suspicious === "-" ? null : suspicious;
+          const param_sender_id = senderId || null;
+          const param_bene_id = beneId || null;
+          const param_transaction_id = transactionId || null;
+
+          // Create an array of parameters with `=` replaced by `%3D`
+          const params = [
+            param_start_date ? `start_date%3D${param_start_date}` : null,
+            param_end_date ? `end_date%3D${param_end_date}` : null,
+            param_laundering
+              ? `aml_ismoneylaundering%3D${param_laundering}`
+              : null,
+            param_suspicious ? `p2p_issuspicious%3D${param_suspicious}` : null,
+            param_sender_id ? `customer_sender_id%3D${param_sender_id}` : null,
+            param_bene_id ? `customer_bene_id%3D${param_bene_id}` : null,
+            param_transaction_id
+              ? `aml_transaction_id%3D${param_transaction_id}`
+              : null,
+          ].filter((param) => param !== null);
+
+          // Join the parameters with "&"
+          const queryString = params.length ? `${params.join("%26")}` : "";
+
           const createdAt = new Date().toISOString();
           let body = {
-            aml_data_filter: "",
+            aml_data_filter: queryString,
             agent_user_id: "1",
             created_by: "John Doe",
             created_at: createdAt,
@@ -326,14 +356,14 @@ const TransactionFund = () => {
                 <div className="col-4">
                   <FormControl variant="outlined" sx={{ width: "100%" }}>
                     <InputLabel id="laundering-label">
-                      Pencucian Uang
+                      Status Pencucian Uang
                     </InputLabel>
                     <Select
                       size="small"
                       labelId="laundering-label"
                       value={laundering}
                       onChange={handleLaunderingChange}
-                      label="Pencucian Uang"
+                      label="Status Pencucian Uang"
                     >
                       {launderingOptions.map((option) => (
                         <MenuItem key={option.id} value={option.id}>
@@ -590,16 +620,64 @@ const TransactionFund = () => {
 
       <Dialog open={chatDialogIsOpen} onClose={closeChatDialog}>
         <DialogTitle style={{ textAlign: "center" }}>
-          Anda akan membuat tiket
+          Anda akan membuat tiket obrolan
           <br />
-          Asisten AI dengan data berikut:
+          Asisten AI dengan kriteria data berikut:
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            {"1. Rentang Waktu: 1 Juli 2022 - 31 Juli 2022"}
+            {laundering && (
+              <>
+                - Status Pencucian Uang:{" "}
+                {laundering === "0"
+                  ? "Tidak"
+                  : laundering === "1"
+                  ? "Iya"
+                  : "Semua"}
+                <br />
+              </>
+            )}
+            {suspicious && (
+              <>
+                - Status Kecurigaan P2PL:{" "}
+                {suspicious === "0"
+                  ? "Tidak"
+                  : suspicious === "1"
+                  ? "Iya"
+                  : "Semua"}
+                <br />
+              </>
+            )}
+            {startDate && endDate && (
+              <>
+                - Rentang Waktu: {moment(startDate).format("D MMMM YYYY")} -{" "}
+                {moment(endDate).format("D MMMM YYYY")}
+                <br />
+              </>
+            )}
+            {senderId && (
+              <>
+                - ID Pengirim: {senderId}
+                <br />
+              </>
+            )}
+            {beneId && (
+              <>
+                - ID Penerima: {beneId}
+                <br />
+              </>
+            )}
+            {transactionId && (
+              <>
+                - ID Transaksi: {transactionId}
+                <br />
+              </>
+            )}
           </DialogContentText>
         </DialogContent>
-        <DialogTitle>Anda yakin ingin melanjutkan?</DialogTitle>
+        <DialogContent style={{ textAlign: "center" }}>
+          <p style={{fontSize: "18px"}}>Anda yakin ingin melanjutkan?</p>
+        </DialogContent>
         <DialogActions>
           <Button onClick={closeChatDialog} color="primary">
             Tidak

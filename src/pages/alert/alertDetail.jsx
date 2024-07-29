@@ -46,10 +46,10 @@ const AlertDetail = () => {
   const [startDate, setStartDate] = useState(new Date("2024-07-01"));
   const [endDate, setEndDate] = useState(new Date("2024-07-30"));
   const [startDateTransaction, setStartDateTransaction] = useState(
-    new Date("2022-07-01")
+    new Date("2022-01-01")
   );
   const [endDateTransaction, setEndDateTransaction] = useState(
-    new Date("2022-07-30")
+    new Date("2022-12-31")
   );
   const [pageSize, setPageSize] = useState(10);
   const [page, setPage] = useState(0);
@@ -439,13 +439,13 @@ const AlertDetail = () => {
               </div>
               <div className="col-3">
                 <FormControl variant="outlined" sx={{ width: "100%" }}>
-                  <InputLabel id="laundering-label">Pencucian Uang</InputLabel>
+                  <InputLabel id="laundering-label">Status Pencucian Uang</InputLabel>
                   <Select
                     size="small"
                     labelId="laundering-label"
                     value={laundering}
                     onChange={handleLaunderingChange}
-                    label="Pencucian Uang"
+                    label="Status Pencucian Uang"
                   >
                     {launderingOptions.map((option) => (
                       <MenuItem key={option.id} value={option.id}>
