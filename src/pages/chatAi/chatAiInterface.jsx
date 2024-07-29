@@ -378,7 +378,8 @@ const AiAssistantAnalysis = () => {
                                 ? row[column.field] == 1
                                   ? "Ya"
                                   : "Tidak"
-                                : column.field === "aml_rp_amount"
+                                : column.field === "aml_rp_amount" ||
+                                  column.field === "p2p_borrower_income"
                                 ? `Rp ${Math.floor(
                                     row[column.field]
                                   ).toLocaleString()}`
@@ -393,6 +394,11 @@ const AiAssistantAnalysis = () => {
                                       second: "2-digit",
                                     })
                                     .replace(",", "")
+                                : column.field === "aml_risk_score" &&
+                                  typeof row[column.field] === "number"
+                                ? row[column.field].toFixed(2)
+                                : column.field === "aml_fuzzy_result"
+                                ? row[column.field].replace(/^\[|\]$/g, "")
                                 : row[column.field]}
                             </TableCell>
                           ))}
