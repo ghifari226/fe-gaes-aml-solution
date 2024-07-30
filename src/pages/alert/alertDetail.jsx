@@ -845,7 +845,7 @@ const AlertDetail = () => {
                 href={`/transactions-analysis/fund?senderId=${detail.customer_sender_id}`}
                 target="_blank"
               >
-                Analisis Lebih Lanjut (Pencucian Uang)
+                Analisis Lebih Lanjut (ke Pencucian Uang)
               </Button>
             </Box>
           </Grid>

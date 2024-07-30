@@ -220,7 +220,7 @@ const TransactionLoan = () => {
                   }${endDate && `&endDate=${formattedEndDate}`}`}
                   target="_blank"
                 >
-                  Analisis Lebih Lanjut (Pencucian Uang)
+                  Analisis Lebih Lanjut (ke Pencucian Uang)
                 </Button>
               </div>
             </h3>

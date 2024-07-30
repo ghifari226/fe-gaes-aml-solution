@@ -14,7 +14,7 @@ import {
 } from "recharts";
 
 const StyledCard = styled(Card)(({ theme }) => ({
-  minHeight: "150px",
+  minHeight: "200px",
   padding: theme.spacing(2),
   margin: theme.spacing(2),
   backgroundColor: "#f9f9f9",
@@ -38,6 +38,8 @@ const CustomTooltip = ({ active, payload, label }) => {
       >
         <p className="label">Rentang Tanggal:</p>
         <p className="label">{`${payload[0].payload.weekStart} - ${payload[0].payload.weekEnd}`}</p>
+        <p className="label">Jumlah Transaksi:</p>
+        <p className="label">{`${payload[0].payload.total}`}</p>
       </div>
     );
   }
@@ -170,7 +172,7 @@ const OverviewIndex = () => {
               <CircularProgress />
             ) : (
               <>
-                <Typography variant="h6">Total Transaksi Bank</Typography>
+                <Typography variant="h6" className="mt-2">Total Transaksi Bank</Typography>
                 <Typography variant="h2" className="mt-2">
                   {summary.amlCount ? summary.amlCount.toLocaleString() : ""}
                 </Typography>
@@ -184,7 +186,7 @@ const OverviewIndex = () => {
               <CircularProgress />
             ) : (
               <>
-                <Typography variant="h6">
+                <Typography variant="h6" className="mt-2">
                   Total Transaksi Pinjaman Online
                 </Typography>
                 <Typography variant="h2" className="mt-2">
