@@ -35,6 +35,7 @@ import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 import AssistantOutlinedIcon from "@mui/icons-material/AssistantOutlined";
 import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const appRoutes: RouteType[] = [
   // Overview
@@ -161,7 +162,7 @@ const appRoutes: RouteType[] = [
     state: "signin",
     sidebarProps: {
       displayText: "Keluar",
-      icon: <DashboardOutlinedIcon />,
+      icon: <LogoutIcon />,
     },
   },
 ];

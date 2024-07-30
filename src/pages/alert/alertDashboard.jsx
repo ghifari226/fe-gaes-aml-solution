@@ -42,7 +42,6 @@ const AlertDashboard = () => {
   const [viz1, setViz1] = useState({});
   const [viz2, setViz2] = useState({});
   const [viz3, setViz3] = useState({});
-  const [viz4, setViz4] = useState({});
 
   const [dataPie, setDataPie] = useState([
     { name: "Not Suspicious", value: 1, fill: "#ff6c5c" },
@@ -82,20 +81,6 @@ const AlertDashboard = () => {
     { name: "90", value: 1, fill: "#ff9999" },
     { name: "100", value: 1, fill: "#ff9999" },
   ]);
-  useEffect(() => {
-    setDataBarScore([
-    { name: "10", value: viz4.percent10, fill: "#82ca9d" },
-    { name: "20", value: viz4.percent20, fill: "#82ca9d" },
-    { name: "30", value: viz4.percent30, fill: "#82ca9d" },
-    { name: "40", value: viz4.percent40, fill: "#ffc658" },
-    { name: "50", value: viz4.percent50, fill: "#ffc658" },
-    { name: "60", value: viz4.percent60, fill: "#ffc658" },
-    { name: "70", value: viz4.percent70, fill: "#ffc658" },
-    { name: "80", value: viz4.percent80, fill: "#ff9999" },
-    { name: "90", value: viz4.percent90, fill: "#ff9999" },
-    { name: "100", value: viz4.percent100, fill: "#ff9999" },
-    ])
-  }, [viz4]);
 
   useEffect(() => {
     fetchData();
@@ -183,26 +168,6 @@ const AlertDashboard = () => {
           setViz3(response3.data.data);
         } catch (error) {
           console.error("Error fetching data for viz3:", error);
-        }
-
-        // Fetch response4 and update viz4
-        try {
-          const response4 = await axios.get(
-            `${process.env.REACT_APP_API_URL}/alert-viz4`,
-            {
-              params: {
-                start_date: moment(startDate).format("YYYY-MM-DD"),
-                end_date: moment(endDate).format("YYYY-MM-DD"),
-              },
-              headers: {
-                Accept: "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          setViz4(response4.data.data);
-        } catch (error) {
-          console.error("Error fetching data for viz4:", error);
         }
       } else {
         console.error("Token not found in the login response");

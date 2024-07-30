@@ -5,14 +5,14 @@ const alertColumns = [
     width: 130,
   },
   {
-    field: "alert_id",
-    headerName: "ID Alert",
-    width: 150,
-  },
-  {
     field: "alert_timestamp",
     headerName: "Tanggal Alert",
     width: 130,
+  },
+  {
+    field: "alert_id",
+    headerName: "ID Alert",
+    width: 150,
   },
   {
     field: "alert_aml_ismoneylaundering",
@@ -30,8 +30,8 @@ const alertColumns = [
     width: 150,
   },
   {
-    field: "alert_aml_timestamp",
-    headerName: "Tanggal Transaksi",
+    field: "alert_customer_id",
+    headerName: "ID Nasabah",
     width: 150,
   },
   {
@@ -40,8 +40,8 @@ const alertColumns = [
     width: 150,
   },
   {
-    field: "alert_customer_id",
-    headerName: "ID Nasabah",
+    field: "alert_aml_timestamp",
+    headerName: "Tanggal Transaksi",
     width: 150,
   },
 ];

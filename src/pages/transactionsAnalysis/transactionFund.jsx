@@ -514,8 +514,8 @@ const TransactionFund = () => {
               <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}></Box>
               <Box sx={{ minHeight: 400, width: "100%", marginTop: "16px" }}>
                 {loadingData ? (
-                  <TableContainer>
-                    <Table>
+                  <TableContainer sx={{ maxHeight: "100vh" }}>
+                    <Table stickyHeader>
                       <TableHead>
                         <TableRow>
                           {transactionFundColumns.map((column) => (
@@ -545,8 +545,8 @@ const TransactionFund = () => {
                     </Table>
                   </TableContainer>
                 ) : (
-                  <TableContainer>
-                    <Table>
+                  <TableContainer sx={{ maxHeight: "100vh" }}>
+                    <Table stickyHeader>
                       <TableHead>
                         <TableRow>
                           {transactionFundColumns.map((column) => (

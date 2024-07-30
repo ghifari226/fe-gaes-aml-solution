@@ -68,14 +68,9 @@ const AlertDetail = () => {
   const [inputCustomerId, setInputCustomerId] = useState(null);
   const [hoveredId, setHoveredId] = useState(null);
 
-  const [hasSelected, setHasSelected] = useState(false);
-
   useEffect(() => {
-    if (selectedId !== null && !hasSelected) {
-      setHasSelected(true);
-      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-    }
-  }, [selectedId, hasSelected]);
+    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+  }, [selectedId]);
 
   const statusOptions = [
     { id: "-", label: "Semua" },
@@ -582,8 +577,8 @@ const AlertDetail = () => {
             </div>
             <Box sx={{ minHeight: 400, width: "100%", marginTop: "16px" }}>
               {loadingData ? (
-                <TableContainer>
-                  <Table>
+                <TableContainer sx={{ maxHeight: "100vh" }}>
+                  <Table stickyHeader>
                     <TableHead>
                       <TableRow>
                         <TableCell>{actionColumn.headerName}</TableCell>
@@ -617,8 +612,8 @@ const AlertDetail = () => {
                   </Table>
                 </TableContainer>
               ) : (
-                <TableContainer>
-                  <Table>
+                <TableContainer sx={{ maxHeight: "100vh" }}>
+                  <Table stickyHeader>
                     <TableHead>
                       <TableRow>
                         <TableCell>{actionColumn.headerName}</TableCell>
