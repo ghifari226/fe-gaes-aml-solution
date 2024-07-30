@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import moment from "moment";
-import {
-  Card,
-  CardContent,
-  CircularProgress,
-  Grid,
-  Skeleton,
-  Typography,
-} from "@mui/material";
+import { Card, CardContent, Grid, Typography } from "@mui/material";
 import {
   PieChart,
   Pie,
@@ -46,9 +39,6 @@ const SmallCard = ({ color, title, value }) => (
 const AlertDashboard = () => {
   const [startDate, setStartDate] = useState(new Date("2022-01-01"));
   const [endDate, setEndDate] = useState(new Date("2022-12-31"));
-  const [loadingViz1, setLoadingViz1] = useState(false);
-  const [loadingViz2, setLoadingViz2] = useState(false);
-  const [loadingViz3, setLoadingViz3] = useState(false);
   const [viz1, setViz1] = useState({});
   const [viz2, setViz2] = useState({});
   const [viz3, setViz3] = useState({});
@@ -61,9 +51,9 @@ const AlertDashboard = () => {
     setDataPie([
       { name: "Not Suspicious", value: viz2.notSuspicious, fill: "#ff6c5c" },
       { name: "Suspicious", value: viz2.suspicious, fill: "#82a4ca" },
-    ]);
-  }, [viz2]);
-
+    ])
+  }, [viz2])
+  
   const [dataBarAge, setDataBarAge] = useState([
     { name: "0-5", value: 1 },
     { name: "6-10", value: 1 },
@@ -76,9 +66,9 @@ const AlertDashboard = () => {
       { name: "6-10", value: viz3.within10d },
       { name: "11-15", value: viz3.within15d },
       { name: "16+", value: viz3.olderThan15d },
-    ]);
-  }, [viz3]);
-
+    ])
+  }, [viz3])
+  
   const [dataBarScore, setDataBarScore] = useState([
     { name: "10", value: 1, fill: "#82ca9d" },
     { name: "20", value: 1, fill: "#82ca9d" },
@@ -120,10 +110,6 @@ const AlertDashboard = () => {
       if (loginResponse.data) {
         token = loginRespData.access_token;
 
-        setLoadingViz1(true);
-        setLoadingViz2(true);
-        setLoadingViz3(true);
-
         // Fetch response1 and update viz1
         try {
           const response1 = await axios.get(
@@ -142,8 +128,6 @@ const AlertDashboard = () => {
           setViz1(response1.data.data);
         } catch (error) {
           console.error("Error fetching data for viz1:", error);
-        } finally {
-          setLoadingViz1(false);
         }
 
         // Fetch response2 and update viz2
@@ -164,8 +148,6 @@ const AlertDashboard = () => {
           setViz2(response2.data.data);
         } catch (error) {
           console.error("Error fetching data for viz2:", error);
-        } finally {
-          setLoadingViz2(false);
         }
 
         // Fetch response3 and update viz3
@@ -186,8 +168,6 @@ const AlertDashboard = () => {
           setViz3(response3.data.data);
         } catch (error) {
           console.error("Error fetching data for viz3:", error);
-        } finally {
-          setLoadingViz3(false);
         }
       } else {
         console.error("Token not found in the login response");
@@ -208,13 +188,7 @@ const AlertDashboard = () => {
               <SmallCard
                 color={colors[0]}
                 title="Aktif - Belum Ditinjau"
-                value={
-                  loadingViz1 ? (
-                    <Skeleton style={{ length: "20px" }} />
-                  ) : (
-                    viz1.activeUnacknowledged || 0
-                  )
-                }
+                value={viz1.activeUnacknowledged || 0}
               />
             </Grid>
             <Grid item xs={6}>
