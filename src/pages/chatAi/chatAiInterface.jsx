@@ -480,7 +480,7 @@ const AiAssistantAnalysis = () => {
                       >
                         <div
                           style={{
-                            backgroundColor: "#90A4AE",
+                            backgroundColor: "#7ac5f0",
                             borderRadius: "10px",
                             padding: "10px",
                             display: "inline-block",
@@ -506,10 +506,12 @@ const AiAssistantAnalysis = () => {
                       }}
                     >
                       <Grid container justifyContent="center">
-                        {chat.response?.text === "Analyzing Data" && (
+                        {chat.response?.text === "loading" ? (
                           <Grid item xs={12}>
-                            ...
+                            Analyzing Data...
                           </Grid>
+                        ) : (
+                          ""
                         )}
                         {chat.response?.text && (
                           <Grid item xs={12}>
