@@ -341,7 +341,13 @@ const AiAssistantAnalysis = () => {
                   </TableHead>
                   <TableBody>
                     {Array.from({ length: pageSize }).map((_, idx) => (
-                      <TableRow key={idx}>
+                      <TableRow
+                        key={idx}
+                        sx={{
+                          backgroundColor:
+                            idx % 2 === 0 ? "grey.100" : "background.paper",
+                        }}
+                      >
                         {alertInfoColumns.map((column) => (
                           <TableCell key={column.field}>
                             <Skeleton />
@@ -366,8 +372,14 @@ const AiAssistantAnalysis = () => {
                   </TableHead>
                   <TableBody>
                     {data.length ? (
-                      data.map((row) => (
-                        <TableRow key={row.p2p_transaction_id}>
+                      data.map((row, idx) => (
+                        <TableRow
+                          key={row.p2p_transaction_id}
+                          sx={{
+                            backgroundColor:
+                              idx % 2 === 0 ? "grey.100" : "background.paper",
+                          }}
+                        >
                           {alertInfoColumns.map((column) => (
                             <TableCell key={column.field}>
                               {column.field === "aml_ismoneylaundering" ||
@@ -394,6 +406,7 @@ const AiAssistantAnalysis = () => {
                                       second: "2-digit",
                                     })
                                     .replace(",", "")
+                                    .replace(".", ":")
                                 : column.field === "aml_risk_score" &&
                                   typeof row[column.field] === "number"
                                 ? row[column.field].toFixed(2)
@@ -439,7 +452,10 @@ const AiAssistantAnalysis = () => {
         <Grid container>
           <Grid item xs={12}>
             <BorderLeft500>
-              <MessageArea ref={messageAreaRef}>
+              <MessageArea
+                style={{ backgroundColor: "#f8f8f8" }}
+                ref={messageAreaRef}
+              >
                 {chatHistory.map((chat, index) => (
                   <React.Fragment key={index}>
                     {/* User's Chat */}
@@ -462,7 +478,7 @@ const AiAssistantAnalysis = () => {
                       >
                         <div
                           style={{
-                            backgroundColor: "#23d368",
+                            backgroundColor: "#90A4AE",
                             borderRadius: "10px",
                             padding: "10px",
                             display: "inline-block",
@@ -488,7 +504,7 @@ const AiAssistantAnalysis = () => {
                       }}
                     >
                       <Grid container justifyContent="center">
-                        {chat.response?.text === "loading" && (
+                        {chat.response?.text === "Analyzing Data" && (
                           <Grid item xs={12}>
                             ...
                           </Grid>

@@ -378,7 +378,13 @@ const TransactionLoan = () => {
                     </TableHead>
                     <TableBody>
                       {Array.from({ length: pageSize }).map((_, idx) => (
-                        <TableRow key={idx}>
+                        <TableRow
+                          key={idx}
+                          sx={{
+                            backgroundColor:
+                              idx % 2 === 0 ? "grey.100" : "background.paper",
+                          }}
+                        >
                           {transactionLoanColumns.map((column) => (
                             <TableCell key={column.field}>
                               <Skeleton />
@@ -403,8 +409,14 @@ const TransactionLoan = () => {
                     </TableHead>
                     <TableBody>
                       {data.length ? (
-                        data.map((row) => (
-                          <TableRow key={row.p2p_transaction_id}>
+                        data.map((row, idx) => (
+                          <TableRow
+                            key={row.p2p_transaction_id}
+                            sx={{
+                              backgroundColor:
+                                idx % 2 === 0 ? "grey.100" : "background.paper",
+                            }}
+                          >
                             {transactionLoanColumns.map((column) => (
                               <TableCell key={column.field}>
                                 {column.field === "p2p_issuspicious"
@@ -427,6 +439,7 @@ const TransactionLoan = () => {
                                         second: "2-digit",
                                       })
                                       .replace(",", "")
+                                      .replace(".", ":")
                                   : row[column.field]}
                               </TableCell>
                             ))}

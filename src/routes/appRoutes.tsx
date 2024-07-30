@@ -25,6 +25,9 @@ import SocialNetworkAnalysis from "../pages/socialNetworkAnalysis/socialNetworkA
 // About
 import AboutIndex from "../pages/about/aboutIndex";
 
+// Sign In
+import SignInPage from "../pages/signIn/signInPage";
+
 // Icons
 import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
@@ -148,6 +151,17 @@ const appRoutes: RouteType[] = [
     sidebarProps: {
       displayText: "Tentang Kami",
       icon: <InfoOutlinedIcon />,
+    },
+  },
+
+  // Login
+  {
+    path: "/login",
+    element: <SignInPage />,
+    state: "signin",
+    sidebarProps: {
+      displayText: "Keluar",
+      icon: <DashboardOutlinedIcon />,
     },
   },
 ];

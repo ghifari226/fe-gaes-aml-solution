@@ -40,7 +40,7 @@ import alertColumns from "../../data/columns/alertColumns";
 const AlertDetail = () => {
   const [loadingData, setLoadingData] = useState(false);
   const [data, setData] = useState([]);
-  const [selectedId, setSelectedId] = useState("");
+  const [selectedId, setSelectedId] = useState(null);
   const [loadingDetail, setLoadingDetail] = useState(false);
   const [detail, setDetail] = useState({});
   const [startDate, setStartDate] = useState(new Date("2024-07-01"));
@@ -66,6 +66,16 @@ const AlertDetail = () => {
   const [inputTransactionId, setInputTransactionId] = useState(null);
   const [customerId, setCustomerId] = useState(null);
   const [inputCustomerId, setInputCustomerId] = useState(null);
+  const [hoveredId, setHoveredId] = useState(null);
+
+  const [hasSelected, setHasSelected] = useState(false);
+
+  useEffect(() => {
+    if (selectedId !== null && !hasSelected) {
+      setHasSelected(true);
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    }
+  }, [selectedId, hasSelected]);
 
   const statusOptions = [
     { id: "-", label: "Semua" },
@@ -439,7 +449,9 @@ const AlertDetail = () => {
               </div>
               <div className="col-3">
                 <FormControl variant="outlined" sx={{ width: "100%" }}>
-                  <InputLabel id="laundering-label">Status Pencucian Uang</InputLabel>
+                  <InputLabel id="laundering-label">
+                    Status Pencucian Uang
+                  </InputLabel>
                   <Select
                     size="small"
                     labelId="laundering-label"
@@ -584,7 +596,13 @@ const AlertDetail = () => {
                     </TableHead>
                     <TableBody>
                       {Array.from({ length: pageSize }).map((_, idx) => (
-                        <TableRow key={idx}>
+                        <TableRow
+                          key={idx}
+                          sx={{
+                            backgroundColor:
+                              idx % 2 === 0 ? "grey.100" : "background.paper",
+                          }}
+                        >
                           <TableCell>
                             <Skeleton />
                           </TableCell>
@@ -613,9 +631,19 @@ const AlertDetail = () => {
                     </TableHead>
                     <TableBody>
                       {data.length ? (
-                        data.map((row) => (
+                        data.map((row, idx) => (
                           <TableRow
                             key={row.alert_aml_transaction_id}
+                            sx={{
+                              backgroundColor:
+                                hoveredId === row.alert_id
+                                  ? "lightblue"
+                                  : idx % 2 === 0
+                                  ? "grey.100"
+                                  : "background.paper",
+                            }}
+                            onMouseEnter={() => setHoveredId(row.alert_id)}
+                            onMouseLeave={() => setHoveredId(null)}
                             onClick={() =>
                               handleRowClick(row.alert_aml_transaction_id)
                             }
@@ -653,6 +681,7 @@ const AlertDetail = () => {
                                         second: "2-digit",
                                       })
                                       .replace(",", "")
+                                      .replace(".", ":")
                                   : row[column.field]}
                               </TableCell>
                             ))}

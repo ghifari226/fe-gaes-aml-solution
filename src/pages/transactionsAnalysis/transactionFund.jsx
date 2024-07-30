@@ -527,7 +527,13 @@ const TransactionFund = () => {
                       </TableHead>
                       <TableBody>
                         {Array.from({ length: pageSize }).map((_, idx) => (
-                          <TableRow key={idx}>
+                          <TableRow
+                            key={idx}
+                            sx={{
+                              backgroundColor:
+                                idx % 2 === 0 ? "grey.100" : "background.paper",
+                            }}
+                          >
                             {transactionFundColumns.map((column) => (
                               <TableCell key={column.field}>
                                 <Skeleton />
@@ -552,8 +558,16 @@ const TransactionFund = () => {
                       </TableHead>
                       <TableBody>
                         {data.length ? (
-                          data.map((row) => (
-                            <TableRow key={row.p2p_transaction_id}>
+                          data.map((row, idx) => (
+                            <TableRow
+                              key={row.p2p_transaction_id}
+                              sx={{
+                                backgroundColor:
+                                  idx % 2 === 0
+                                    ? "grey.100"
+                                    : "background.paper",
+                              }}
+                            >
                               {transactionFundColumns.map((column) => (
                                 <TableCell key={column.field}>
                                   {column.field === "aml_ismoneylaundering" ||
@@ -580,6 +594,7 @@ const TransactionFund = () => {
                                           second: "2-digit",
                                         })
                                         .replace(",", "")
+                                        .replace(".", ":")
                                     : row[column.field]}
                                 </TableCell>
                               ))}
@@ -676,7 +691,7 @@ const TransactionFund = () => {
           </DialogContentText>
         </DialogContent>
         <DialogContent style={{ textAlign: "center" }}>
-          <p style={{fontSize: "18px"}}>Anda yakin ingin melanjutkan?</p>
+          <p style={{ fontSize: "18px" }}>Anda yakin ingin melanjutkan?</p>
         </DialogContent>
         <DialogActions>
           <Button onClick={closeChatDialog} color="primary">

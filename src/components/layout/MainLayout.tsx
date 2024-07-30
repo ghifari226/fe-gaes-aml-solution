@@ -1,4 +1,5 @@
 import { Box, Toolbar, useMediaQuery, useTheme } from "@mui/material";
+import { useLocation } from "react-router-dom";
 import sizeConfigs from "../../configs/sizeConfigs";
 import colorConfigs from "../../configs/colorConfigs";
 import { Outlet } from "react-router-dom";
@@ -8,10 +9,14 @@ import Topbar from "../common/Topbar";
 const MainLayout = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const location = useLocation();
+  const hideSidebar = location.pathname === "/login";
 
   return (
     <Box sx={{ display: "flex" }}>
-      {isMobile ? (
+      {hideSidebar ? (
+        <></>
+      ) : isMobile ? (
         <Topbar />
       ) : (
         <Box

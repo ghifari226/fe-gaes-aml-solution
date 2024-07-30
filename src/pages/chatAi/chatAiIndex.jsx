@@ -187,7 +187,7 @@ const ChatAiIndex = () => {
         <Grid item xs={12}>
           <Card>
             <CardContent>
-              <h3 style={{ marginBottom: "45px " }}>Riwayat Obrolan AI</h3>
+              <h3 style={{ marginBottom: "45px " }}>Riwayat Obrolan Asisten AI</h3>
               <div style={{ marginBottom: "5px " }} className="row">
                 <div className="col-6">
                   <CustomDateRange
