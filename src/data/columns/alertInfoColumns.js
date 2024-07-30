@@ -10,53 +10,13 @@ const alertInfoColumns = [
     width: 50,
   },
   {
-    field: "aml_transaction_id",
-    headerName: "aml_transaction_id",
-    width: 150,
-  },
-  {
     field: "aml_time_step",
     headerName: "aml_time_step",
     width: 150,
   },
   {
-    field: "aml_sender_account",
-    headerName: "aml_sender_account",
-    width: 150,
-  },
-  {
-    field: "aml_sender_account_number",
-    headerName: "aml_sender_account_number",
-    width: 150,
-  },
-  {
-    field: "aml_sender_institution",
-    headerName: "aml_sender_institution",
-    width: 150,
-  },
-  {
-    field: "aml_sender_country",
-    headerName: "aml_sender_country",
-    width: 150,
-  },
-  {
-    field: "aml_bene_account",
-    headerName: "aml_bene_account",
-    width: 150,
-  },
-  {
-    field: "aml_bene_account_number",
-    headerName: "aml_bene_account_number",
-    width: 150,
-  },
-  {
-    field: "aml_bene_institution",
-    headerName: "aml_bene_institution",
-    width: 150,
-  },
-  {
-    field: "aml_bene_country",
-    headerName: "aml_bene_country",
+    field: "aml_transaction_id",
+    headerName: "aml_transaction_id",
     width: 150,
   },
   {
@@ -65,18 +25,48 @@ const alertInfoColumns = [
     width: 150,
   },
   {
+    field: "aml_sender_account",
+    headerName: "aml_sender_account",
+    width: 150,
+  },
+  {
+    field: "aml_bene_account",
+    headerName: "aml_bene_account",
+    width: 150,
+  },
+  {
+    field: "aml_sender_account_number",
+    headerName: "aml_sender_account_number",
+    width: 150,
+  },
+  {
+    field: "aml_bene_account_number",
+    headerName: "aml_bene_account_number",
+    width: 150,
+  },
+  {
+    field: "aml_sender_institution",
+    headerName: "aml_sender_institution",
+    width: 150,
+  },
+  {
+    field: "aml_bene_institution",
+    headerName: "aml_bene_institution",
+    width: 150,
+  },
+  {
+    field: "aml_sender_country",
+    headerName: "aml_sender_country",
+    width: 150,
+  },
+  {
+    field: "aml_bene_country",
+    headerName: "aml_bene_country",
+    width: 150,
+  },
+  {
     field: "customer_sender_pinjol_account",
     headerName: "customer_sender_pinjol_account",
-    width: 150,
-  },
-  {
-    field: "customer_sender_id",
-    headerName: "customer_sender_id",
-    width: 150,
-  },
-  {
-    field: "customer_sender_name",
-    headerName: "customer_sender_name",
     width: 150,
   },
   {
@@ -85,8 +75,18 @@ const alertInfoColumns = [
     width: 150,
   },
   {
+    field: "customer_sender_id",
+    headerName: "customer_sender_id",
+    width: 150,
+  },
+  {
     field: "customer_bene_id",
     headerName: "customer_bene_id",
+    width: 150,
+  },
+  {
+    field: "customer_sender_name",
+    headerName: "customer_sender_name",
     width: 150,
   },
   {
@@ -125,13 +125,13 @@ const alertInfoColumns = [
     width: 150,
   },
   {
-    field: "p2p_income_range",
-    headerName: "p2p_income_range",
+    field: "p2p_borrower_income",
+    headerName: "p2p_borrower_income",
     width: 150,
   },
   {
-    field: "p2p_borrower_income",
-    headerName: "p2p_borrower_income",
+    field: "p2p_income_range",
+    headerName: "p2p_income_range",
     width: 150,
   },
   {
@@ -140,13 +140,13 @@ const alertInfoColumns = [
     width: 150,
   },
   {
-    field: "p2p_gender_simulated",
-    headerName: "p2p_gender_simulated",
+    field: "p2p_age",
+    headerName: "p2p_age",
     width: 150,
   },
   {
-    field: "p2p_age",
-    headerName: "p2p_age",
+    field: "p2p_gender_simulated",
+    headerName: "p2p_gender_simulated",
     width: 150,
   },
   {

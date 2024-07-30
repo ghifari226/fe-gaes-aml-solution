@@ -365,8 +365,8 @@ const TransactionLoan = () => {
             </div>
             <Box sx={{ minHeight: 400, width: "100%", marginTop: "16px" }}>
               {loadingData ? (
-                <TableContainer>
-                  <Table>
+                <TableContainer sx={{ maxHeight: "100vh" }}>
+                  <Table stickyHeader>
                     <TableHead>
                       <TableRow>
                         {transactionLoanColumns.map((column) => (
@@ -396,8 +396,8 @@ const TransactionLoan = () => {
                   </Table>
                 </TableContainer>
               ) : (
-                <TableContainer>
-                  <Table>
+                <TableContainer sx={{ maxHeight: "100vh" }}>
+                  <Table stickyHeader>
                     <TableHead>
                       <TableRow>
                         {transactionLoanColumns.map((column) => (

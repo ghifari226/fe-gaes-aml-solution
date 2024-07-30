@@ -42,7 +42,7 @@ const AccordionSummaryWrapper = styled(AccordionSummary)({
 });
 
 const OverviewIndex = () => {
-  const [expanded, setExpanded] = useState(null);
+  const [expanded, setExpanded] = useState("panel0");
   const [backgroundImage, setBackgroundImage] = useState("");
 
   const handleAccordionChange = (panel, image) => (event, isExpanded) => {
@@ -192,7 +192,7 @@ Fitur ini membantu pihak bank untuk menganalisis lebih lanjut dari menu peringat
           </AccordionDetails>
         </AccordionContainer>
 
-        <AccordionContainer
+        {/* <AccordionContainer
           expanded={expanded === "panel1"}
           onChange={handleAccordionChange("panel1", cards[1].backgroundImage)}
         >
@@ -250,7 +250,7 @@ Fitur ini membantu pihak bank untuk menganalisis lebih lanjut dari menu peringat
           <AccordionDetails>
             <Typography variant="body2">{cards[5].content}</Typography>
           </AccordionDetails>
-        </AccordionContainer>
+        </AccordionContainer> */}
       </Container>
     </Box>
   );

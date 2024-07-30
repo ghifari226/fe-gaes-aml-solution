@@ -1,10 +1,17 @@
 import React, { useState } from "react";
-import { Box, Card, CardContent, TextField, Button, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  TextField,
+  Button,
+  Typography,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const SignInPage = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("johndoe");
+  const [password, setPassword] = useState("secret");
   const navigate = useNavigate();
 
   const handleSignIn = (e) => {
@@ -33,7 +40,7 @@ const SignInPage = () => {
             <TextField
               fullWidth
               margin="normal"
-              label="Email"
+              label="Username / Email"
               variant="outlined"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
@@ -48,7 +55,12 @@ const SignInPage = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
             <Box mt={2}>
-              <Button fullWidth variant="contained" color="primary" type="submit">
+              <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                type="submit"
+              >
                 Sign In
               </Button>
             </Box>

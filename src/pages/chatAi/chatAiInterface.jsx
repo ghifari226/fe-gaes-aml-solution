@@ -59,6 +59,7 @@ const AiAssistantAnalysis = () => {
   const [totalRows, setTotalRows] = useState(0);
   const [inputValue, setInputValue] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
+  const [ticketNo, setTicketNo] = useState(null);
   const [dataFilter, setDataFilter] = useState("");
   const [loadingData, setLoadingData] = useState(false);
   const [data, setData] = useState([]);
@@ -118,6 +119,7 @@ const AiAssistantAnalysis = () => {
 
         const responseData = response.data.data;
         setDataFilter(responseData.aml_data_filter);
+        setTicketNo(responseData.chat_ticket_no);
       } else {
         console.error("Token not found in the login response");
       }
@@ -314,7 +316,7 @@ const AiAssistantAnalysis = () => {
           <Typography variant="h5" className="header-message">
             Asisten AI
           </Typography>
-          <Typography>Nomor Tiket: {"T20240721000002" || ""}</Typography>
+          <Typography>Nomor Tiket: {ticketNo || ""}</Typography>
         </Grid>
       </Grid>
       <Accordion>
@@ -328,8 +330,8 @@ const AiAssistantAnalysis = () => {
         <AccordionDetails>
           <Box sx={{ width: "100%", marginTop: "10px" }}>
             {loadingData ? (
-              <TableContainer>
-                <Table>
+              <TableContainer sx={{ maxHeight: "100vh" }}>
+                <Table stickyHeader>
                   <TableHead>
                     <TableRow>
                       {alertInfoColumns.map((column) => (
@@ -359,8 +361,8 @@ const AiAssistantAnalysis = () => {
                 </Table>
               </TableContainer>
             ) : (
-              <TableContainer>
-                <Table>
+              <TableContainer sx={{ maxHeight: "100vh" }}>
+                <Table stickyHeader>
                   <TableHead>
                     <TableRow>
                       {alertInfoColumns.map((column) => (
@@ -436,7 +438,7 @@ const AiAssistantAnalysis = () => {
               </TableContainer>
             )}
             <TablePagination
-              rowsPerPageOptions={[10, 25, 50]}
+              rowsPerPageOptions={[5]}
               component="div"
               count={totalRows}
               rowsPerPage={pageSize}
