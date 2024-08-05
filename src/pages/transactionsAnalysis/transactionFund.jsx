@@ -348,7 +348,7 @@ const TransactionFund = () => {
                     color="primary"
                     startIcon={<AssistantOutlinedIcon />}
                   >
-                    Mulai Obrolan Baru (Asisten AI)
+                    AI Data Visualization
                   </Button>
                 </div>
               </h3>
